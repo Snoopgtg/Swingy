@@ -2,47 +2,33 @@ package com.game.swingy.controller;
 
 import com.game.swingy.core.Map.Map;
 import com.game.swingy.core.Map.ModeEnum;
-import com.game.swingy.view.StartView;
-import com.game.swingy.view.console.StartConsoleView;
-import com.game.swingy.view.gui.StartGuiView;
+import com.game.swingy.view.console.CreateHeroConsoleView;
+import com.game.swingy.view.gui.CreateHeroGuiView;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class StarterController {
 
-    private StartView startView;
-
     public StarterController() {
-        if (Map.getMap().getMode() == ModeEnum.GUI)
-            this.startView = new StartGuiView();
-        else
-            this.startView = new StartConsoleView();
-        initGame();
+
     }
 
-    public void initGame() {
-        startView.createHero(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onClickCreateHero();
-            }
-        });
-
-        startView.showPreviouslyHeroes(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onClickPreviouslyHero();
-            }
-        });
-    }
-
-    private void onClickCreateHero(){
-        System.out.println("Отработало создание контроллера");
+    public void onClickCreateHero() {
         CreateHeroController createHeroController = new CreateHeroController();
 
+        System.out.println("Отработало создание контроллера");
+        if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
+            CreateHeroConsoleView createHeroConsoleView =
+                    new CreateHeroConsoleView(createHeroController);
+        }
+        else {
+            CreateHeroGuiView createHeroGuiView =
+                    new CreateHeroGuiView(createHeroController);
+        }
+
     }
 
-    private void onClickPreviouslyHero(){
+    public void onClickPreviouslyHero(){
 
         System.out.println("Отработало предвудущие герои");
         if (Map.getMap().getDbMySQL().isEmptyHeroTable()) {

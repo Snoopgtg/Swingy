@@ -3,39 +3,27 @@ package com.game.swingy.controller;
 import com.game.swingy.core.Map.Map;
 import com.game.swingy.core.Unit.UnitBuilder;
 import com.game.swingy.core.Unit.UnitConstructor;
-import com.game.swingy.view.gui.CreateHeroView;
+import com.game.swingy.view.gui.CreateHeroGuiView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CreateHeroController {
 
-    private CreateHeroView createHeroView;
+    private String nameHero;
+    private String selectedHeroClass;
 
     public CreateHeroController() {
-        this.createHeroView = new CreateHeroView();
-        initCreateHero();
     }
 
-    private void initCreateHero() {
-        createHeroView.getBtnCreate().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onClickCreate();
-            }
-        });
-    }
-
-    private void onClickCreate() {
+    public void onClickCreate() {
 
         System.out.println("Отработало создание героя");
         UnitConstructor unitConstructor = new UnitConstructor();
         UnitBuilder unitBuilder = new UnitBuilder();
 
-        String nameHero;
-        String selectedHeroClass;
-
-        nameHero = createHeroView.getNameHero().getText();
-        selectedHeroClass = (String) createHeroView.getHeroClassList().getSelectedItem();
+//        nameHero = createHeroGuiView.getNameHero().getText();
+//        selectedHeroClass = (String) createHeroGuiView.getHeroClassList().getSelectedItem();
 
         switch (selectedHeroClass) {
 
@@ -51,6 +39,14 @@ public class CreateHeroController {
         }
         Map.getMap().register(unitBuilder.createHero());
         Map.getMap().fillListOfVillain();
-        createHeroView.getJf().dispose();
+        //createHeroGuiView.getJf().dispose();
+    }
+
+    public void setNameHero(String nameHero) {
+        this.nameHero = nameHero;
+    }
+
+    public void setSelectedHeroClass(String selectedHeroClass) {
+        this.selectedHeroClass = selectedHeroClass;
     }
 }

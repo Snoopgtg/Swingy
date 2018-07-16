@@ -47,7 +47,9 @@ public class StatisticsController {
 
         heroStatisticsView.getBtnOk().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onClickOk();
+//                onClickOk();
+                heroStatisticsView.getJf().dispose();
+
             }
         });
     }

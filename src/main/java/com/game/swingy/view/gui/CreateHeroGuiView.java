@@ -1,10 +1,15 @@
 package com.game.swingy.view.gui;
 
+import com.game.swingy.controller.CreateHeroController;
+import com.game.swingy.view.CreateHero;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
-public class CreateHeroView {
+public class CreateHeroGuiView implements CreateHero{
 
     private JFrame jf;
     private JLabel labelName;
@@ -15,9 +20,11 @@ public class CreateHeroView {
     private JButton btnCreate;
     private String[] heroClass;
     private JComboBox<String> heroClassList;
+    private CreateHeroController createHeroController;
 
-    public CreateHeroView() {
+    public CreateHeroGuiView(CreateHeroController createHeroController) {
 
+        this.createHeroController = createHeroController;
         heroClass = new String[] {"Samnite", "Skissor", "Peltasts"};
         btnCreate = new JButton("Create the hero");
         jf = new JFrame("Swingy");
@@ -41,18 +48,20 @@ public class CreateHeroView {
         jf.setSize(450, 105);
         jf.setVisible(true);
         jf.setLocationRelativeTo(null);
+        createNewHero();
 
     }
 
-    public void closeWindow() {
-
-        jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        WindowEvent windowEvent = new WindowEvent(jf, WindowEvent.WINDOW_CLOSING);
-        jf.dispatchEvent(windowEvent);
-    }
-
-    public JButton getBtnCreate() {
-        return btnCreate;
+    @Override
+    public void createNewHero() {
+        this.btnCreate.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createHeroController.setNameHero(getNameHero().getText());
+                createHeroController.setSelectedHeroClass((String)getHeroClassList().getSelectedItem());
+                createHeroController.onClickCreate();
+                jf.dispose();
+            }
+        });
     }
 
     public JTextField getNameHero() {

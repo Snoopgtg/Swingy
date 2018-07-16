@@ -1,18 +1,22 @@
 package com.game.swingy.view.gui;
 
+import com.game.swingy.controller.StarterController;
 import com.game.swingy.view.StartView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class StartGuiView implements StartView {
+public class StartGuiView implements StartView{
 
     private JFrame jf;
     private JButton btnCreateHero;
     private JButton btnPreviouslyHero;
+    private StarterController starterController;
 
-    public StartGuiView() {
+    public StartGuiView(StarterController starterController) {
+        this.starterController = starterController;
         this.btnCreateHero = new JButton("Create a hero");//Creating a Button named Say Hello
         this.btnPreviouslyHero = new JButton("Select a previously created hero");//Creating a Button named Say Hello
 
@@ -25,15 +29,24 @@ public class StartGuiView implements StartView {
         jf.setVisible(true);            	//setting frame visibility
         jf.setLocationRelativeTo(null);
         jf.pack();
+        createHero();
+        previouslyHeroes();
     }
-
     @Override
-    public void createHero(ActionListener action) {
-        this.btnCreateHero.addActionListener(action);
+    public void createHero() {
+
+        this.btnCreateHero.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                starterController.onClickCreateHero();
+            }
+        });
     }
-
     @Override
-    public void showPreviouslyHeroes(ActionListener action) {
-        this.btnPreviouslyHero.addActionListener(action);
+    public void previouslyHeroes() {
+        this.btnPreviouslyHero.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                starterController.onClickPreviouslyHero();
+            }
+        });
     }
 }
