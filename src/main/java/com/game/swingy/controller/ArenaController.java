@@ -70,8 +70,8 @@ class ArenaController {
         //if (random.nextInt(2) == 0)
             setArtefacts();
         mapController.heroKilledVillain(this.villain);
-        if (mapController.getMapView() != null)
-            mapController.getMapViewFrame().setVisible(true);
+        /*if (mapController.getMapGuiView() != null)
+            mapController.getMapViewFrame().setVisible(true);*///TODO розібратися як правильно тут первірити
     }
 
     private void setArtefacts() {

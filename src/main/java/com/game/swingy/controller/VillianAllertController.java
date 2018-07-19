@@ -59,7 +59,7 @@ public class VillianAllertController {
             System.out.println("false");
             villianAllertView.showLucky();
             villianAllertView.closeWindow();
-            mapController.getMapViewFrame().setVisible(true);
+            //mapController.getMapViewFrame().setVisible(true); //TODO закоментував щоб запустилося
         }
     }
 

@@ -71,7 +71,7 @@ public class PreviousHeroController {
                     Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedHero(Integer.parseInt(id)));
                     Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedVillain(Integer.parseInt(id)));
                     MapController mapController = new MapController();
-                    mapController.setVillainIcon();
+                    //mapController.setVillainIcon();//TODO закоментував щоб запустилося
                     this.getjFrame().dispose();
                 }
             }

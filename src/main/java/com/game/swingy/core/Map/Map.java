@@ -3,6 +3,9 @@ package com.game.swingy.core.Map;
 import com.game.swingy.controller.MapController;
 import com.game.swingy.core.DataBase.DbMySQL;
 import com.game.swingy.core.Unit.*;
+import com.game.swingy.view.MainMap;
+import com.game.swingy.view.console.MapConsoleView;
+import com.game.swingy.view.gui.MapGuiView;
 import com.game.swingy.view.gui.PreviousHeroView;
 
 import java.util.ArrayList;
@@ -46,20 +49,28 @@ public class Map {
     }
 
     public void fillListOfVillain() {
+
+        MainMap mainMap;
+        MapController mapController = new MapController();
         int level = observers.get(0).getLevel();
         int mapSize = getMapSize(level);
         int counterOfVillain = mapSize * mapSize / 2;
-            for (int i = (int)(counterOfVillain * 0.7); i > 0; i--) {
-                buildAndRegisterVillain(level);
-            }
-            for (int i = (int)(counterOfVillain * 0.35); i > 0; i--) {
-                if (level == 4)
-                    buildAndRegisterVillain(level - 1);
-                else
-                    buildAndRegisterVillain(level + 1);
-            }
-        MapController mapController = new MapController();
-        mapController.setRandomCoordinates();
+        for (int i = (int)(counterOfVillain * 0.7); i > 0; i--) {
+            buildAndRegisterVillain(level);
+        }
+        for (int i = (int)(counterOfVillain * 0.35); i > 0; i--) {
+            if (level == 4)
+                buildAndRegisterVillain(level - 1);
+            else
+                buildAndRegisterVillain(level + 1);
+        }
+        if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
+            mainMap = new MapConsoleView(mapController);
+        }
+        else {
+            mainMap = new MapGuiView(mapController);
+        }
+        mapController.setRandomCoordinates(mainMap);
     }
 
     private void buildAndRegisterVillain(int level) {
