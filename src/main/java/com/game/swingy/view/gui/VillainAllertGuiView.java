@@ -1,12 +1,18 @@
 package com.game.swingy.view.gui;
 
+import com.game.swingy.controller.VillainAllertController;
+import com.game.swingy.view.VillainAllert;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
-import java.awt.event.WindowEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 
-public class VillianAllertView {
+public class VillainAllertGuiView implements VillainAllert{
 
+    private VillainAllertController allertController;
     private JFrame jf;
     private JFrame allertFrame;
     private JLabel levellabel1;
@@ -27,8 +33,9 @@ public class VillianAllertView {
     private JPanel panelMain;
     private JPanel panelBtn;
 
-    public VillianAllertView() {
+    public VillainAllertGuiView(VillainAllertController villainAllertController) {
 
+        this.allertController = villainAllertController;
         createTools();
         jf.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         panelMain.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
@@ -76,6 +83,8 @@ public class VillianAllertView {
         panelBtn.add(runBtn, BorderLayout.EAST);
         jf.add(panelMain);
         jf.add(panelBtn);
+        villainAllertController.getTextOnBtnLabel(villainAllertController.getVillain(), this);
+        initBtn();
 
     }
 
@@ -114,42 +123,89 @@ public class VillianAllertView {
 
     }
 
-    public void showLucky() {
+    public void initBtn() {
+
+        getRunBtn().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showRunAllert();
+            }
+        });
+        getFightBtn().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showFightAllert();
+            }
+        });
+    }
+
+    public void setTextOnBtnLabel(int level, int attack, int weapon, int defense,
+                                   int armor, int health) {
+
+        getLevellabel2().setText(Integer.toString(level));
+        getAttackLabel2().setText(Integer.toString(attack) +
+                " + " + Integer.toString(weapon));
+        getDefenseLabel2().setText(Integer.toString(defense) +
+                " + " + Integer.toString(armor));
+        getWeaponLabel2().setText(Integer.toString(weapon));
+        getArmorLabel2().setText(Integer.toString(armor));
+        getHealthLabel2().setText(Integer.toString(health));
+
+    }
+
+    public void onClickRunYes() {
+
+        Random random = new Random();
+        if (random.nextBoolean()) {
+            System.out.println("true");
+            showDisLucky();
+            jf.dispose();
+            allertController.onClickRunYes();
+
+        }
+        else {
+            System.out.println("false");
+            showLucky();
+            jf.dispose();
+            //allertController.getMapController().getMapViewFrame().setVisible(true); //TODO закоментував щоб запустилося
+        }
+    }
+
+    private void showLucky() {
 
         JOptionPane.showMessageDialog(allertFrame,
                 "That's you lucky");
     }
 
-    public void showDisLucky() {
+    private void showDisLucky() {
 
         JOptionPane.showMessageDialog(allertFrame,
                 "That's you don't lucky");
     }
 
-    public int showFightAllert() {
+    public void showFightAllert() {
 
-        return JOptionPane.showConfirmDialog(
+        int res = JOptionPane.showConfirmDialog(
                 allertFrame,
                 "Are you sure that you want fight with villain?",
                 "Swingy allert Question",
                 JOptionPane.YES_NO_OPTION);
+        if (res == JOptionPane.YES_OPTION) {
+            jf.dispose();
+            allertController.onClickRunYes();
+        }
+
     }
 
-    public int showRunAllert() {
+    public void showRunAllert() {
 
-        return JOptionPane.showConfirmDialog(
+        int res = JOptionPane.showConfirmDialog(
                 allertFrame,
                 "You have 50% chance of returning to the previous position. " +
                         "If the odds aren’t on your side, you must fight the " +
                         "villian\nAre you sure that you want to run?",
                 "Swingy allert Question",
                 JOptionPane.YES_NO_OPTION);
-    }
-    public void closeWindow() {
-
-        jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        WindowEvent windowEvent = new WindowEvent(jf, WindowEvent.WINDOW_CLOSING);
-        jf.dispatchEvent(windowEvent);
+        if (res == JOptionPane.YES_OPTION)
+            onClickRunYes();
     }
 
     public JLabel getLevellabel2() {

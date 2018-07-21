@@ -1,8 +1,6 @@
 package com.game.swingy.view.gui;
 
 import com.game.swingy.controller.MapController;
-import com.game.swingy.controller.StatisticsController;
-import com.game.swingy.controller.VillianAllertController;
 import com.game.swingy.core.Map.EmptyButtonListener;
 import com.game.swingy.core.Map.Map;
 import com.game.swingy.core.Unit.Unit;

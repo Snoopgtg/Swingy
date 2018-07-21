@@ -27,8 +27,8 @@ public class CreateHeroConsoleView implements CreateHero{
                 "3 - Peltasts\n\n" +
                 "0 - back to start game");
         //TODO перевірка вводу
-        int heroClass = sc.nextInt();
-        if (heroClass == 0) {
+        int heroClass = sc.nextInt() - 1;
+        if (heroClass == -1) {
             StarterController starterController =
                     new StarterController();
             StartView startView = new StartConsoleView(starterController);

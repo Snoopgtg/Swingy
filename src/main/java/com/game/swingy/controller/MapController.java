@@ -2,9 +2,13 @@ package com.game.swingy.controller;
 
 import com.game.swingy.core.DataBase.DbMySQL;
 import com.game.swingy.core.Map.Map;
+import com.game.swingy.core.Map.ModeEnum;
 import com.game.swingy.core.Unit.Coordinates;
 import com.game.swingy.core.Unit.Unit;
 import com.game.swingy.view.MainMap;
+import com.game.swingy.view.VillainAllert;
+import com.game.swingy.view.console.VillainAllertConsoleView;
+import com.game.swingy.view.gui.VillainAllertGuiView;
 
 import java.util.List;
 import java.util.Random;
@@ -134,9 +138,14 @@ public class MapController {
 
     public void onClickVillainsButton(int x, int y) {
         System.out.println("On Villain");
-        Unit villain = getVillian(x, y);//TODO if(Map.mode ==?)
-        VillianAllertController villianAllertController = new
-                VillianAllertController(villain,this);
+        Unit villain = getVillian(x, y);
+        VillainAllert villainAllert;
+        VillainAllertController villainAllertController =
+                new VillainAllertController(villain, this);
+        if (Map.getMap().getMode() == ModeEnum.CONSOLE)
+            villainAllert = new VillainAllertConsoleView(villainAllertController);
+        else
+            villainAllert = new VillainAllertGuiView(villainAllertController);
         System.out.println("yes on villain button");
     }
 

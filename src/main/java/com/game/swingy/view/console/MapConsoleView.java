@@ -17,17 +17,56 @@ public class MapConsoleView implements MainMap{
 
     private MapController mapController;
     private int mapSize;
-    private String[][] map;
+    private Character[][] map;
 
     public MapConsoleView(MapController mapController) {
        this.mapController = mapController;
        this.mapSize = mapController.getMapSize();
-       this.map = new String[mapSize][mapSize];
-       int i = mapSize * 3;
-       while (i-- > 0)
-           System.out.print("-");
-
+       this.map = new Character[mapSize][mapSize];
+       mapController.setRandomCoordinates(this);
+       setEmptyAndHeroChar();
+       showMap();
+       initMoveHero();
     }
+
+    private void showMap() {
+
+        outputHorizontalLine();
+        for (int i = 0; i < mapSize; i++) {
+            System.out.print("\n");
+            for (int j = 0; j < mapSize; j++) {
+                if (j == 0)
+                    System.out.print("|");
+                System.out.format("%c|", map[i][j]);
+            }
+            System.out.print("\n");
+            outputHorizontalLine();
+        }
+        System.out.print("\n");
+    }
+//    7078 богурський
+//    7228 исполь
+
+    private void setEmptyAndHeroChar() {
+
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                if (i == mapSize / 2 && j == mapSize / 2)
+                    setHeroIcon(i, j);
+                else if (map[i][j] == null)
+                    setEmptyIcon(i, j);
+            }
+
+        }
+    }
+
+    private void outputHorizontalLine() {
+
+        int k = mapSize * 2 + 1;
+        while (k-- > 0)
+            System.out.print("-");
+    }
+
     @Override
     public void initMoveHero() {
 
@@ -38,8 +77,8 @@ public class MapConsoleView implements MainMap{
                 "4 - West\n\n" +
                 "0 - save");
         Scanner sc = new Scanner(System.in); // object for scanner
-        int choose = sc.nextInt();
-        if (choose == 0) {
+        int choose = sc.nextInt() - 1;
+        if (choose == -1) {
             initCloseLisener();
             //TODO save the game
         }
@@ -53,28 +92,23 @@ public class MapConsoleView implements MainMap{
         int x = Map.getMap().getObservers().get(0).getCoordinates().getX();
         int y = Map.getMap().getObservers().get(0).getCoordinates().getY();
         System.out.println("x = " + x + "\ny = " + y);
-        for (int i = 0; i < mapSize; i++) {
-            for (int j = 0; j < mapSize; j++) {
-                if (moveHeroEnum == MoveHeroEnum.NORTH && (i == (x - 1) && j == y && (x - 1) < mapSize
-                        && (x - 1) >= 0))//рухаємся в гору
-                    mapController.onClickButton(i, j, this);
-                else if (moveHeroEnum == MoveHeroEnum.SOUTH && (i == (x + 1) && j == (y) && (x + 1) < mapSize
-                        && (x + 1) >= 0))
-                    mapController.onClickButton(i, j, this);
-                else if (moveHeroEnum == MoveHeroEnum.WEST && (i == x && j == (y - 1) && (y - 1) < mapSize
-                        && (y - 1) >= 0))//рухаємся в ліво
-                    mapController.onClickButton(i, j, this);
-                else if (moveHeroEnum == MoveHeroEnum.EAST && (i == x && j == (y + 1) && (y + 1) < mapSize
-                        && (y + 1) >= 0))//рухаємся в право
-                    mapController.onClickButton(i, j, this);
-                else if (i == x && j == y)
-                    mapController.onClickButton(i, j, this);
+                if (moveHeroEnum == MoveHeroEnum.NORTH && (x - 1) >= 0 )//рухаємся в гору
+                    mapController.onClickButton(x - 1, y, this);
+                else if (moveHeroEnum == MoveHeroEnum.SOUTH && ((x + 1) < mapSize))
+                    mapController.onClickButton(x + 1, y, this);
+                else if (moveHeroEnum == MoveHeroEnum.WEST && (y - 1) >= 0)//рухаємся в ліво
+                    mapController.onClickButton(x, y - 1, this);
+                else if (moveHeroEnum == MoveHeroEnum.EAST && (y + 1) < mapSize)//рухаємся в право
+                    mapController.onClickButton(x, y + 1, this);
                 else
                     System.out.println("Error in move hero. Not corrected coordinates");
 
-            }
-        }
+
+
     }
+
+
+
     @Override
     public void initCloseLisener() {
 
@@ -94,18 +128,17 @@ public class MapConsoleView implements MainMap{
 
     @Override
     public void setHeroIcon(int x, int y) {
-
-        this.map[x][y] = "H";
+        this.map[x][y] = 'H';
     }
 
     @Override
     public void setVilliansIcon(int x, int y) {
-        this.map[x][y] = "V";
+        this.map[x][y] = 'V';
     }
 
     @Override
     public void setEmptyIcon(int x, int y) {
-        this.map[x][y] = " ";
+        this.map[x][y] = ' ';
     }
 
     @Override
@@ -134,5 +167,8 @@ public class MapConsoleView implements MainMap{
         setHeroIcon(toX, toY);
         mapController.changeHeroPosition(toX, toY);
         mapController.isCheckWinner(this);
+        showMap();
+        initMoveHero();
+
     }
 }
