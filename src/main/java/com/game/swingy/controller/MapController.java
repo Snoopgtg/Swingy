@@ -10,12 +10,14 @@ import com.game.swingy.view.VillainAllert;
 import com.game.swingy.view.console.VillainAllertConsoleView;
 import com.game.swingy.view.gui.VillainAllertGuiView;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Random;
 
 public class MapController {
 
     private int mapSize;
+    private JFrame mapJframe;
     //private MapGuiView mapGuiView;
     private DbMySQL dbMySQL;
 
@@ -275,4 +277,11 @@ public class MapController {
         return mapSize;
     }
 
+    public JFrame getMapJframe() {
+        return mapJframe;
+    }
+
+    public void setMapJframe(JFrame mapJframe) {
+        this.mapJframe = mapJframe;
+    }
 }

@@ -165,7 +165,7 @@ public class VillainAllertGuiView implements VillainAllert{
             System.out.println("false");
             showLucky();
             jf.dispose();
-            //allertController.getMapController().getMapViewFrame().setVisible(true); //TODO закоментував щоб запустилося
+            allertController.getMapController().getMapJframe().setVisible(true);
         }
     }
 
