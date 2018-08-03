@@ -3,10 +3,6 @@ package com.game.swingy.controller;
 import com.game.swingy.core.Map.Map;
 import com.game.swingy.core.Unit.UnitBuilder;
 import com.game.swingy.core.Unit.UnitConstructor;
-import com.game.swingy.view.gui.CreateHeroGuiView;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CreateHeroController {
 

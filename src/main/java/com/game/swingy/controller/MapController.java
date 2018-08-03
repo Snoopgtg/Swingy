@@ -8,6 +8,7 @@ import com.game.swingy.core.Unit.Unit;
 import com.game.swingy.view.MainMap;
 import com.game.swingy.view.VillainAllert;
 import com.game.swingy.view.console.VillainAllertConsoleView;
+import com.game.swingy.view.gui.MapGuiView;
 import com.game.swingy.view.gui.VillainAllertGuiView;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ public class MapController {
     private int mapSize;
     private JFrame mapJframe;
     //private MapGuiView mapGuiView;
+    private MainMap mainMap;
     private DbMySQL dbMySQL;
 
 
@@ -179,7 +181,8 @@ public class MapController {
 
     public void heroKilledVillain(Unit villain) {
 
-        changeHeroPosition(villain.getCoordinates().getX(), villain.getCoordinates().getY());
+//        changeHeroPosition(villain.getCoordinates().getX(), villain.getCoordinates().getY());
+        mainMap.changeHeroPosition(villain.getCoordinates().getX(), villain.getCoordinates().getY());
         Map.getMap().unregister(villain);
     }
 
@@ -247,15 +250,15 @@ public class MapController {
         }
     }
 
-    /*public void setVillainIcon() {
+    public void setVillainIcon() {
 
         int length = Map.getMap().getObservers().size();
         List<Unit> units = Map.getMap().getObservers();
         for (int i = 1; i < length; i++) {
-            mapGuiView.setVilliansIcon(units.get(i).getCoordinates().getX(),
+            mainMap.setVilliansIcon(units.get(i).getCoordinates().getX(),
                     units.get(i).getCoordinates().getY());
         }
-    }*/
+    }
 
     public void isCheckWinner(MainMap mainMap) {
 
@@ -283,5 +286,13 @@ public class MapController {
 
     public void setMapJframe(JFrame mapJframe) {
         this.mapJframe = mapJframe;
+    }
+
+    public MainMap getMainMap() {
+        return mainMap;
+    }
+
+    public void setMainMap(MainMap mainMap) {
+        this.mainMap = mainMap;
     }
 }

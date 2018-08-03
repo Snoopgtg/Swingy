@@ -1,14 +1,20 @@
 package com.game.swingy.view.gui;
 
+import com.game.swingy.controller.ArenaController;
+import com.game.swingy.view.Arena;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.Random;
 
-public class ArenaView {
+public class ArenaGuiView implements Arena{
 
+    private ArenaController arenaController;
     private JFrame jf;
-    private JFrame allertFrame;
     private JLabel lableVillian;
     private JLabel levellabel1;
     private JLabel levellabel2;
@@ -50,16 +56,100 @@ public class ArenaView {
     private JButton heroBtn;
     private JButton villianBtn;
 
-    public ArenaView() {
+    public ArenaGuiView(ArenaController arenaController) {
 
+        this.arenaController = arenaController;
+        arenaController.setArena(this);
         createTools();
+        arenaController.setTextOnVillainLable();
+        arenaController.setTextOnHeroLabel();
+    }
+
+    public void initBtn() {
+
+        heroBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onClickHero();
+            }
+        });
+        villianBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onClickVillain();
+            }
+        });
+    }
+
+    public void onClickVillain() {
+
+        Random random = new Random();
+        if (random.nextInt(5) == 0)
+            showMissAttack();
+        else
+            arenaController.takeDamageVillain();
+        turnLable.setText("Your turn");
+        villianBtn.setEnabled(false);
+        heroBtn.setEnabled(true);
+        if (!arenaController.isLife()) {
+            showLoser();
+            exitWindow();
+        }
+        //arenaController.onClickVillain();
+    }
+
+    public void onClickHero() {
+
+        arenaController.takeDamageHero();
+        turnLable.setText("Villain turn");
+        heroBtn.setEnabled(false);
+        villianBtn.setEnabled(true);
+
+
+    }
+
+    public void villainDie() {
+
+        if (arenaController.isLevel5()) {
+            showWinner();
+            exitWindow();
+        }
+        arenaController.villainDie();
+        showWinVillainView();
+        closeWindow();
+    }
+
+    public void setTextOnVillainLable(int level, int attack, int weapon, int defense,
+                                  int armor, int health) {
+
+        levellabel2.setText(Integer.toString(level));
+        attackLabel2.setText(Integer.toString(attack) +
+                " + " + Integer.toString(weapon));
+        defenseLabel2.setText(Integer.toString(defense) +
+                " + " + Integer.toString(armor));
+        weaponLabel2.setText(Integer.toString(weapon));
+        armorLabel2.setText(Integer.toString(armor));
+        healthLabel2.setText(Integer.toString(health));
+    }
+
+    public void setTextOnHeroLabel(String name, String heroClass, int level, int experience, int attack, int weapon,
+                                   int defense, int armor, int health) {
+
+        labelHeroName2.setText(name);
+        labelHeroCass2.setText(heroClass);
+        labelHeroLevel2.setText(Integer.toString(level));
+        labelHeroExp2.setText(Integer.toString(experience));
+        labelAttack2.setText(Integer.toString(attack) +
+                " + " + Integer.toString(weapon));
+        labelDefense2.setText(Integer.toString(defense) +
+                " + " + Integer.toString(armor));
+        labelHealth2.setText(Integer.toString(health));
+        labelWeapon2.setText(Integer.toString(weapon));
+        labelArmor2.setText(Integer.toString(armor));
     }
 
     private void createTools() {
 
         jf = new JFrame("Swingy Arena");
         jf.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        allertFrame = new JFrame();
         createHeroTools();
         createVillianTools();
         turnLable = new JLabel("Your turn");
@@ -73,6 +163,7 @@ public class ArenaView {
         jf.setSize(580, 380);
         jf.setVisible(true);
         jf.setLocationRelativeTo(null);
+        initBtn();
     }
 
     private void setAllOnMainPanel() {

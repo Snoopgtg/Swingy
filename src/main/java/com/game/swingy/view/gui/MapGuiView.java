@@ -47,7 +47,9 @@ public class MapGuiView implements MainMap{
 
         deAndActivatedbtnUnits();
         initMoveHero();
+        initCloseLisener();
         mapController.setMapJframe(jf);
+        mapController.setMainMap(this);
 
     }
 

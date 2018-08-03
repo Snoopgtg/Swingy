@@ -13,7 +13,7 @@ public class HeroTableModel extends AbstractTableModel {
 
         dataArrayList = new ArrayList<String []>();
         for (int i = 0; i < dataArrayList.size(); i++) {
-            dataArrayList.add(new String[getColumnCount()]);
+            dataArrayList.add(new String[columnCount]);
         }
 
     }

@@ -360,6 +360,7 @@ public class DbMySQL {
             statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Hero");
             return rs.next();
+            //TODO не првильно чомусь повертає результат при пустій таблиці
 //TODO rs.close якось треба почитати пронього
         } catch (SQLException e) {
             e.printStackTrace();

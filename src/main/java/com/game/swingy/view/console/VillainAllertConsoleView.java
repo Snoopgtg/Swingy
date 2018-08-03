@@ -13,7 +13,7 @@ public class VillainAllertConsoleView implements VillainAllert{
     public VillainAllertConsoleView(VillainAllertController allertController) {
 
         this.allertController = allertController;
-        allertController.getTextOnBtnLabel(allertController.getVillain(), this);
+        allertController.getTextOnBtnLabel(this);
         initBtn();
     }
 
@@ -86,9 +86,9 @@ public class VillainAllertConsoleView implements VillainAllert{
     public void setTextOnBtnLabel(int level, int attack, int weapon, int defense, int armor, int health) {
         System.out.format("Villain level ---> %s\n", level);
         System.out.format("Villain attack ---> %s + %s\n", attack, weapon);
-        System.out.format("Villain degense ---> %s + %s\n", defense, armor);
+        System.out.format("Villain defense ---> %s + %s\n", defense, armor);
         System.out.format("Points plus to attack ---> %s\n", weapon);
-        System.out.format("Points plus to defense ---> %s\n", defense);
+        System.out.format("Points plus to defense ---> %s\n", armor);
         System.out.format("Health ---> %s\n", health);
     }
 }

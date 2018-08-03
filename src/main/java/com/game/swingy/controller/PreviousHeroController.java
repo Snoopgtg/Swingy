@@ -1,31 +1,35 @@
 package com.game.swingy.controller;
 
-import com.game.swingy.core.Map.TableActionListener;
 import com.game.swingy.core.Map.Map;
-import com.game.swingy.view.gui.PreviousHeroView;
+import com.game.swingy.core.Map.ModeEnum;
+import com.game.swingy.view.MainMap;
+import com.game.swingy.view.StartView;
+import com.game.swingy.view.console.MapConsoleView;
+import com.game.swingy.view.console.StartConsoleView;
+import com.game.swingy.view.gui.MapGuiView;
+import com.game.swingy.view.gui.PreviousHeroGuiView;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PreviousHeroController {
 
-    private PreviousHeroView previousHeroView;
+    private PreviousHeroGuiView previousHeroGuiView;
+    private String[][] rowValue;
 
     public PreviousHeroController() {
 
-        previousHeroView = new PreviousHeroView();
-        String[][] rowValue = Map.getMap().getDbMySQL().getData();
-        previousHeroView.setDeleteAction(deleteActionGui());
-        previousHeroView.setLoadAction(loadActionGui());
-        previousHeroView.getHeroTableModel().addDate(rowValue);
+//        previousHeroGuiView = new PreviousHeroGuiView();
+        this.rowValue = Map.getMap().getDbMySQL().getData();
+        /*previousHeroGuiView.setDeleteAction(deleteActionGui());
+        previousHeroGuiView.setLoadAction(loadActionGui());
+        previousHeroGuiView.getHeroTableModel().addDate(rowValue);*/
 
     }
 
-    private ActionListener deleteActionGui() {
+    /*private ActionListener deleteActionGui() {
         return new TableActionListener(
-                previousHeroView.getHeroTable(),
-                previousHeroView.getHeroTableModel()
+                previousHeroGuiView.getHeroTable(),
+                previousHeroGuiView.getHeroTableModel()
         ) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,14 +50,47 @@ public class PreviousHeroController {
                 }
             }
         };
+    }*/
+
+    public void delete(int id) {
+
+        Map.getMap().getDbMySQL().deleteRow(id);
     }
 
+    public void load(int selectedId) {
 
-    private ActionListener loadActionGui() {
+        Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedHero(selectedId));
+        Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedVillain(selectedId));
+        MapController mapController = new MapController();
+        MainMap mainMap;
+        if (Map.getMap().getMode() == ModeEnum.CONSOLE)
+            mainMap = new MapConsoleView(mapController);
+        else {
+            mainMap = new MapGuiView(mapController);
+            mapController.setVillainIcon();
+        }
+//        Map.getMap().setVillainIcon();
+    }
+
+    public void isEmptyHeroDB() {
+
+        if (Map.getMap().getDbMySQL().isEmptyHeroTable()) {
+            if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
+                System.out.println("At this time, you don't have saving hero");
+                StarterController starterController = new StarterController();
+                StartView startView = new StartConsoleView(starterController);
+            }
+            else
+                JOptionPane.showMessageDialog(null,
+                        "At this time, you don't have saving hero");
+        }
+    }
+
+    /*private ActionListener loadActionGui() {
         return new TableActionListener(
-                previousHeroView.getHeroTable(),
-                previousHeroView.getHeroTableModel(),
-                previousHeroView.getFrame()
+                previousHeroGuiView.getHeroTable(),
+                previousHeroGuiView.getHeroTableModel(),
+                previousHeroGuiView.getFrame()
         ) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,5 +113,9 @@ public class PreviousHeroController {
                 }
             }
         };
+    }*/
+
+    public String[][] getRowValue() {
+        return rowValue;
     }
 }

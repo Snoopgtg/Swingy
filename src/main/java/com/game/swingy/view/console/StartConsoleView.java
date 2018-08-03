@@ -15,14 +15,18 @@ public class StartConsoleView implements StartView {
         System.out.println("Console game started\n" +
                 "Select one option:\n" +
                 "1 - Create a new hero\n" +
-                "2 - Select a previously created hero\n");
+                "2 - Select a previously created hero\n\n" +
+                "0 - exit");
 
         Scanner sc = new Scanner(System.in); // object for scanner
-        int no = sc.nextInt(); // similiarli Float,Double can be added to it as per the data type.
-        if (no == 1)
+        //TODO validate
+        int choose = sc.nextInt(); // similiarli Float,Double can be added to it as per the data type.
+        if (choose == 1)
             createHero();
-        else if (no == 2)
+        else if (choose == 2)
             previouslyHeroes();
+        else
+            System.exit(0);
     }
 
     @Override

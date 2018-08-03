@@ -83,7 +83,7 @@ public class VillainAllertGuiView implements VillainAllert{
         panelBtn.add(runBtn, BorderLayout.EAST);
         jf.add(panelMain);
         jf.add(panelBtn);
-        villainAllertController.getTextOnBtnLabel(villainAllertController.getVillain(), this);
+        villainAllertController.getTextOnBtnLabel(this);
         initBtn();
 
     }

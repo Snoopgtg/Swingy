@@ -1,7 +1,12 @@
 package com.game.swingy.controller;
 
+import com.game.swingy.core.Map.Map;
+import com.game.swingy.core.Map.ModeEnum;
 import com.game.swingy.core.Unit.Unit;
+import com.game.swingy.view.Arena;
 import com.game.swingy.view.VillainAllert;
+import com.game.swingy.view.console.ArenaConsoleView;
+import com.game.swingy.view.gui.ArenaGuiView;
 
 public class VillainAllertController {
 
@@ -16,13 +21,18 @@ public class VillainAllertController {
 
     public void onClickRunYes() {
 
-        //TODO if Map.getMap.Mode
         ArenaController arenaController = new ArenaController(this.villain,
                 this.mapController);
+        Arena arena;
+        if (Map.getMap().getMode() == ModeEnum.CONSOLE)
+            arena = new ArenaConsoleView(arenaController);
+
+        else
+            arena = new ArenaGuiView(arenaController);
 
     }
 
-    public void getTextOnBtnLabel(Unit villain, VillainAllert villainAllert) {
+    public void getTextOnBtnLabel(VillainAllert villainAllert) {
 
         int level = villain.getLevel();
         int attack = villain.getAttack();
@@ -31,8 +41,8 @@ public class VillainAllertController {
         int armor = villain.getArtefacts().getArmor();
         int health = villain.getHitPoints();
 
-        villainAllert.setTextOnBtnLabel(level, attack, defense,
-                weapon, armor, health);
+        villainAllert.setTextOnBtnLabel(level, attack, weapon,
+                defense, armor, health);
 
     }
 

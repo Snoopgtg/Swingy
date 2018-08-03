@@ -24,6 +24,8 @@ public class MapConsoleView implements MainMap{
        this.mapSize = mapController.getMapSize();
        this.map = new Character[mapSize][mapSize];
        mapController.setRandomCoordinates(this);
+       mapController.setMainMap(this);
+       mapController.setVillainIcon();
        setEmptyAndHeroChar();
        showMap();
        initMoveHero();
@@ -102,12 +104,7 @@ public class MapConsoleView implements MainMap{
                     mapController.onClickButton(x, y + 1, this);
                 else
                     System.out.println("Error in move hero. Not corrected coordinates");
-
-
-
     }
-
-
 
     @Override
     public void initCloseLisener() {
@@ -119,11 +116,12 @@ public class MapConsoleView implements MainMap{
         int choose = sc.nextInt();
         if (choose == 1) {
             mapController.saveHero();
-            //TODO save the game
         }
         else {
             mapController.deleteHeroAndVillainFromListOfUnit();
         }
+        StarterController starterController = new StarterController();
+        StartView startView = new StartConsoleView(starterController);
     }
 
     @Override

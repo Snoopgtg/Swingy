@@ -4,81 +4,58 @@ import com.game.swingy.core.Map.Map;
 import com.game.swingy.core.Unit.Artefacts;
 import com.game.swingy.core.Unit.Hero.Hero;
 import com.game.swingy.core.Unit.Unit;
-import com.game.swingy.view.gui.ArenaView;
+import com.game.swingy.view.Arena;
+import com.game.swingy.view.gui.ArenaGuiView;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Random;
 
-class ArenaController {
+public class ArenaController {
 
     private int villainHealth;
-    private ArenaView arenaView;
+    private ArenaGuiView arenaGuiView;
+    private Arena arena;
     private MapController mapController;
     private Unit villain;
+    private Hero hero;
 
-    ArenaController(Unit villain, MapController mapController) {
+    public ArenaController(Unit villain, MapController mapController) {
 
         this.villain = villain;
         this.mapController = mapController;
+        hero = (Hero)Map.getMap().getObservers().get(0);
         villainHealth = this.villain.getHitPoints();
-        arenaView = new ArenaView();
-        setTextOnVillainLable(villain);
+
+    }
+
+    public void takeDamageHero() {
+
+        int attack = villain.getAttack() + villain.getArtefacts().getWeapon();
+        hero.takeDamage(attack);
         setTextOnHeroLabel();
-        initBtn();
+
     }
 
-    private void initBtn() {
+    public boolean isLevel5() {
 
-        arenaView.getHeroBtn().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onClickHero();
-            }
-        });
-        arenaView.getVillianBtn().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onClickVillain();
-            }
-        });
+        return hero.isLevel5();
     }
 
-    private void onClickVillain() {
+    public void villainDie() {
 
-        int attack = Map.getMap().getObservers().get(0).getAttack() +
-                Map.getMap().getObservers().get(0).getArtefacts().getWeapon();
-        villain.takeDamage(attack);
-        setTextOnVillainLable(villain);
-        arenaView.getTurnLable().setText("Villain turn");
-        arenaView.getVillianBtn().setEnabled(false);
-        arenaView.getHeroBtn().setEnabled(true);
-        if (!villain.isLife())
-            villainDie();
-    }
-
-    private void villainDie() {
-
-        Hero hero = (Hero)Map.getMap().getObservers().get(0);
         Random random = new Random();
         hero.experienceUp(this.villainHealth);
         hero.levelUp();
-        if (hero.isLevel5()) {
-            arenaView.showWinner();
-            arenaView.exitWindow();
-        }
-        arenaView.showWinVillainView();
-        arenaView.closeWindow();
         //if (random.nextInt(2) == 0)
             setArtefacts();
         mapController.heroKilledVillain(this.villain);
-        /*if (mapController.getMapGuiView() != null)
-            mapController.getMapViewFrame().setVisible(true);*///TODO розібратися як правильно тут первірити
+        if (mapController.getMapJframe() != null)
+            mapController.getMapJframe().setVisible(true);//TODO розібратися як правильно тут первірити
     }
 
     private void setArtefacts() {
 
         Artefacts artefacts;
-        Hero hero = (Hero)Map.getMap().getObservers().get(0);
-        switch (arenaView.showArtefacts()) {
+        switch (arena.showArtefacts()) {
             case 0:
                 System.out.println("weapon");
                 artefacts = new Artefacts(villain.getArtefacts().getWeapon(),
@@ -98,73 +75,69 @@ class ArenaController {
                 hero.setHitPoints(hero.getHitPoints() + villain.getArtefacts().getHelm());
                 hero.setArtefacts(artefacts);
                 break;
+            default:
+                break;
         }
     }
 
-    private void onClickHero() {
+    public void takeDamageVillain() {
+        int attack = hero.getAttack() + hero.getArtefacts().getWeapon();
 
-        int attack = villain.getAttack() + villain.getArtefacts().getWeapon();
-        Unit hero = (Map.getMap().getObservers().get(0));
-
-        Random random = new Random();
-        if (random.nextInt(5) == 0)
-            arenaView.showMissAttack();
-        else
-            hero.takeDamage(attack);
-        setTextOnHeroLabel();
-        arenaView.getTurnLable().setText("Your turn");
-        arenaView.getHeroBtn().setEnabled(false);
-        arenaView.getVillianBtn().setEnabled(true);
-        if (!hero.isLife()) {
-            arenaView.showLoser();
-            arenaView.exitWindow();
-        }
-
+        villain.takeDamage(attack);
+        if (!villain.isLife())
+            arena.villainDie();
+        setTextOnVillainLable();
     }
 
-    private void setTextOnVillainLable(Unit villain) {
+    public boolean isLife() {
+        return hero.isLife();
+    }
+
+    public void setTextOnVillainLable() {
 
         int level = villain.getLevel();
         int attack = villain.getAttack();
         int defense = villain.getDefense();
         int weapon = villain.getArtefacts().getWeapon();
         int armor = villain.getArtefacts().getArmor();
+        //TODO add helm
         int health = villain.getHitPoints();
 
-        arenaView.getLevellabel2().setText(Integer.toString(level));
-        arenaView.getAttackLabel2().setText(Integer.toString(attack) +
-                " + " + Integer.toString(weapon));
-        arenaView.getDefenseLabel2().setText(Integer.toString(defense) +
-                " + " + Integer.toString(armor));
-        arenaView.getWeaponLabel2().setText(Integer.toString(weapon));
-        arenaView.getArmorLabel2().setText(Integer.toString(armor));
-        arenaView.getHealthLabel2().setText(Integer.toString(health));
+        arena.setTextOnVillainLable(level, attack, weapon,
+                defense, armor, health);
+
     }
 
-    private void setTextOnHeroLabel() {
+    public void setTextOnHeroLabel() {
 
-        System.out.println(Map.getMap().getObservers().get(0).getCoordinates().getX());
-        System.out.println(Map.getMap().getObservers().get(0).getCoordinates().getY());
-        Hero hero = (Hero)Map.getMap().getObservers().get(0);
         String name = hero.getName();
         String heroClass = hero.getHeroClass();
         int level = hero.getLevel();
         int experience = hero.getExperience();
         int attack = hero.getAttack();
         int defense = hero.getDefense();
-        int hitPoints = hero.getHitPoints();
+        int health = hero.getHitPoints();
         int weapon = hero.getArtefacts().getWeapon();
         int armor = hero.getArtefacts().getArmor();
 
-        arenaView.getLabelHeroName2().setText(name);
-        arenaView.getLabelHeroCass2().setText(heroClass);
-        arenaView.getLabelHeroLevel2().setText(Integer.toString(level));
-        arenaView.getLabelHeroExp2().setText(Integer.toString(experience));
-        arenaView.getLabelAttack2().setText(Integer.toString(attack) + " + " + Integer.toString(weapon));
-        arenaView.getLabelDefense2().setText(Integer.toString(defense) + " + " + Integer.toString(armor));
-        arenaView.getLabelHealth2().setText(Integer.toString(hitPoints));
-        arenaView.getLabelWeapon2().setText(Integer.toString(weapon));
-        arenaView.getLabelArmor2().setText(Integer.toString(armor));
+        arena.setTextOnHeroLabel(name, heroClass, level, experience, attack, weapon,
+                defense, armor, health);
 
+    }
+
+    public Unit getVillain() {
+        return villain;
+    }
+
+    public void setVillain(Unit villain) {
+        this.villain = villain;
+    }
+
+    public Arena getArena() {
+        return arena;
+    }
+
+    public void setArena(Arena arena) {
+        this.arena = arena;
     }
 }

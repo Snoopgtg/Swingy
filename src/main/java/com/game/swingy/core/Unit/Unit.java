@@ -36,9 +36,11 @@ public class Unit {
 
     public void takeDamage(int enemyAttack) {
 
-        int damage = enemyAttack - this.defense;
+        int damage = enemyAttack - this.defense + this.getArtefacts().getArmor();
         if (damage > 0)
             this.hitPoints -= damage;
+        if (this.hitPoints < 0)
+            this.hitPoints = 0;
     }
 
     public boolean isLife() {

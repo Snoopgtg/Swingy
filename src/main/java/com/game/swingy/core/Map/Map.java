@@ -6,7 +6,7 @@ import com.game.swingy.core.Unit.*;
 import com.game.swingy.view.MainMap;
 import com.game.swingy.view.console.MapConsoleView;
 import com.game.swingy.view.gui.MapGuiView;
-import com.game.swingy.view.gui.PreviousHeroView;
+import com.game.swingy.view.gui.PreviousHeroGuiView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class Map {
     private static Map map;
     private ModeEnum mode;
     private List<Unit> observers = new ArrayList<Unit>();
-    private PreviousHeroView previousHeroView;
+    private PreviousHeroGuiView previousHeroGuiView;
     private DbMySQL dbMySQL = new DbMySQL();
     private int villainX;
     private int villainY;
@@ -69,8 +69,26 @@ public class Map {
         }
         else {
             mainMap = new MapGuiView(mapController);
+            mapController.setRandomCoordinates(mainMap);
         }
-        mapController.setRandomCoordinates(mainMap);
+//        mapController.setRandomCoordinates(mainMap);
+
+    }
+
+    public void setVillainIcon() {
+
+        MapController mapController = new MapController();
+        MainMap mainMap;
+        if (this.mode == ModeEnum.CONSOLE)
+            mainMap = new MapConsoleView(mapController);
+        else
+            mainMap = new MapGuiView(mapController);
+        int length = Map.getMap().getObservers().size();
+        List<Unit> units = Map.getMap().getObservers();
+        for (int i = 1; i < length; i++) {
+            mainMap.setVilliansIcon(units.get(i).getCoordinates().getX(),
+                    units.get(i).getCoordinates().getY());
+        }
     }
 
     private void buildAndRegisterVillain(int level) {
@@ -159,8 +177,8 @@ public class Map {
         this.villainY = villainY;
     }
 
-    public PreviousHeroView getPreviousHeroView() {
-        return previousHeroView;
+    public PreviousHeroGuiView getPreviousHeroGuiView() {
+        return previousHeroGuiView;
     }
 
     public DbMySQL getDbMySQL() {
