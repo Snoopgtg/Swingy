@@ -2,7 +2,7 @@ package com.game.swingy.view;
 
 public interface MainMap {
     void initMoveHero();
-    void initCloseLisener();
+    void initCloseListener();
     void setHeroIcon(int x, int y);
     void setVilliansIcon(int x, int y);
     void setEmptyIcon(int x, int y);

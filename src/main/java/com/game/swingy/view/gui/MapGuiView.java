@@ -47,9 +47,10 @@ public class MapGuiView implements MainMap{
 
         deAndActivatedbtnUnits();
         initMoveHero();
-        initCloseLisener();
+        initCloseListener();
         mapController.setMapJframe(jf);
         mapController.setMainMap(this);
+
 
     }
 
@@ -101,7 +102,7 @@ public class MapGuiView implements MainMap{
         }
     }
 
-    public void initCloseLisener() {
+    public void initCloseListener() {
 
         this.jf.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {

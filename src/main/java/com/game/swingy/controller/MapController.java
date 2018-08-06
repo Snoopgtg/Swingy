@@ -74,7 +74,7 @@ public class MapController {
         }
     }*/
 
-    /*private void initCloseLisener() {
+    /*private void initCloseListener() {
 
         mapGuiView.getJf().addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {

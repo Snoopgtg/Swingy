@@ -57,6 +57,25 @@ public class DbMySQL {
         }
     }
 
+    /*public boolean hasHeroId(int id) {
+
+        try {
+            //Execute a query
+            System.out.println("Creating database...");
+            statement = conn.createStatement();
+
+            String sql = "SELECT 1 FROM Hero WHERE id = " + id;
+            ResultSet rs = statement.executeQuery(sql);
+
+            int row = rs.getRow();
+            return rs.getRow() > 0;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }*/
+
     private void createTables() {
 
         String hero;

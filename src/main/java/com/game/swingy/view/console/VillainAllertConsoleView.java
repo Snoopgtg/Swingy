@@ -62,6 +62,8 @@ public class VillainAllertConsoleView implements VillainAllert{
         }
         else {
             System.out.println("That's you lucky");
+
+            // todo test error
             allertController.getMapController().getMapJframe().setVisible(true);
         }
     }
@@ -107,7 +109,6 @@ public class VillainAllertConsoleView implements VillainAllert{
 
         showFightAllertChoose();
         int choose = Integer.parseInt(yesNo);
-        //TODO check validate
         if (choose == 1) {
             allertController.onClickRunYes();
         }

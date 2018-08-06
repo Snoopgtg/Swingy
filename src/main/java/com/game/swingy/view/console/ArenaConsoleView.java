@@ -1,25 +1,49 @@
 package com.game.swingy.view.console;
 
 import com.game.swingy.controller.ArenaController;
+import com.game.swingy.core.Map.GameValidator;
 import com.game.swingy.view.Arena;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.util.Random;
 import java.util.Scanner;
 
 public class ArenaConsoleView implements Arena{
 
+    @Pattern(regexp = "^\\d+$", message = "ERROR only digits allowed")
+    @Min(value = 1, message = "ERROR You should choose one option 1")
+    @Max(value = 1, message = "ERROR You should choose one option 1")
+    private String selectedTurn;
+
+    @Pattern(regexp = "^\\d+$", message = "ERROR only digits allowed")
+    @Min(value = 0, message = "ERROR You should choose one option 1, 2, 3 or 0")
+    @Max(value = 3, message = "ERROR You should choose one option 1, 2, 3 or 0")
+    private String artefactSelected;
+
     private ArenaController arenaController;
     private boolean turn = true;
+    private Scanner sc;
 
 
     public ArenaConsoleView(ArenaController arenaController) {
 
         this.arenaController = arenaController;
+        sc = new Scanner(System.in);
         arenaController.setArena(this);
         arenaController.setTextOnVillainLable();
         arenaController.setTextOnHeroLabel();
         initBtn();
 
+    }
+
+    private void showTurn() {
+
+        System.out.println("1 - make turn");
+        this.selectedTurn = sc.next();
+        if (!GameValidator.getGameValidator().validate(this))
+            showTurn();
     }
 
     @Override
@@ -32,10 +56,7 @@ public class ArenaConsoleView implements Arena{
             System.out.println("Villain turn");
             turn = true;
         }
-        System.out.println("1 - make turn");
-        Scanner cs = new Scanner(System.in);
-        int choose = cs.nextInt();
-        //TODO checker
+        showTurn();
         if (turn)
             onClickVillain();
         else
@@ -115,9 +136,10 @@ public class ArenaConsoleView implements Arena{
                 "2 - armor\n" +
                 "3 - helm\n\n" +
                 "0 - back");
-        Scanner cs = new Scanner(System.in);
-        //TODO validate
-        int choose = cs.nextInt();
-        return choose - 1;
+        artefactSelected = sc.next();
+        if (!GameValidator.getGameValidator().validate(this))
+            showArtefacts();
+        int choose = Integer.parseInt(artefactSelected) - 1;
+        return choose;
     }
 }

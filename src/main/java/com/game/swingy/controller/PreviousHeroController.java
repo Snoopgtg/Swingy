@@ -67,6 +67,7 @@ public class PreviousHeroController {
             mainMap = new MapConsoleView(mapController);
         else {
             mainMap = new MapGuiView(mapController);
+
             mapController.setVillainIcon();
         }
 //        Map.getGameValidator().setVillainIcon();

@@ -3,18 +3,13 @@ package com.game.swingy.view.console;
 import com.game.swingy.controller.MapController;
 import com.game.swingy.controller.StarterController;
 import com.game.swingy.core.Map.GameValidator;
-import com.game.swingy.core.Map.HeroClassEnum;
 import com.game.swingy.core.Map.Map;
 import com.game.swingy.view.MainMap;
 import com.game.swingy.view.StartView;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
-import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.util.Scanner;
 
 public class MapConsoleView implements MainMap{
@@ -35,16 +30,20 @@ public class MapConsoleView implements MainMap{
     private Character[][] map;
 
     public MapConsoleView(MapController mapController) {
-       this.mapController = mapController;
-       this.mapSize = mapController.getMapSize();
-       this.map = new Character[mapSize][mapSize];
-       sc = new Scanner(System.in);
-       mapController.setRandomCoordinates(this);
-       mapController.setMainMap(this);
-       mapController.setVillainIcon();
-       setEmptyAndHeroChar();
-       showMap();
-       initMoveHero();
+        this.mapController = mapController;
+        this.mapSize = mapController.getMapSize();
+        this.map = new Character[mapSize][mapSize];
+        sc = new Scanner(System.in);
+        mapController.setRandomCoordinates(this);
+        mapController.setMainMap(this);
+        mapController.setVillainIcon();
+        setEmptyChar();
+
+        setHeroIcon(Map.getMap().getObservers().get(0).getCoordinates().getX(),
+                Map.getMap().getObservers().get(0).getCoordinates().getY());
+
+        showMap();
+        initMoveHero();
     }
 
     private void showMap() {
@@ -62,16 +61,12 @@ public class MapConsoleView implements MainMap{
         }
         System.out.print("\n");
     }
-//    7078 богурський
-//    7228 исполь
 
-    private void setEmptyAndHeroChar() {
+    private void setEmptyChar() {
 
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
-                if (i == mapSize / 2 && j == mapSize / 2)
-                    setHeroIcon(i, j);
-                else if (map[i][j] == null)
+                if (map[i][j] == null)
                     setEmptyIcon(i, j);
             }
 
@@ -105,7 +100,7 @@ public class MapConsoleView implements MainMap{
         showMovePosition();
         int choose = Integer.parseInt(this.choose) - 1;
         if (choose == -1) {
-            initCloseLisener();
+            initCloseListener();
             //TODO save the game
         }
         else {
@@ -118,16 +113,16 @@ public class MapConsoleView implements MainMap{
         int x = Map.getMap().getObservers().get(0).getCoordinates().getX();
         int y = Map.getMap().getObservers().get(0).getCoordinates().getY();
         System.out.println("x = " + x + "\ny = " + y);
-                if (moveHeroEnum == MoveHeroEnum.NORTH && (x - 1) >= 0 )//рухаємся в гору
-                    mapController.onClickButton(x - 1, y, this);
-                else if (moveHeroEnum == MoveHeroEnum.SOUTH && ((x + 1) < mapSize))
-                    mapController.onClickButton(x + 1, y, this);
-                else if (moveHeroEnum == MoveHeroEnum.WEST && (y - 1) >= 0)//рухаємся в ліво
-                    mapController.onClickButton(x, y - 1, this);
-                else if (moveHeroEnum == MoveHeroEnum.EAST && (y + 1) < mapSize)//рухаємся в право
-                    mapController.onClickButton(x, y + 1, this);
-                else
-                    System.out.println("Error in move hero. Not corrected coordinates");
+        if (moveHeroEnum == MoveHeroEnum.NORTH && (x - 1) >= 0 )//рухаємся в гору
+            mapController.onClickButton(x - 1, y, this);
+        else if (moveHeroEnum == MoveHeroEnum.SOUTH && ((x + 1) < mapSize))
+            mapController.onClickButton(x + 1, y, this);
+        else if (moveHeroEnum == MoveHeroEnum.WEST && (y - 1) >= 0)//рухаємся в ліво
+            mapController.onClickButton(x, y - 1, this);
+        else if (moveHeroEnum == MoveHeroEnum.EAST && (y + 1) < mapSize)//рухаємся в право
+            mapController.onClickButton(x, y + 1, this);
+        else
+            System.out.println("Error in move hero. Not corrected coordinates");
     }
 
     private void showYesNo() {
@@ -141,7 +136,7 @@ public class MapConsoleView implements MainMap{
     }
 
     @Override
-    public void initCloseLisener() {
+    public void initCloseListener() {
 
         showYesNo();
         int choose = Integer.parseInt(this.yesNo);
