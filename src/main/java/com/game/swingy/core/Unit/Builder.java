@@ -4,15 +4,15 @@ import com.game.swingy.core.Map.UnitTypeFieldEnum;
 
 public interface Builder {
 
-    public void setKindOfUnit(UnitTypeFieldEnum kindOfUnit);
-    public void setName(String name);
-    public void setHeroClass(String heroClass);
-    public void setLevel(int level);
-    public void setExperience(int experience);
-    public void setAttack(int attack);
-    public void setDefense(int defense);
-    public void setHitPoints(int hitPoints);
-    public void setArtefacts(Artefacts artefacts);
-    public void setCoordinates(Coordinates coordinates);
+    void setKindOfUnit(UnitTypeFieldEnum kindOfUnit);
+    void setName(String name);
+    void setHeroClass(String heroClass);
+    void setLevel(int level);
+    void setExperience(int experience);
+    void setAttack(int attack);
+    void setDefense(int defense);
+    void setHitPoints(int hitPoints);
+    void setArtefacts(Artefacts artefacts);
+    void setCoordinates(Coordinates coordinates);
 
 }

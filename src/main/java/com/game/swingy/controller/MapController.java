@@ -8,7 +8,6 @@ import com.game.swingy.core.Unit.Unit;
 import com.game.swingy.view.MainMap;
 import com.game.swingy.view.VillainAllert;
 import com.game.swingy.view.console.VillainAllertConsoleView;
-import com.game.swingy.view.gui.MapGuiView;
 import com.game.swingy.view.gui.VillainAllertGuiView;
 
 import javax.swing.*;
@@ -19,7 +18,6 @@ public class MapController {
 
     private int mapSize;
     private JFrame mapJframe;
-    //private MapGuiView mapGuiView;
     private MainMap mainMap;
     private DbMySQL dbMySQL;
 
@@ -29,7 +27,6 @@ public class MapController {
         int level = Map.getMap().getObservers().get(0).getLevel();
 
         mapSize = getMapSize(level);
-        //mapGuiView = new MapGuiView();
         dbMySQL = Map.getMap().getDbMySQL();
     }
 
@@ -37,67 +34,6 @@ public class MapController {
 
         return (heroLevel - 1) * 5 + 10 - (heroLevel % 2);
     }
-
-    /*private void deAndActivatedbtnUnits() {
-
-        int x = Map.getGameValidator().getObservers().get(0).getCoordinates().getX();
-        int y = Map.getGameValidator().getObservers().get(0).getCoordinates().getY();
-        System.out.println("x = " + x + "\ny = " + y);
-        for (int i = 0; i < mapSize; i++) {
-            for (int j = 0; j < mapSize; j++){
-                if (i == (x - 1) && j == y && (x - 1) < mapSize && (x - 1) >= 0)//рухаємся в гору
-                    mapGuiView.btnUnitsActivated(i, j);
-                else if (i == (x + 1) && j == (y) && (x + 1) < mapSize && (x + 1) >= 0)
-                    mapGuiView.btnUnitsActivated(i, j);
-                else if (i == x && j == (y - 1) && (y - 1) < mapSize && (y - 1) >= 0)//рухаємся в ліво
-                    mapGuiView.btnUnitsActivated(i, j);
-                else if (i == x && j == (y + 1) && (y + 1) < mapSize && (y + 1) >= 0)//рухаємся в право
-                    mapGuiView.btnUnitsActivated(i, j);
-                else if (i == x && j == y)
-                    mapGuiView.btnUnitsActivated(i, j);
-                else
-                    mapGuiView.btnUnitsDeActivated(i,j);
-            }
-        }
-    }*/
-
-    /*private void initMoveHero() {
-
-        for (int i = 0; i < mapSize; i++) {
-            for (int j = 0; j < mapSize; j++) {
-                mapGuiView.getBtnUnits()[i][j].addActionListener(new EmptyButtonListener(i, j) {
-                    public void actionPerformed(ActionEvent e) {
-                        onClickButton(this.getCoordinateX(), this.getCoordinateY());
-                    }
-                });
-            }
-        }
-    }*/
-
-    /*private void initCloseListener() {
-
-        mapGuiView.getJf().addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                int confirmed = JOptionPane.showConfirmDialog(null,
-                        "Are you sure you want to close current game with save?",
-                        "Close Swingy Message Box",
-                        JOptionPane.YES_NO_OPTION);
-
-                if (confirmed == 0) {
-                    fillDataBase();
-                    Map.getGameValidator().deleteVillainFromListofUnit();
-                    Map.getGameValidator().deleteHeroFromListOfUnit();
-                    mapGuiView.getJf().dispose();
-                    //mapGuiView = null;
-                }
-                else {
-                    Map.getGameValidator().deleteVillainFromListofUnit();
-                    Map.getGameValidator().deleteHeroFromListOfUnit();
-                    mapGuiView.getJf().dispose();
-                }
-            }
-        });
-    }*/
 
     public void saveHero() {
 
@@ -118,30 +54,14 @@ public class MapController {
         }
     }
 
-    /*public void onClickButton(int x, int y) {
-
-        int heroX = Map.getGameValidator().getObservers().get(0).getCoordinates().getX();
-        int heroY = Map.getGameValidator().getObservers().get(0).getCoordinates().getY();
-
-        if (heroX == x && heroY == y) {
-            onClickHeroButton();
-        }
-        else if (checkXYInUnitList(x, y)) {
-            onClickVillainsButton(x, y);
-        }
-        else {
-            onClickEmptyButton(x, y);
-        }
-
-    }*/
     public void onClickHeroButton() {
-        System.out.println("On Hero");//TODO if(Map.mode ==?)
+        //TODO if(Map.mode ==?)
+        //TODO hero stat in console mode
         StatisticsController statisticsController = new StatisticsController();
         statisticsController.setHeroFields();
     }
 
     public void onClickVillainsButton(int x, int y) {
-        System.out.println("On Villain");
         Unit villain = getVillian(x, y);
         VillainAllert villainAllert;
         VillainAllertController villainAllertController =
@@ -150,28 +70,7 @@ public class MapController {
             villainAllert = new VillainAllertConsoleView(villainAllertController);
         else
             villainAllert = new VillainAllertGuiView(villainAllertController);
-        System.out.println("yes on villain button");
     }
-
-
-    /*public void onClickEmptyButton(int x, int y) {
-
-        System.out.println("Empty");
-        changeHeroPosition(x, y);
-
-    }*/
-
-    /*public void changeHeroPosition(int toX, int toY) {
-
-        int x = Map.getGameValidator().getObservers().get(0).getCoordinates().getX();
-        int y = Map.getGameValidator().getObservers().get(0).getCoordinates().getY();
-        mapGuiView.setEmptyIcon(x, y);
-        mapGuiView.setHeroIcon(toX, toY);
-        Map.getGameValidator().getObservers().get(0).getCoordinates().setX(toX);
-        Map.getGameValidator().getObservers().get(0).getCoordinates().setY(toY);
-        deAndActivatedbtnUnits();
-        isCheckWinner();
-    }*/
 
     public void changeHeroPosition(int toX, int toY) {
 
@@ -181,18 +80,9 @@ public class MapController {
 
     public void heroKilledVillain(Unit villain) {
 
-//        changeHeroPosition(villain.getCoordinates().getX(), villain.getCoordinates().getY());
         mainMap.changeHeroPosition(villain.getCoordinates().getX(), villain.getCoordinates().getY());
         Map.getMap().unregister(villain);
     }
-
-    /*public void changeIconButton() {
-
-        int x = Map.getGameValidator().getObservers().get(0).getCoordinates().getX();
-        int y = Map.getGameValidator().getObservers().get(0).getCoordinates().getY();
-
-        mapGuiView.changeIconButton(x, y);
-    }*/
 
     public Unit getVillian(int x, int y) {
 
@@ -267,11 +157,8 @@ public class MapController {
 
         if (x == 0 || y == 0 || x == getMapSize() - 1 ||
                 y == getMapSize() - 1) {
-            System.out.println("Mission completed");
             mainMap.showMissionCompletedView();
             Map.getMap().deleteVillainFromListofUnit();
-            //mapGuiView.closeWindow();
-            //mapGuiView.getJf().setVisible(false);
             Map.getMap().fillListOfVillain();
         }
     }
@@ -286,10 +173,6 @@ public class MapController {
 
     public void setMapJframe(JFrame mapJframe) {
         this.mapJframe = mapJframe;
-    }
-
-    public MainMap getMainMap() {
-        return mainMap;
     }
 
     public void setMainMap(MainMap mainMap) {

@@ -14,7 +14,6 @@ public class VillainAllertGuiView implements VillainAllert{
 
     private VillainAllertController allertController;
     private JFrame jf;
-    private JFrame allertFrame;
     private JLabel levellabel1;
     private JLabel levellabel2;
     private JLabel attackLabel1;
@@ -90,7 +89,6 @@ public class VillainAllertGuiView implements VillainAllert{
 
     private void createTools() {
 
-        allertFrame = new JFrame();
         jf = new JFrame("Swingy allert");
         panelMain = new JPanel();
         panelBtn = new JPanel();
@@ -171,20 +169,20 @@ public class VillainAllertGuiView implements VillainAllert{
 
     private void showLucky() {
 
-        JOptionPane.showMessageDialog(allertFrame,
+        JOptionPane.showMessageDialog(null,
                 "That's you lucky");
     }
 
     private void showDisLucky() {
 
-        JOptionPane.showMessageDialog(allertFrame,
+        JOptionPane.showMessageDialog(null,
                 "That's you don't lucky");
     }
 
     public void showFightAllert() {
 
         int res = JOptionPane.showConfirmDialog(
-                allertFrame,
+                null,
                 "Are you sure that you want fight with villain?",
                 "Swingy allert Question",
                 JOptionPane.YES_NO_OPTION);
@@ -198,7 +196,7 @@ public class VillainAllertGuiView implements VillainAllert{
     public void showRunAllert() {
 
         int res = JOptionPane.showConfirmDialog(
-                allertFrame,
+                null,
                 "You have 50% chance of returning to the previous position. " +
                         "If the odds aren’t on your side, you must fight the " +
                         "villian\nAre you sure that you want to run?",
@@ -240,7 +238,4 @@ public class VillainAllertGuiView implements VillainAllert{
         return runBtn;
     }
 
-    public JFrame getJf() {
-        return jf;
-    }
 }

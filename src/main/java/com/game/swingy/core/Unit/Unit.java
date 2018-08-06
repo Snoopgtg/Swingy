@@ -50,14 +50,6 @@ public class Unit {
         return true;
     }
 
-    public UnitTypeFieldEnum getKindOfUnit() {
-        return kindOfUnit;
-    }
-
-    public void setKindOfUnit(UnitTypeFieldEnum kindOfUnit) {
-        this.kindOfUnit = kindOfUnit;
-    }
-
     public String getName() {
         return name;
     }

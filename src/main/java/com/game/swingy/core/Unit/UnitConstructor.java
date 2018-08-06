@@ -51,22 +51,22 @@ public class UnitConstructor {
         builder.setArtefacts(artefacts);
     }
 
-    public void constructVillian0(Builder builder, String name) {
+    public void constructVillian(Builder builder, String name, int level) {
 
         builder.setKindOfUnit(UnitTypeFieldEnum.ENEMY);
         builder.setName(name);
         builder.setHeroClass("Villain");
-        builder.setLevel(0);
-        builder.setAttack(5);
-        builder.setDefense(5);
-        builder.setHitPoints(40);
-        Artefacts artefacts = new Artefacts(20, 2, 2);
+        builder.setLevel(level);
+        builder.setAttack(level * 5 + 5);
+        builder.setDefense(level * 8 + 5);
+        builder.setHitPoints(level * 20 + 50);
+        Artefacts artefacts = new Artefacts(level * 10, level * 5, level * 7);
         builder.setCoordinates(new Coordinates(-1, -1));
         builder.setArtefacts(artefacts);
 
     }
 
-    public void constructVillian1(Builder builder, String name) {
+    /*public void constructVillian1(Builder builder, String name) {
 
         builder.setKindOfUnit(UnitTypeFieldEnum.ENEMY);
         builder.setName(name);
@@ -124,5 +124,5 @@ public class UnitConstructor {
         builder.setCoordinates(new Coordinates(-1, -1));
         builder.setArtefacts(artefacts);
 
-    }
+    }*/
 }

@@ -54,17 +54,6 @@ public class MapGuiView implements MainMap{
 
     }
 
-    public JButton getBtnUnits(int x, int y) {
-
-        for (int i = 0; i < mapSize; i++) {
-            for (int j = 0; j < mapSize; j++){
-                if (i == x && j == y)
-                    return btnUnits[i][j];
-            }
-        }
-        throw new Error("Not valid x and y coordinats");
-    }
-
     private void deAndActivatedbtnUnits() {
 
         int x = Map.getMap().getObservers().get(0).getCoordinates().getX();
@@ -112,31 +101,15 @@ public class MapGuiView implements MainMap{
                         JOptionPane.YES_NO_OPTION);
 
                 if (confirmed == 0) {
-                    /*fillDataBase();
-                    Map.getGameValidator().deleteVillainFromListofUnit();
-                    Map.getGameValidator().deleteHeroFromListOfUnit();*/
                     mapController.saveHero();
                     getJf().dispose();
-                    //mapGuiView = null;
                 }
                 else {
-                    /*Map.getGameValidator().deleteVillainFromListofUnit();
-                    Map.getGameValidator().deleteHeroFromListOfUnit();*/
                     mapController.deleteHeroAndVillainFromListOfUnit();
                     getJf().dispose();
                 }
             }
         });
-    }
-
-    public void setVillainIcon() {
-
-        int length = Map.getMap().getObservers().size();
-        List<Unit> units = Map.getMap().getObservers();
-        for (int i = 1; i < length; i++) {
-            setVilliansIcon(units.get(i).getCoordinates().getX(),
-                    units.get(i).getCoordinates().getY());
-        }
     }
 
     public void onClickVillainsButton(int x, int y) {
@@ -189,17 +162,6 @@ public class MapGuiView implements MainMap{
         deAndActivatedbtnUnits();
         mapController.isCheckWinner(this);
     }
-
-    /*private void isCheckWinner() {
-
-            showMissionCompletedView();
-            Map.getGameValidator().deleteVillainFromListofUnit();
-            //mapGuiView.closeWindow();
-            //mapGuiView.getJf().setVisible(false);
-            getJf().dispose();
-            Map.getGameValidator().fillListOfVillain();
-
-    }*/
 
     public void setVilliansIcon(int x, int y) {
 

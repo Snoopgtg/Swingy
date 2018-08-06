@@ -9,7 +9,7 @@ public class CreateHeroController {
     private String nameHero;
     private String selectedHeroClass;
 
-    public CreateHeroController() {
+    CreateHeroController() {
     }
 
     public void onClickCreate() {
@@ -17,9 +17,6 @@ public class CreateHeroController {
         System.out.println("Отработало создание героя");
         UnitConstructor unitConstructor = new UnitConstructor();
         UnitBuilder unitBuilder = new UnitBuilder();
-
-//        nameHero = createHeroGuiView.getNameHero().getText();
-//        selectedHeroClass = (String) createHeroGuiView.getHeroClassList().getSelectedItem();
 
         switch (selectedHeroClass) {
 
@@ -35,7 +32,6 @@ public class CreateHeroController {
         }
         Map.getMap().register(unitBuilder.createHero());
         Map.getMap().fillListOfVillain();
-        //createHeroGuiView.getJf().dispose();
     }
 
     public void setNameHero(String nameHero) {

@@ -28,7 +28,6 @@ public class PreviousHeroGuiView implements PreviousHero {
         setLoadAction();
         htm.addDate(previousHeroController.getRowValue());
 
-
     }
 
     private void initPreviousHeroView() {
@@ -87,12 +86,14 @@ public class PreviousHeroGuiView implements PreviousHero {
 
                 if (confirmed == JOptionPane.YES_OPTION) {
                     int selectedRow = this.getHeroTable().getSelectedRow();
-                    Object object = this.getHeroTable().getValueAt(selectedRow, 0);
-                    String id = object.toString();
-                    System.out.println(selectedRow);
-                    this.getHtm().delRow(selectedRow);
-                    this.getHtm().fireTableDataChanged();
-                    previousHeroController.delete(Integer.parseInt(id));
+                    if (validateSelectedRow(selectedRow)) {
+                        Object object = this.getHeroTable().getValueAt(selectedRow, 0);
+                        String id = object.toString();
+                        System.out.println(selectedRow);
+                        this.getHtm().delRow(selectedRow);
+                        this.getHtm().fireTableDataChanged();
+                        previousHeroController.delete(Integer.parseInt(id));
+                    }
                 }
             }
         };
@@ -113,25 +114,25 @@ public class PreviousHeroGuiView implements PreviousHero {
                         JOptionPane.YES_NO_OPTION);
 
                 if (confirmed == JOptionPane.YES_OPTION) {
-                    //TODO load hero
                     int selectedRow = this.getHeroTable().getSelectedRow();
-                    Object object = this.getHeroTable().getValueAt(selectedRow, 0);
-                    String id = object.toString();
-                    previousHeroController.load(Integer.parseInt(id));
-                    this.getjFrame().dispose();
+                    if (validateSelectedRow(selectedRow)) {
+                        Object object = this.getHeroTable().getValueAt(selectedRow, 0);
+                        String id = object.toString();
+                        previousHeroController.load(Integer.parseInt(id));
+                        this.getjFrame().dispose();
+                    }
                 }
             }
         };
     }
 
-    public JFrame getFrame() {
-        return frame;
-    }
-    public HeroTableModel getHeroTableModel() {
-        return htm;
-    }
-    public JTable getHeroTable() {
-        return heroTable;
-    }
+    private boolean validateSelectedRow(int selectedRow) {
 
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null,
+                    "You must select a row");
+            return false;
+        }
+        return true;
+    }
 }

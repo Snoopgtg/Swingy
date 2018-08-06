@@ -26,7 +26,12 @@ public class Hero extends Unit {
 
     public void levelUp() {
 
-        if (experience >= 1000 && experience < 2450)
+         int nextExpa = (this.level + 1) * 1000 + this.level ^ 2 * 450;
+         if (experience >= nextExpa) {
+             this.level += 1;
+         }
+
+        /*if (experience >= 1000 && experience < 2450)
             this.level = 1;
         else if (experience >= 2450 && experience < 4800)
             this.level = 2;
@@ -35,11 +40,12 @@ public class Hero extends Unit {
         else if (experience >= 8050 && experience < 12200)
             this.level = 4;
         else if (experience >= 12200)
-            this.level = 5;
+            this.level = 5;*/
     }
 
-    public boolean isLevel5() {
+    public boolean isEndOfGame() {
 
+        //TODO Enum endOfGame
         if (level == 5)
             return true;
         return false;

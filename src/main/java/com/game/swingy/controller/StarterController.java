@@ -21,7 +21,6 @@ public class StarterController {
     public void onClickCreateHero() {
         CreateHeroController createHeroController = new CreateHeroController();
 
-        System.out.println("Отработало создание контроллера");
         if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
             CreateHeroConsoleView createHeroConsoleView =
                     new CreateHeroConsoleView(createHeroController);
@@ -53,8 +52,6 @@ public class StarterController {
                 JOptionPane.showMessageDialog(null,
                     "At this time, you don't have saving hero");
         }
-        //bc.setVisible(true);
-        //bc.createAndShowGUI();
     }
 
     //TODO close starterView

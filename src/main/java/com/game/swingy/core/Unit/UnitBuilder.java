@@ -64,7 +64,6 @@ public class UnitBuilder implements Builder {
 
     @Override
     public void setCoordinates(Coordinates coordinates) {
-//        int mapSize = Map.getGameValidator().getMapSize();
         this.coordinates = coordinates;
     }
 

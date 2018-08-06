@@ -101,7 +101,6 @@ public class MapConsoleView implements MainMap{
         int choose = Integer.parseInt(this.choose) - 1;
         if (choose == -1) {
             initCloseListener();
-            //TODO save the game
         }
         else {
             MoveHeroEnum moveHeroEnum = MoveHeroEnum.values()[choose];

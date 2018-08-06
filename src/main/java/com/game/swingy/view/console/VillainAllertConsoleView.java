@@ -43,7 +43,6 @@ public class VillainAllertConsoleView implements VillainAllert{
 
         showYesNo();
         int choose = Integer.parseInt(this.yesNo);
-        //TODO check validate
         if (choose == 1)
             showFightAllert();
         else
@@ -58,12 +57,9 @@ public class VillainAllertConsoleView implements VillainAllert{
         if (random.nextBoolean()) {
             System.out.println("That's you don't lucky");
             allertController.onClickRunYes();
-
-        }
+      }
         else {
             System.out.println("That's you lucky");
-
-            // todo test error
             allertController.getMapController().getMapJframe().setVisible(true);
         }
     }
@@ -86,7 +82,6 @@ public class VillainAllertConsoleView implements VillainAllert{
         showRunAllertChoose();
 
         int choose = Integer.parseInt(this.yesNo);
-        //TODO check validate
         if (choose == 1)
             onClickRunYes();
         else
@@ -114,7 +109,6 @@ public class VillainAllertConsoleView implements VillainAllert{
         }
         else
             initBtn();
-
     }
 
     @Override

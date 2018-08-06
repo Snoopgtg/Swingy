@@ -8,9 +8,7 @@ import com.game.swingy.view.CreateHero;
 import com.game.swingy.view.StartView;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.swing.*;
 import javax.validation.constraints.*;
-import java.awt.event.WindowEvent;
 import java.util.Scanner;
 
 public class CreateHeroConsoleView implements CreateHero{

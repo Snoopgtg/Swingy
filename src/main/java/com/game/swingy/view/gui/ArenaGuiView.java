@@ -55,6 +55,8 @@ public class ArenaGuiView implements Arena{
     private JPanel panelVillian;
     private JButton heroBtn;
     private JButton villianBtn;
+    private JLabel helmLabel1;
+    private JLabel helmLabel2;
 
     public ArenaGuiView(ArenaController arenaController) {
 
@@ -93,7 +95,6 @@ public class ArenaGuiView implements Arena{
             showLoser();
             exitWindow();
         }
-        //arenaController.onClickVillain();
     }
 
     public void onClickHero() {
@@ -118,7 +119,7 @@ public class ArenaGuiView implements Arena{
     }
 
     public void setTextOnVillainLable(int level, int attack, int weapon, int defense,
-                                  int armor, int health) {
+                                      int armor, int helm, int health) {
 
         levellabel2.setText(Integer.toString(level));
         attackLabel2.setText(Integer.toString(attack) +
@@ -127,6 +128,7 @@ public class ArenaGuiView implements Arena{
                 " + " + Integer.toString(armor));
         weaponLabel2.setText(Integer.toString(weapon));
         armorLabel2.setText(Integer.toString(armor));
+        helmLabel2.setText(Integer.toString(helm));
         healthLabel2.setText(Integer.toString(health));
     }
 
@@ -228,10 +230,16 @@ public class ArenaGuiView implements Arena{
         panelVillian.add(armorLabel2, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(healthLabel1, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillian.add(helmLabel1, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(healthLabel2, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillian.add(helmLabel2, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+                GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
+                0,0));
+        panelVillian.add(healthLabel1, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+                GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
+                0,0));
+        panelVillian.add(healthLabel2, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
     }
@@ -329,11 +337,6 @@ public class ArenaGuiView implements Arena{
         labelArmor2 = new JLabel();
         labelHealth1 = new JLabel("Health");
         labelHealth2 = new JLabel();
-        /*jf.setLayout(new FlowLayout());
-        jf.setSize(250, 350);
-        //jf.pack();
-        jf.setVisible(true);
-        jf.setLocationRelativeTo(null);*/
     }
 
     private void createVillianTools() {
@@ -354,15 +357,10 @@ public class ArenaGuiView implements Arena{
         weaponLabel2 = new JLabel();
         armorLabel1 = new JLabel("Points plus to defense");
         armorLabel2 = new JLabel();
+        helmLabel1 = new JLabel("Helm");
+        helmLabel2 = new JLabel();
         healthLabel1 = new JLabel("Health");
         healthLabel2 = new JLabel();
-        /*jf.setLayout(new FlowLayout());
-        jf.setSize(220, 250);
-        //jf.pack();
-        jf.setResizable(false);
-
-        jf.setVisible(true);
-        jf.setLocationRelativeTo(null);*/
     }
 
     public int showArtefacts() {
@@ -417,82 +415,4 @@ public class ArenaGuiView implements Arena{
         WindowEvent windowEvent = new WindowEvent(jf, WindowEvent.WINDOW_CLOSING);
         jf.dispatchEvent(windowEvent);
     }
-
-    public JFrame getJf() {
-        return jf;
-    }
-
-    public JLabel getLevellabel2() {
-        return levellabel2;
-    }
-
-    public JLabel getAttackLabel2() {
-        return attackLabel2;
-    }
-
-    public JLabel getDefenseLabel2() {
-        return defenseLabel2;
-    }
-
-    public JLabel getWeaponLabel2() {
-        return weaponLabel2;
-    }
-
-    public JLabel getArmorLabel2() {
-        return armorLabel2;
-    }
-
-    public JLabel getHealthLabel2() {
-        return healthLabel2;
-    }
-
-    public JLabel getLabelHeroName2() {
-        return labelHeroName2;
-    }
-
-    public JLabel getLabelHeroCass2() {
-        return labelHeroCass2;
-    }
-
-    public JLabel getLabelHeroLevel2() {
-        return labelHeroLevel2;
-    }
-
-    public JLabel getLabelHeroExp2() {
-        return labelHeroExp2;
-    }
-
-    public JLabel getLabelAttack2() {
-        return labelAttack2;
-    }
-
-    public JLabel getLabelDefense2() {
-        return labelDefense2;
-    }
-
-    public JLabel getLabelWeapon2() {
-        return labelWeapon2;
-    }
-
-    public JLabel getLabelArmor2() {
-        return labelArmor2;
-    }
-
-    public JLabel getLabelHealth2() {
-        return labelHealth2;
-    }
-
-    public JLabel getTurnLable() {
-        return turnLable;
-    }
-
-    public JButton getHeroBtn() {
-        return heroBtn;
-    }
-
-    public JButton getVillianBtn() {
-        return villianBtn;
-    }
-
-
 }

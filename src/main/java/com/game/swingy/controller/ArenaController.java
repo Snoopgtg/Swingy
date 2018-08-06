@@ -5,14 +5,12 @@ import com.game.swingy.core.Unit.Artefacts;
 import com.game.swingy.core.Unit.Hero.Hero;
 import com.game.swingy.core.Unit.Unit;
 import com.game.swingy.view.Arena;
-import com.game.swingy.view.gui.ArenaGuiView;
 
 import java.util.Random;
 
 public class ArenaController {
 
     private int villainHealth;
-    private ArenaGuiView arenaGuiView;
     private Arena arena;
     private MapController mapController;
     private Unit villain;
@@ -37,7 +35,7 @@ public class ArenaController {
 
     public boolean isLevel5() {
 
-        return hero.isLevel5();
+        return hero.isEndOfGame();
     }
 
     public void villainDie() {
@@ -45,7 +43,7 @@ public class ArenaController {
         Random random = new Random();
         hero.experienceUp(this.villainHealth);
         hero.levelUp();
-        //if (random.nextInt(2) == 0)
+        if (random.nextInt(2) == 0)
             setArtefacts();
         mapController.heroKilledVillain(this.villain);
         if (mapController.getMapJframe() != null)
@@ -100,11 +98,11 @@ public class ArenaController {
         int defense = villain.getDefense();
         int weapon = villain.getArtefacts().getWeapon();
         int armor = villain.getArtefacts().getArmor();
-        //TODO add helm
+        int helm = villain.getArtefacts().getHelm();
         int health = villain.getHitPoints();
 
         arena.setTextOnVillainLable(level, attack, weapon,
-                defense, armor, health);
+                defense, armor, helm, health);
 
     }
 
@@ -131,10 +129,6 @@ public class ArenaController {
 
     public void setVillain(Unit villain) {
         this.villain = villain;
-    }
-
-    public Arena getArena() {
-        return arena;
     }
 
     public void setArena(Arena arena) {

@@ -41,15 +41,12 @@ public class DbMySQL {
 
         try {
             //Execute a query
-            System.out.println("Creating database...");
             statement = conn.createStatement();
 
             String sql = "CREATE DATABASE IF NOT EXISTS " + dbName;
             statement.executeUpdate(sql);
-            System.out.println("Database created successfully...");
 
             //Open a connection
-            System.out.println("Connecting to database...");
             conn.setCatalog(dbName);
         }
         catch (SQLException e) {
@@ -119,7 +116,6 @@ public class DbMySQL {
             Class.forName(JDBC_DRIVER);
 
             //Execute a query
-            System.out.println("Creating table in given database...");
             statement = conn.createStatement();
 
             statement.executeUpdate(hero);
@@ -163,7 +159,6 @@ public class DbMySQL {
             Class.forName(JDBC_DRIVER);
 
             //Execute a query
-            System.out.println("Fill Unit table in Swingy database...");
             statement = conn.createStatement();
 
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -225,7 +220,6 @@ public class DbMySQL {
 
 
             //Execute a query
-            System.out.println("Get Data from Swingy database...");
             statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Hero");
             while (rs.next()) {
@@ -269,7 +263,6 @@ public class DbMySQL {
 
 
             //Execute a query
-            System.out.println("Get Data from Swingy database...");
             statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Hero WHERE id = " + heroId);
             while (rs.next()) {
@@ -313,7 +306,6 @@ public class DbMySQL {
 
 
             //Execute a query
-            System.out.println("Get Data from Swingy database...");
             statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Villain WHERE heroId = " + heroId);
             while (rs.next()) {
@@ -354,10 +346,8 @@ public class DbMySQL {
 
 
             //Execute a query
-            System.out.println("Get Data from Swingy database...");
             statement = conn.createStatement();
             statement.execute("DELETE FROM Hero WHERE id = " + heroId);
-//TODO правильно видалити в героя та вогоро в обох таблицях
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -372,10 +362,7 @@ public class DbMySQL {
         try {
             //Register JDBC driver
             Class.forName(JDBC_DRIVER);
-
-
             //Execute a query
-            System.out.println("Get Data from Swingy database...");
             statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Hero");
             return rs.next();

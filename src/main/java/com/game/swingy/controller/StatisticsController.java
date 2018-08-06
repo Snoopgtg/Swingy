@@ -47,16 +47,9 @@ public class StatisticsController {
 
         heroStatisticsView.getBtnOk().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//                onClickOk();
                 heroStatisticsView.getJf().dispose();
 
             }
         });
-    }
-
-    private void onClickOk() {
-
-        WindowEvent windowEvent = new WindowEvent(heroStatisticsView.getJf(), WindowEvent.WINDOW_CLOSING);
-        heroStatisticsView.getJf().dispatchEvent(windowEvent);
     }
 }

@@ -14,7 +14,6 @@ public class StartConsoleView implements StartView {
     @Min(value = 0, message = "ERROR You should choose one option 1,2 or 0")
     @Max(value = 2, message = "ERROR You should choose one option 1,2 or 0")
     @Pattern(regexp = "^\\d+$", message = "ERROR only digits allowed")
-
     private String  choose;
 
     private StarterController starterController;
@@ -22,10 +21,8 @@ public class StartConsoleView implements StartView {
     public StartConsoleView(StarterController starterController) {
 
         this.starterController = starterController;
-
         System.out.println("Console game started");
         this.showSelector();
-
 
     }
 
@@ -39,6 +36,7 @@ public class StartConsoleView implements StartView {
         Scanner sc = new Scanner(System.in); // object for scanner
 
         this.choose = sc.next();
+        //TODO розібратися як закрити сканер щоб не сканував все що ввели
 
         if (GameValidator.getGameValidator().validate(this)) {
             int choose = Integer.parseInt(this.choose);

@@ -5,14 +5,10 @@ import com.game.swingy.controller.StarterController;
 import com.game.swingy.core.Map.GameValidator;
 import com.game.swingy.view.PreviousHero;
 import com.game.swingy.view.StartView;
-import com.game.swingy.view.gui.HeroTableModel;
 
-import javax.swing.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
-import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -58,14 +54,6 @@ public class PreviousHeroConsoleView implements PreviousHero {
             System.out.println("Select correct ID");
             showChooseHeroIdMessage();
         }
-        /*String[] strings = (String[]) dataArrayList.get(choose - 1);
-        int idForDB = Integer.parseInt(strings[0]);
-        if (!previousHeroController.hasSelectedHeroId(idForDB)) {
-
-            System.out.format("Hero with id %s doesn't exist\n", id);
-            showChooseHeroIdMessage();
-        }*/
-
     }
 
     private void initChoose() {
@@ -79,14 +67,11 @@ public class PreviousHeroConsoleView implements PreviousHero {
         }
         else {
 
-            //TODO validate
-
             System.out.format("Selected id is %d%n", id);
             showLoadDelete();
             int choose = Integer.parseInt(selectedLoadDel);
             String[] strings = dataArrayList.get(id - 1);
             int idForDB = Integer.parseInt(strings[0]);
-            //TODO validate
             if (choose == 1)
                 previousHeroController.load(idForDB);
             else if (choose == 2){
@@ -98,7 +83,6 @@ public class PreviousHeroConsoleView implements PreviousHero {
                 printTable();
                 initChoose();
             }
-            //TODO 0 - back
         }
     }
 

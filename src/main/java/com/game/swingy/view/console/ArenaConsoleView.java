@@ -72,7 +72,7 @@ public class ArenaConsoleView implements Arena{
     }
 
     @Override
-    public void setTextOnVillainLable(int level, int attack, int weapon, int defense, int armor, int health) {
+    public void setTextOnVillainLable(int level, int attack, int weapon, int defense, int armor, int helm, int health) {
         System.out.println("======= VILLAIN =======");
         System.out.format("Villain level ---> %s\n", level);
         System.out.format("Villain attack ---> %s + %s\n", attack, weapon);
@@ -105,7 +105,6 @@ public class ArenaConsoleView implements Arena{
         }
         System.out.println("You win villain");
         arenaController.villainDie();
-        // TODO closeWindow();
 
     }
 
@@ -139,7 +138,6 @@ public class ArenaConsoleView implements Arena{
         artefactSelected = sc.next();
         if (!GameValidator.getGameValidator().validate(this))
             showArtefacts();
-        int choose = Integer.parseInt(artefactSelected) - 1;
-        return choose;
+        return (Integer.parseInt(artefactSelected) - 1);
     }
 }

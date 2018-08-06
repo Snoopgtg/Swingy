@@ -1,28 +1,13 @@
 package com.game.swingy;
 
 import com.game.swingy.controller.StarterController;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import javax.validation.constraints.Size;
 import com.game.swingy.core.Map.Map;
 import com.game.swingy.core.Map.ModeEnum;
 import com.game.swingy.view.StartView;
 import com.game.swingy.view.console.StartConsoleView;
 import com.game.swingy.view.gui.StartGuiView;
 
-import java.util.Set;
-
 public class Game {
-
-    /*@Size(min = 1, max = 1, message = "Usage: [console | gui]")
-    private String[] gameArgs;
-
-    private void setArgs(String[] args) {
-        this.gameArgs = args;
-    }*/
 
     public static void main(String[] args) {
 
@@ -48,7 +33,4 @@ public class Game {
                 System.exit(2);
         }
     }
-
-
-    //starterController.initGame();
 }
