@@ -1,9 +1,13 @@
 package com.game.swingy.view.gui;
 
 import com.game.swingy.controller.CreateHeroController;
+import com.game.swingy.core.Map.GameValidator;
 import com.game.swingy.view.CreateHero;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.swing.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +15,10 @@ import java.awt.event.WindowEvent;
 
 public class CreateHeroGuiView implements CreateHero{
 
+    @NotBlank(message="ERROR: name must be not empty")
+    @NotNull(message="ERROR: name must be not empty")
+    @Size(max = 10, message="Max length of name is 10")
+    private String name;
     private JFrame jf;
     private JLabel labelName;
     private JLabel labelHeroType;
@@ -52,27 +60,33 @@ public class CreateHeroGuiView implements CreateHero{
 
     }
 
+    public void validateName(String name) {
+
+        this.name = name;
+        if (GameValidator.getGameValidator().validate(this)) {
+            createHeroController.setNameHero(name);
+            createHeroController.setSelectedHeroClass((String)getHeroClassList().getSelectedItem());
+            createHeroController.onClickCreate();
+            jf.dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(null,
+                    "ERROR: name must be not empty");
+            //TODO вивести повідомлення коли більше 10символів
+        }
+    }
+
     @Override
     public void createNewHero() {
         this.btnCreate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                createHeroController.setNameHero(getNameHero().getText());
-                createHeroController.setSelectedHeroClass((String)getHeroClassList().getSelectedItem());
-                createHeroController.onClickCreate();
-                jf.dispose();
+                validateName(nameHero.getText());
+
             }
         });
     }
 
-    public JTextField getNameHero() {
-        return nameHero;
-    }
-
     public JComboBox<String> getHeroClassList() {
         return heroClassList;
-    }
-
-    public JFrame getJf() {
-        return jf;
     }
 }

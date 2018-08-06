@@ -20,8 +20,8 @@ import java.util.Scanner;
 public class PreviousHeroConsoleView implements PreviousHero {
 
     @Pattern(regexp = "^\\d+$", message = "ERROR only digits allowed")
-    @Min(value = 1, message = "ERROR You should choose one option 1 or 2")
-    @Max(value = 2, message = "ERROR You should choose one option 1 or 2")
+    @Min(value = 0, message = "ERROR You should choose one option 1, 2 or 0")
+    @Max(value = 2, message = "ERROR You should choose one option 1, 2 or 0")
     private String selectedLoadDel;
 
     @Pattern(regexp = "^\\d+$", message = "ERROR only digits allowed")
@@ -89,18 +89,24 @@ public class PreviousHeroConsoleView implements PreviousHero {
             //TODO validate
             if (choose == 1)
                 previousHeroController.load(idForDB);
-            else {
+            else if (choose == 2){
                 dataArrayList.remove(id - 1);
                 previousHeroController.delete(idForDB);
                 setDeleteAction();
             }
+            else {
+                printTable();
+                initChoose();
+            }
+            //TODO 0 - back
         }
     }
 
     private void showLoadDelete() {
 
         System.out.println("1 - load\n" +
-                           "2 - delete\n");
+                           "2 - delete\n\n" +
+                           "0 - back");
         this.selectedLoadDel = sc.next();
         if (!GameValidator.getGameValidator().validate(this))
             showLoadDelete();

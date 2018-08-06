@@ -65,7 +65,6 @@ public class CreateHeroConsoleView implements CreateHero{
                 "2 - Skissor\n" +
                 "3 - Peltasts\n\n" +
                 "0 - back to start game");
-        //TODO перевірка вводу
         heroClass = sc.next();
         if (!GameValidator.getGameValidator().validate(this)) {
             showChooseType();
