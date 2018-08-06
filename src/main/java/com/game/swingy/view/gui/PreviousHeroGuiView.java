@@ -93,7 +93,6 @@ public class PreviousHeroGuiView implements PreviousHero {
                     this.getHtm().delRow(selectedRow);
                     this.getHtm().fireTableDataChanged();
                     previousHeroController.delete(Integer.parseInt(id));
-                    previousHeroController.isEmptyHeroDB();
                 }
             }
         };

@@ -46,7 +46,7 @@ public class PreviousHeroController {
                     System.out.println(selectedRow);
                     this.getHtm().delRow(selectedRow);
                     this.getHtm().fireTableDataChanged();
-                    Map.getMap().getDbMySQL().deleteRow(Integer.parseInt(id));
+                    Map.getGameValidator().getDbMySQL().deleteRow(Integer.parseInt(id));
                 }
             }
         };
@@ -61,7 +61,7 @@ public class PreviousHeroController {
 
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedHero(selectedId));
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedVillain(selectedId));
-        MapController mapController = new MapController();
+        com.game.swingy.controller.MapController mapController = new com.game.swingy.controller.MapController();
         MainMap mainMap;
         if (Map.getMap().getMode() == ModeEnum.CONSOLE)
             mainMap = new MapConsoleView(mapController);
@@ -69,21 +69,7 @@ public class PreviousHeroController {
             mainMap = new MapGuiView(mapController);
             mapController.setVillainIcon();
         }
-//        Map.getMap().setVillainIcon();
-    }
-
-    public void isEmptyHeroDB() {
-
-        if (Map.getMap().getDbMySQL().isEmptyHeroTable()) {
-            if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
-                System.out.println("At this time, you don't have saving hero");
-                StarterController starterController = new StarterController();
-                StartView startView = new StartConsoleView(starterController);
-            }
-            else
-                JOptionPane.showMessageDialog(null,
-                        "At this time, you don't have saving hero");
-        }
+//        Map.getGameValidator().setVillainIcon();
     }
 
     /*private ActionListener loadActionGui() {
@@ -105,8 +91,8 @@ public class PreviousHeroController {
                     int selectedRow = this.getHeroTable().getSelectedRow();
                     Object object = this.getHeroTable().getValueAt(selectedRow, 0);
                     String id = object.toString();
-                    Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedHero(Integer.parseInt(id)));
-                    Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedVillain(Integer.parseInt(id)));
+                    Map.getGameValidator().loadUnits(Map.getGameValidator().getDbMySQL().getSelectedHero(Integer.parseInt(id)));
+                    Map.getGameValidator().loadUnits(Map.getGameValidator().getDbMySQL().getSelectedVillain(Integer.parseInt(id)));
                     MapController mapController = new MapController();
                     //mapController.setVillainIcon();//TODO закоментував щоб запустилося
                     this.getjFrame().dispose();

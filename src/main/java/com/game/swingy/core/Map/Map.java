@@ -196,7 +196,7 @@ public class Map {
     /*public int getMapSize() {
         if(map == null)
             return 5;
-        int heroLevel = Map.getMap().getObservers().get(0).getLevel();
+        int heroLevel = Map.getGameValidator().getObservers().get(0).getLevel();
         return (heroLevel - 1) * 5 + 10 - (heroLevel % 2);
     }*/
 }

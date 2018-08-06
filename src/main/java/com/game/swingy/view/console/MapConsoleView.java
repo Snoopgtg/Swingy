@@ -2,6 +2,7 @@ package com.game.swingy.view.console;
 
 import com.game.swingy.controller.MapController;
 import com.game.swingy.controller.StarterController;
+import com.game.swingy.core.Map.GameValidator;
 import com.game.swingy.core.Map.HeroClassEnum;
 import com.game.swingy.core.Map.Map;
 import com.game.swingy.view.MainMap;
@@ -9,12 +10,26 @@ import com.game.swingy.view.StartView;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.util.Scanner;
 
 public class MapConsoleView implements MainMap{
 
+    @Pattern(regexp = "^\\d+$", message = "ERROR only digits allowed")
+    @Min(value = 0, message = "ERROR You should choose one option 1, 2, 3, 4 or 0")
+    @Max(value = 4, message = "ERROR You should choose one option 1, 2, 3, 4 or 0")
+    private String choose;
+
+    @Pattern(regexp = "^\\d+$", message = "ERROR only digits allowed")
+    @Min(value = 1, message = "ERROR You should choose one option 1 or 2")
+    @Max(value = 2, message = "ERROR You should choose one option 1 or 2")
+    private String yesNo;
+
+    private Scanner sc;
     private MapController mapController;
     private int mapSize;
     private Character[][] map;
@@ -23,6 +38,7 @@ public class MapConsoleView implements MainMap{
        this.mapController = mapController;
        this.mapSize = mapController.getMapSize();
        this.map = new Character[mapSize][mapSize];
+       sc = new Scanner(System.in);
        mapController.setRandomCoordinates(this);
        mapController.setMainMap(this);
        mapController.setVillainIcon();
@@ -69,8 +85,7 @@ public class MapConsoleView implements MainMap{
             System.out.print("-");
     }
 
-    @Override
-    public void initMoveHero() {
+    private void showMovePosition() {
 
         System.out.println("Move your hero on 1 from 4 position: \n" +
                 "1 - North\n" +
@@ -78,8 +93,17 @@ public class MapConsoleView implements MainMap{
                 "3 - South\n" +
                 "4 - West\n\n" +
                 "0 - save");
-        Scanner sc = new Scanner(System.in); // object for scanner
-        int choose = sc.nextInt() - 1;
+        this.choose = sc.next();
+        if (!GameValidator.getGameValidator().validate(this))
+            showMovePosition();
+
+    }
+
+    @Override
+    public void initMoveHero() {
+
+        showMovePosition();
+        int choose = Integer.parseInt(this.choose) - 1;
         if (choose == -1) {
             initCloseLisener();
             //TODO save the game
@@ -106,14 +130,21 @@ public class MapConsoleView implements MainMap{
                     System.out.println("Error in move hero. Not corrected coordinates");
     }
 
-    @Override
-    public void initCloseLisener() {
+    private void showYesNo() {
 
         System.out.println("Are you sure you want to close current game with save?\n" +
                 "1 - yes\n" +
                 "2 - no");
-        Scanner sc = new Scanner(System.in); // object for scanner
-        int choose = sc.nextInt();
+        yesNo = sc.next();
+        if (!GameValidator.getGameValidator().validate(this))
+            showYesNo();
+    }
+
+    @Override
+    public void initCloseLisener() {
+
+        showYesNo();
+        int choose = Integer.parseInt(this.yesNo);
         if (choose == 1) {
             mapController.saveHero();
         }

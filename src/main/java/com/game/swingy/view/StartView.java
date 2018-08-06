@@ -4,5 +4,4 @@ public interface StartView {
 
     void createHero();
     void previouslyHeroes();
-
 }

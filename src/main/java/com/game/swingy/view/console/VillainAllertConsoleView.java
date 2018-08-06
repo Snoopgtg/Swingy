@@ -1,28 +1,48 @@
 package com.game.swingy.view.console;
 
 import com.game.swingy.controller.VillainAllertController;
+import com.game.swingy.core.Map.GameValidator;
 import com.game.swingy.view.VillainAllert;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.util.Random;
 import java.util.Scanner;
 
 public class VillainAllertConsoleView implements VillainAllert{
 
+    @Pattern(regexp = "^\\d+$", message = "ERROR only digits allowed")
+    @Min(value = 1, message = "ERROR You should choose one option 1 or 2")
+    @Max(value = 2, message = "ERROR You should choose one option 1 or 2")
+    private String yesNo;
+
+    private Scanner sc;
     private VillainAllertController allertController;
 
     public VillainAllertConsoleView(VillainAllertController allertController) {
 
         this.allertController = allertController;
+        this.sc = new Scanner(System.in);
         allertController.getTextOnBtnLabel(this);
         initBtn();
     }
 
-    @Override
-    public void initBtn() {
+    private void showYesNo() {
+
         System.out.println("1 - Fight\n" +
                            "2 - Run");
         Scanner sc = new Scanner(System.in);
-        int choose = sc.nextInt();
+        yesNo = sc.next();
+        if (!GameValidator.getGameValidator().validate(this))
+            showYesNo();
+    }
+
+    @Override
+    public void initBtn() {
+
+        showYesNo();
+        int choose = Integer.parseInt(this.yesNo);
         //TODO check validate
         if (choose == 1)
             showFightAllert();
@@ -46,16 +66,24 @@ public class VillainAllertConsoleView implements VillainAllert{
         }
     }
 
+    private void showRunAllertChoose() {
+
+        System.out.println("You have 50% chance of returning to the previous position. " +
+                "If the odds aren’t on your side, you must fight the " +
+                "villian\nAre you sure that you want to run?\n" +
+                "1 - yes\n" +
+                "2 - no");
+        yesNo = sc.next();
+        if (!GameValidator.getGameValidator().validate(this))
+            showRunAllertChoose();
+    }
+
     @Override
     public void showRunAllert() {
 
-        System.out.println("You have 50% chance of returning to the previous position. " +
-                        "If the odds aren’t on your side, you must fight the " +
-                        "villian\nAre you sure that you want to run?\n" +
-                "1 - yes\n" +
-                "2 - no");
-        Scanner sc = new Scanner(System.in);
-        int choose = sc.nextInt();
+        showRunAllertChoose();
+
+        int choose = Integer.parseInt(this.yesNo);
         //TODO check validate
         if (choose == 1)
             onClickRunYes();
@@ -65,14 +93,20 @@ public class VillainAllertConsoleView implements VillainAllert{
 
     }
 
-    @Override
-    public void showFightAllert() {
-
+    private void showFightAllertChoose() {
         System.out.println("Are you sure that you want fight with villain?\n" +
                 "1 - yes\n" +
                 "2 - no\n");
-        Scanner sc = new Scanner(System.in);
-        int choose = sc.nextInt();
+        yesNo = sc.next();
+        if (!GameValidator.getGameValidator().validate(this))
+            showFightAllertChoose();
+    }
+
+    @Override
+    public void showFightAllert() {
+
+        showFightAllertChoose();
+        int choose = Integer.parseInt(yesNo);
         //TODO check validate
         if (choose == 1) {
             allertController.onClickRunYes();

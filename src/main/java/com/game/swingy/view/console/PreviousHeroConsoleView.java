@@ -1,7 +1,9 @@
 package com.game.swingy.view.console;
 
 import com.game.swingy.controller.PreviousHeroController;
+import com.game.swingy.controller.StarterController;
 import com.game.swingy.view.PreviousHero;
+import com.game.swingy.view.StartView;
 import com.game.swingy.view.gui.HeroTableModel;
 
 import javax.swing.*;
@@ -31,22 +33,28 @@ public class PreviousHeroConsoleView implements PreviousHero {
 
     private void initChoose() {
 
-        System.out.println("Choose the hero ID to load or delete");
+        System.out.println("Choose the hero ID to load or delete (0 - back)");
         Scanner sc = new Scanner(System.in);
         int id = sc.nextInt();
-        //TODO validate
-        System.out.format("Selected id is %d%n1 - load%n2 - delete%n", id);
-        int choose = sc.nextInt();
-        String[] strings = (String[]) dataArrayList.get(id);
-        int idForDB = Integer.parseInt(strings[0]);
-        //TODO validate
-        if (choose == 1)
-            previousHeroController.load(idForDB);
+        if (id == 0) {
+            StarterController starterController = new StarterController();
+            StartView startView = new StartConsoleView(starterController);
+        }
         else {
-            dataArrayList.remove(id);
-            previousHeroController.delete(idForDB);
-            previousHeroController.isEmptyHeroDB();
-            setDeleteAction();
+
+            //TODO validate
+            System.out.format("Selected id is %d%n1 - load%n2 - delete%n", id);
+            int choose = sc.nextInt();
+            String[] strings = (String[]) dataArrayList.get(id);
+            int idForDB = Integer.parseInt(strings[0]);
+            //TODO validate
+            if (choose == 1)
+                previousHeroController.load(idForDB);
+            else {
+                dataArrayList.remove(id);
+                previousHeroController.delete(idForDB);
+                setDeleteAction();
+            }
         }
     }
 

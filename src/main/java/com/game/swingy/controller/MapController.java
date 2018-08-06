@@ -40,8 +40,8 @@ public class MapController {
 
     /*private void deAndActivatedbtnUnits() {
 
-        int x = Map.getMap().getObservers().get(0).getCoordinates().getX();
-        int y = Map.getMap().getObservers().get(0).getCoordinates().getY();
+        int x = Map.getGameValidator().getObservers().get(0).getCoordinates().getX();
+        int y = Map.getGameValidator().getObservers().get(0).getCoordinates().getY();
         System.out.println("x = " + x + "\ny = " + y);
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++){
@@ -85,14 +85,14 @@ public class MapController {
 
                 if (confirmed == 0) {
                     fillDataBase();
-                    Map.getMap().deleteVillainFromListofUnit();
-                    Map.getMap().deleteHeroFromListOfUnit();
+                    Map.getGameValidator().deleteVillainFromListofUnit();
+                    Map.getGameValidator().deleteHeroFromListOfUnit();
                     mapGuiView.getJf().dispose();
                     //mapGuiView = null;
                 }
                 else {
-                    Map.getMap().deleteVillainFromListofUnit();
-                    Map.getMap().deleteHeroFromListOfUnit();
+                    Map.getGameValidator().deleteVillainFromListofUnit();
+                    Map.getGameValidator().deleteHeroFromListOfUnit();
                     mapGuiView.getJf().dispose();
                 }
             }
@@ -120,8 +120,8 @@ public class MapController {
 
     /*public void onClickButton(int x, int y) {
 
-        int heroX = Map.getMap().getObservers().get(0).getCoordinates().getX();
-        int heroY = Map.getMap().getObservers().get(0).getCoordinates().getY();
+        int heroX = Map.getGameValidator().getObservers().get(0).getCoordinates().getX();
+        int heroY = Map.getGameValidator().getObservers().get(0).getCoordinates().getY();
 
         if (heroX == x && heroY == y) {
             onClickHeroButton();
@@ -163,12 +163,12 @@ public class MapController {
 
     /*public void changeHeroPosition(int toX, int toY) {
 
-        int x = Map.getMap().getObservers().get(0).getCoordinates().getX();
-        int y = Map.getMap().getObservers().get(0).getCoordinates().getY();
+        int x = Map.getGameValidator().getObservers().get(0).getCoordinates().getX();
+        int y = Map.getGameValidator().getObservers().get(0).getCoordinates().getY();
         mapGuiView.setEmptyIcon(x, y);
         mapGuiView.setHeroIcon(toX, toY);
-        Map.getMap().getObservers().get(0).getCoordinates().setX(toX);
-        Map.getMap().getObservers().get(0).getCoordinates().setY(toY);
+        Map.getGameValidator().getObservers().get(0).getCoordinates().setX(toX);
+        Map.getGameValidator().getObservers().get(0).getCoordinates().setY(toY);
         deAndActivatedbtnUnits();
         isCheckWinner();
     }*/
@@ -188,8 +188,8 @@ public class MapController {
 
     /*public void changeIconButton() {
 
-        int x = Map.getMap().getObservers().get(0).getCoordinates().getX();
-        int y = Map.getMap().getObservers().get(0).getCoordinates().getY();
+        int x = Map.getGameValidator().getObservers().get(0).getCoordinates().getX();
+        int y = Map.getGameValidator().getObservers().get(0).getCoordinates().getY();
 
         mapGuiView.changeIconButton(x, y);
     }*/

@@ -112,15 +112,15 @@ public class MapGuiView implements MainMap{
 
                 if (confirmed == 0) {
                     /*fillDataBase();
-                    Map.getMap().deleteVillainFromListofUnit();
-                    Map.getMap().deleteHeroFromListOfUnit();*/
+                    Map.getGameValidator().deleteVillainFromListofUnit();
+                    Map.getGameValidator().deleteHeroFromListOfUnit();*/
                     mapController.saveHero();
                     getJf().dispose();
                     //mapGuiView = null;
                 }
                 else {
-                    /*Map.getMap().deleteVillainFromListofUnit();
-                    Map.getMap().deleteHeroFromListOfUnit();*/
+                    /*Map.getGameValidator().deleteVillainFromListofUnit();
+                    Map.getGameValidator().deleteHeroFromListOfUnit();*/
                     mapController.deleteHeroAndVillainFromListOfUnit();
                     getJf().dispose();
                 }
@@ -192,11 +192,11 @@ public class MapGuiView implements MainMap{
     /*private void isCheckWinner() {
 
             showMissionCompletedView();
-            Map.getMap().deleteVillainFromListofUnit();
+            Map.getGameValidator().deleteVillainFromListofUnit();
             //mapGuiView.closeWindow();
             //mapGuiView.getJf().setVisible(false);
             getJf().dispose();
-            Map.getMap().fillListOfVillain();
+            Map.getGameValidator().fillListOfVillain();
 
     }*/
 
