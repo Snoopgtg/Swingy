@@ -50,7 +50,7 @@ public class CreateHeroConsoleView implements CreateHero{
     private void showWriteNameMessage() {
 
         System.out.println("Write a name of hero:\n");
-        this.name = sc.next();
+        this.name = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this)) {
             showWriteNameMessage();
         }
@@ -63,7 +63,7 @@ public class CreateHeroConsoleView implements CreateHero{
                 "2 - Skissor\n" +
                 "3 - Peltasts\n\n" +
                 "0 - back to start game");
-        heroClass = sc.next();
+        heroClass = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this)) {
             showChooseType();
         }

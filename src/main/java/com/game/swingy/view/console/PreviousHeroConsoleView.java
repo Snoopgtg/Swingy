@@ -44,7 +44,7 @@ public class PreviousHeroConsoleView implements PreviousHero {
     private void showChooseHeroIdMessage() {
 
         System.out.println("Choose the hero ID to load or delete (0 - back)");
-        id = sc.next();
+        id = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this))
             showChooseHeroIdMessage();
         if (Integer.parseInt(id) == 0)
@@ -91,7 +91,7 @@ public class PreviousHeroConsoleView implements PreviousHero {
         System.out.println("1 - load\n" +
                            "2 - delete\n\n" +
                            "0 - back");
-        this.selectedLoadDel = sc.next();
+        this.selectedLoadDel = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this))
             showLoadDelete();
 

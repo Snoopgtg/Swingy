@@ -33,7 +33,7 @@ public class VillainAllertConsoleView implements VillainAllert{
         System.out.println("1 - Fight\n" +
                            "2 - Run");
         Scanner sc = new Scanner(System.in);
-        yesNo = sc.next();
+        yesNo = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this))
             showYesNo();
     }
@@ -71,7 +71,7 @@ public class VillainAllertConsoleView implements VillainAllert{
                 "villian\nAre you sure that you want to run?\n" +
                 "1 - yes\n" +
                 "2 - no");
-        yesNo = sc.next();
+        yesNo = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this))
             showRunAllertChoose();
     }
@@ -94,7 +94,7 @@ public class VillainAllertConsoleView implements VillainAllert{
         System.out.println("Are you sure that you want fight with villain?\n" +
                 "1 - yes\n" +
                 "2 - no\n");
-        yesNo = sc.next();
+        yesNo = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this))
             showFightAllertChoose();
     }

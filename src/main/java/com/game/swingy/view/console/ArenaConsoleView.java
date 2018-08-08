@@ -41,7 +41,7 @@ public class ArenaConsoleView implements Arena{
     private void showTurn() {
 
         System.out.println("1 - make turn");
-        this.selectedTurn = sc.next();
+        this.selectedTurn = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this))
             showTurn();
     }
@@ -135,7 +135,7 @@ public class ArenaConsoleView implements Arena{
                 "2 - armor\n" +
                 "3 - helm\n\n" +
                 "0 - back");
-        artefactSelected = sc.next();
+        artefactSelected = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this))
             showArtefacts();
         return (Integer.parseInt(artefactSelected) - 1);

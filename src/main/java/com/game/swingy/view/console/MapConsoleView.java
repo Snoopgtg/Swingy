@@ -88,7 +88,7 @@ public class MapConsoleView implements MainMap{
                 "3 - South\n" +
                 "4 - West\n\n" +
                 "0 - save");
-        this.choose = sc.next();
+        this.choose = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this))
             showMovePosition();
 
@@ -129,7 +129,7 @@ public class MapConsoleView implements MainMap{
         System.out.println("Are you sure you want to close current game with save?\n" +
                 "1 - yes\n" +
                 "2 - no");
-        yesNo = sc.next();
+        yesNo = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this))
             showYesNo();
     }
