@@ -6,8 +6,13 @@ import com.game.swingy.core.Map.ModeEnum;
 import com.game.swingy.core.Unit.Coordinates;
 import com.game.swingy.core.Unit.Unit;
 import com.game.swingy.view.MainMap;
+import com.game.swingy.view.PreviousHero;
 import com.game.swingy.view.VillainAllert;
+import com.game.swingy.view.console.MapConsoleView;
+import com.game.swingy.view.console.PreviousHeroConsoleView;
 import com.game.swingy.view.console.VillainAllertConsoleView;
+import com.game.swingy.view.gui.MapGuiView;
+import com.game.swingy.view.gui.PreviousHeroGuiView;
 import com.game.swingy.view.gui.VillainAllertGuiView;
 
 import javax.swing.*;
@@ -160,6 +165,24 @@ public class MapController {
             mainMap.showMissionCompletedView();
             Map.getMap().deleteVillainFromListofUnit();
             Map.getMap().fillListOfVillain();
+        }
+    }
+
+    public void changeGameMode() {
+        int id = Map.getMap().getDbMySQL().getLastId();
+        if (Map.getMap().getMode() == ModeEnum.GUI)
+            Map.getMap().setMode(ModeEnum.CONSOLE);
+        else
+            Map.getMap().setMode(ModeEnum.GUI);
+        Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedHero(id));
+        Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedVillain(id));
+        Map.getMap().getDbMySQL().deleteRow(id);
+        MainMap mainMap;
+        if (Map.getMap().getMode() == ModeEnum.CONSOLE)
+            mainMap = new MapConsoleView(this);
+        else {
+            mainMap = new MapGuiView(this);
+            setVillainIcon();
         }
     }
 

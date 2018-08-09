@@ -15,8 +15,8 @@ import java.util.Scanner;
 public class MapConsoleView implements MainMap{
 
     @Pattern(regexp = "^\\d+$", message = "ERROR only digits allowed")
-    @Min(value = 0, message = "ERROR You should choose one option 1, 2, 3, 4 or 0")
-    @Max(value = 4, message = "ERROR You should choose one option 1, 2, 3, 4 or 0")
+    @Min(value = 0, message = "ERROR You should choose one option 1, 2, 3, 4, 5 or 0")
+    @Max(value = 5, message = "ERROR You should choose one option 1, 2, 3, 4, 5 or 0")
     private String choose;
 
     @Pattern(regexp = "^\\d+$", message = "ERROR only digits allowed")
@@ -87,7 +87,7 @@ public class MapConsoleView implements MainMap{
                 "2 - East\n" +
                 "3 - South\n" +
                 "4 - West\n\n" +
-                "0 - save");
+                "0 - save, 5 - change game mode");
         this.choose = sc.nextLine();
         if (!GameValidator.getGameValidator().validate(this))
             showMovePosition();
@@ -101,6 +101,11 @@ public class MapConsoleView implements MainMap{
         int choose = Integer.parseInt(this.choose) - 1;
         if (choose == -1) {
             initCloseListener();
+        }
+        else if (choose == 4) {
+            System.out.println("See you in the GUI mode");
+            mapController.saveHero();
+            mapController.changeGameMode();
         }
         else {
             MoveHeroEnum moveHeroEnum = MoveHeroEnum.values()[choose];

@@ -206,9 +206,6 @@ public class DbMySQL {
             }//end finally try
         }//end try*/
     }
-    public void fillMapTable() {
-
-    }
 
     public String [][] getData() {
 
@@ -355,6 +352,28 @@ public class DbMySQL {
             //Handle errors for Class.forName
             e.printStackTrace();
         }
+    }
+
+    public int getLastId() {
+        try {
+            //Register JDBC driver
+            Class.forName(JDBC_DRIVER);
+            //Execute a query
+            statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM Hero");
+            int res = 0;
+            while (rs.next())
+                res = rs.getInt(1);
+            return res;
+            //TODO не првильно чомусь повертає результат при пустій таблиці
+//TODO rs.close якось треба почитати пронього
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }
+        throw new Error("Hero table does't empty");
     }
 
     public boolean isEmptyHeroTable() {

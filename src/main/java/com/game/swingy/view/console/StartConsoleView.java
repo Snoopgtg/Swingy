@@ -36,7 +36,6 @@ public class StartConsoleView implements StartView {
         Scanner sc = new Scanner(System.in); // object for scanner
 
         this.choose = sc.nextLine();
-        //TODO розібратися як закрити сканер щоб не сканував все що ввели
 
         if (GameValidator.getGameValidator().validate(this)) {
             int choose = Integer.parseInt(this.choose);

@@ -14,9 +14,9 @@ import java.awt.event.ActionListener;
 
 public class CreateHeroGuiView implements CreateHero{
 
-    @NotBlank(message="ERROR: name must be not empty")
-    @NotNull(message="ERROR: name must be not empty")
-    @Size(max = 10, message="Max length of name is 10")
+    @NotBlank(message="ERROR: name must be not empty and max length of name is 10")
+    @NotNull(message="ERROR: name must be not empty and max length of name is 10")
+    @Size(max = 10, message="ERROR: name must be not empty and max length of name is 10")
     private String name;
     private JFrame jf;
     private JLabel labelName;
