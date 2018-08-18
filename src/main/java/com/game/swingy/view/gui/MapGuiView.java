@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -20,6 +21,7 @@ public class MapGuiView implements MainMap{
     private JPanel panel;
     private Container content;
     private JButton btnUnits[][];
+    private JButton btnChangeMode;
     private int mapSize;
     private MapController mapController;
 
@@ -28,7 +30,9 @@ public class MapGuiView implements MainMap{
         this.mapController = mapController;
         this.mapSize = this.mapController.getMapSize();
         btnUnits = new JButton[mapSize][mapSize];
+        btnChangeMode = new JButton("Change mode");
         jf = new JFrame("Swingy");
+        jf.setLayout(new BorderLayout());
         content = jf.getContentPane();
         panel = new JPanel(new GridLayout(mapSize,mapSize));
         panel.setSize(mapSize * 95,mapSize * 95);
@@ -38,20 +42,21 @@ public class MapGuiView implements MainMap{
                 panel.add(btnUnits[i][j]);
             }
         }
-        content.add(panel);
+        content.add(panel, BorderLayout.CENTER);
+        content.add(btnChangeMode, BorderLayout.NORTH);
         jf.setSize(mapSize * 95, mapSize * 95);
         jf.setVisible(true);
         jf.setLocationRelativeTo(null);
+
         setHeroIcon(Map.getMap().getObservers().get(0).getCoordinates().getX(),
                 Map.getMap().getObservers().get(0).getCoordinates().getY());
 
         deAndActivatedbtnUnits();
         initMoveHero();
+        changeModeListener();
         initCloseListener();
         mapController.setMapJframe(jf);
         mapController.setMainMap(this);
-
-
     }
 
     private void deAndActivatedbtnUnits() {
@@ -90,6 +95,17 @@ public class MapGuiView implements MainMap{
             }
         }
     }
+    public void changeModeListener() {
+        this.btnChangeMode.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                jf.dispose();
+                mapController.saveHero();
+                mapController.changeGameMode();
+
+            }
+        });
+    }
+
 
     public void initCloseListener() {
 

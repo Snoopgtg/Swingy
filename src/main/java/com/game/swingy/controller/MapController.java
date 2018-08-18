@@ -181,10 +181,11 @@ public class MapController {
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedVillain(id));
         Map.getMap().getDbMySQL().deleteRow(id);
         MainMap mainMap;
+        MapController mapController = new MapController();
         if (Map.getMap().getMode() == ModeEnum.CONSOLE)
-            mainMap = new MapConsoleView(this);
+            mainMap = new MapConsoleView(mapController);
         else {
-            mainMap = new MapGuiView(this);
+            mainMap = new MapGuiView(mapController);
             setVillainIcon();
         }
     }
