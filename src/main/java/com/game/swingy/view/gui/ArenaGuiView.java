@@ -83,28 +83,27 @@ public class ArenaGuiView implements Arena{
 
     public void onClickVillain() {
 
-        Random random = new Random();
-        if (random.nextInt(5) == 0)
-            showMissAttack();
-        else
-            arenaController.takeDamageVillain();
+
+        arenaController.takeDamageVillain();
         turnLable.setText("Your turn");
         villianBtn.setEnabled(false);
         heroBtn.setEnabled(true);
-        if (!arenaController.isLife()) {
-            showLoser();
-            exitWindow();
-        }
     }
 
     public void onClickHero() {
 
-        arenaController.takeDamageHero();
+        Random random = new Random();
+        if (random.nextInt(5) == 0)
+            showMissAttack();
+        else
+            arenaController.takeDamageHero();
         turnLable.setText("Villain turn");
         heroBtn.setEnabled(false);
         villianBtn.setEnabled(true);
-
-
+        if (!arenaController.isLife()) {
+            showLoser();
+            exitWindow();
+        }
     }
 
     public void villainDie() {

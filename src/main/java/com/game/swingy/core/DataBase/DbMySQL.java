@@ -1,6 +1,5 @@
 package com.game.swingy.core.DataBase;
 
-//STEP 1. Import required packages
 import com.game.swingy.core.Unit.Hero.Hero;
 import com.game.swingy.core.Unit.Unit;
 
@@ -21,7 +20,7 @@ public class DbMySQL {
 
     int heroId;
 
-    public DbMySQL() {//2817654 ніна Олексан
+    public DbMySQL() {
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -53,25 +52,6 @@ public class DbMySQL {
             e.printStackTrace();
         }
     }
-
-    /*public boolean hasHeroId(int id) {
-
-        try {
-            //Execute a query
-            System.out.println("Creating database...");
-            statement = conn.createStatement();
-
-            String sql = "SELECT 1 FROM Hero WHERE id = " + id;
-            ResultSet rs = statement.executeQuery(sql);
-
-            int row = rs.getRow();
-            return rs.getRow() > 0;
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }*/
 
     private void createTables() {
 
@@ -237,7 +217,6 @@ public class DbMySQL {
                 rowValues.add(row);
             }
             rs.close();
-//TODO rs.close якось треба почитати пронього
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -281,7 +260,6 @@ public class DbMySQL {
 
             }
             rs.close();
-//TODO rs.close якось треба почитати пронього
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -322,7 +300,6 @@ public class DbMySQL {
                 rowValues.add(row);
             }
             rs.close();
-//TODO rs.close якось треба почитати пронього
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -364,9 +341,8 @@ public class DbMySQL {
             int res = 0;
             while (rs.next())
                 res = rs.getInt(1);
+            rs.close();
             return res;
-            //TODO не првильно чомусь повертає результат при пустій таблиці
-//TODO rs.close якось треба почитати пронього
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -385,8 +361,6 @@ public class DbMySQL {
             statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Hero");
             return rs.next();
-            //TODO не првильно чомусь повертає результат при пустій таблиці
-//TODO rs.close якось треба почитати пронього
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {

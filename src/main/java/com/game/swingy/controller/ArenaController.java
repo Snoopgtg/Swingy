@@ -47,7 +47,7 @@ public class ArenaController {
             setArtefacts();
         mapController.heroKilledVillain(this.villain);
         if (mapController.getMapJframe() != null)
-            mapController.getMapJframe().setVisible(true);//TODO розібратися як правильно тут первірити
+            mapController.getMapJframe().setVisible(true);
     }
 
     private void setArtefacts() {

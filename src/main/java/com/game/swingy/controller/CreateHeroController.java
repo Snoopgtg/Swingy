@@ -34,6 +34,10 @@ public class CreateHeroController {
         Map.getMap().fillListOfVillain();
     }
 
+    public void visibleStartFrame() {
+        Map.getMap().getStartFrame().setVisible(true);
+    }
+
     public void setNameHero(String nameHero) {
         this.nameHero = nameHero;
     }

@@ -7,6 +7,7 @@ import com.game.swingy.view.MainMap;
 import com.game.swingy.view.console.MapConsoleView;
 import com.game.swingy.view.gui.MapGuiView;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Map {
     private ModeEnum mode;
     private List<Unit> observers = new ArrayList<Unit>();
     private DbMySQL dbMySQL = new DbMySQL();
+    private JFrame startFrame;
     private int villainX;
     private int villainY;
 
@@ -155,4 +157,13 @@ public class Map {
         this.mode = mode;
     }
 
+    public JFrame getStartFrame() {
+        if (startFrame == null)
+            return null;
+        return startFrame;
+    }
+
+    public void setStartFrame(JFrame startFrame) {
+        this.startFrame = startFrame;
+    }
 }

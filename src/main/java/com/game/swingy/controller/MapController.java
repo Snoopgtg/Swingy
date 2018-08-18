@@ -7,12 +7,15 @@ import com.game.swingy.core.Unit.Coordinates;
 import com.game.swingy.core.Unit.Unit;
 import com.game.swingy.view.MainMap;
 import com.game.swingy.view.PreviousHero;
+import com.game.swingy.view.StartView;
 import com.game.swingy.view.VillainAllert;
 import com.game.swingy.view.console.MapConsoleView;
 import com.game.swingy.view.console.PreviousHeroConsoleView;
+import com.game.swingy.view.console.StartConsoleView;
 import com.game.swingy.view.console.VillainAllertConsoleView;
 import com.game.swingy.view.gui.MapGuiView;
 import com.game.swingy.view.gui.PreviousHeroGuiView;
+import com.game.swingy.view.gui.StartGuiView;
 import com.game.swingy.view.gui.VillainAllertGuiView;
 
 import javax.swing.*;
@@ -184,6 +187,22 @@ public class MapController {
             mainMap = new MapGuiView(this);
             setVillainIcon();
         }
+    }
+
+    public void visibleStartFrame() {
+        JFrame startFrame = Map.getMap().getStartFrame();
+        if (startFrame == null) {
+            StarterController starterController = new StarterController();
+            StartView startView;
+            if (Map.getMap().getMode() == ModeEnum.GUI)
+                startView = new StartGuiView(starterController);
+
+            else
+                startView = new StartConsoleView(starterController);
+
+        }
+        else
+            Map.getMap().getStartFrame().setVisible(true);
     }
 
     public int getMapSize() {

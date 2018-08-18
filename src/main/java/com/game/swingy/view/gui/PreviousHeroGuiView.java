@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class PreviousHeroGuiView implements PreviousHero {
 
@@ -27,6 +29,7 @@ public class PreviousHeroGuiView implements PreviousHero {
         setDeleteAction();
         setLoadAction();
         htm.addDate(previousHeroController.getRowValue());
+        initCloseListener();
 
     }
 
@@ -134,5 +137,24 @@ public class PreviousHeroGuiView implements PreviousHero {
             return false;
         }
         return true;
+    }
+
+    private void initCloseListener() {
+
+        this.frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int confirmed = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to close load hero",
+                        "Close Swingy Message Box",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (confirmed == JOptionPane.YES_OPTION) {
+                    frame.dispose();
+                    previousHeroController.visibleStartFrame();
+                }
+                else
+                    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            }
+        });
     }
 }

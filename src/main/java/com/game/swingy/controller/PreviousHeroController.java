@@ -35,6 +35,10 @@ public class PreviousHeroController {
         }
     }
 
+    public void visibleStartFrame() {
+        Map.getMap().getStartFrame().setVisible(true);
+    }
+
     public String[][] getRowValue() {
         return rowValue;
     }

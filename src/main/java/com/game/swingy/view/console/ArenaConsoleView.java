@@ -79,6 +79,7 @@ public class ArenaConsoleView implements Arena{
         System.out.format("Villain defense ---> %s + %s\n", defense, armor);
         System.out.format("Points plus to attack ---> %s\n", weapon);
         System.out.format("Points plus to defense ---> %s\n", armor);
+        System.out.format("Helm ---> %s\n", helm);
         System.out.format("Health ---> %s\n", health);
     }
 

@@ -102,12 +102,13 @@ public class MapGuiView implements MainMap{
 
                 if (confirmed == 0) {
                     mapController.saveHero();
-                    getJf().dispose();
+
                 }
                 else {
                     mapController.deleteHeroAndVillainFromListOfUnit();
-                    getJf().dispose();
                 }
+                getJf().dispose();
+                mapController.visibleStartFrame();
             }
         });
     }

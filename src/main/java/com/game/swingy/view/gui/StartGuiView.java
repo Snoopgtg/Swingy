@@ -21,6 +21,7 @@ public class StartGuiView implements StartView{
         this.btnPreviouslyHero = new JButton("Select a previously created hero");//Creating a Button named Say Hello
 
         jf = new JFrame("Swingy");		//Creating a JFrame with name MyWindow
+        starterController.setStartFrame(jf);
         jf.add(btnCreateHero);             		//adding button to frame
         jf.add(btnPreviouslyHero);             		//adding button to frame
         jf.setLayout(new FlowLayout());        //setting layout using FlowLayout object
@@ -48,5 +49,9 @@ public class StartGuiView implements StartView{
                 starterController.onClickPreviouslyHero();
             }
         });
+    }
+
+    public JFrame getJf() {
+        return jf;
     }
 }

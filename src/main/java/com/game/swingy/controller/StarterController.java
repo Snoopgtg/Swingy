@@ -9,11 +9,13 @@ import com.game.swingy.view.console.PreviousHeroConsoleView;
 import com.game.swingy.view.console.StartConsoleView;
 import com.game.swingy.view.gui.CreateHeroGuiView;
 import com.game.swingy.view.gui.PreviousHeroGuiView;
+import com.game.swingy.view.gui.StartGuiView;
 
 import javax.swing.*;
 
 public class StarterController {
 
+    private JFrame startFrame;
     public StarterController() {
 
     }
@@ -28,7 +30,9 @@ public class StarterController {
         else {
             CreateHeroGuiView createHeroGuiView =
                     new CreateHeroGuiView(createHeroController);
+            Map.getMap().setStartFrame(this.startFrame);
         }
+        this.startFrame.setVisible(false);
 
     }
 
@@ -40,8 +44,11 @@ public class StarterController {
         if (Map.getMap().getDbMySQL().isEmptyHeroTable()) {
             if (Map.getMap().getMode() == ModeEnum.CONSOLE)
                 previousHero = new PreviousHeroConsoleView(previousHeroController);
-            else
+            else {
                 previousHero = new PreviousHeroGuiView(previousHeroController);
+                Map.getMap().setStartFrame(this.startFrame);
+                this.startFrame.setVisible(false);
+            }
         }
         else {
             if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
@@ -54,5 +61,7 @@ public class StarterController {
         }
     }
 
-    //TODO close starterView
+    public void setStartFrame(JFrame startFrame) {
+        this.startFrame = startFrame;
+    }
 }
