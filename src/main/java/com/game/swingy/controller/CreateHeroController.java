@@ -14,7 +14,6 @@ public class CreateHeroController {
 
     public void onClickCreate() {
 
-        System.out.println("Отработало создание героя");
         UnitConstructor unitConstructor = new UnitConstructor();
         UnitBuilder unitBuilder = new UnitBuilder();
 

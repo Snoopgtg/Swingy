@@ -63,7 +63,6 @@ public class MapGuiView implements MainMap{
 
         int x = Map.getMap().getObservers().get(0).getCoordinates().getX();
         int y = Map.getMap().getObservers().get(0).getCoordinates().getY();
-        System.out.println("x = " + x + "\ny = " + y);
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++){
                 if (i == (x - 1) && j == y && (x - 1) < mapSize && (x - 1) >= 0)//рухаємся в гору
@@ -138,7 +137,6 @@ public class MapGuiView implements MainMap{
 
     public void onClickEmptyButton(int x, int y) {
 
-        System.out.println("Empty");
         changeHeroPosition(x, y);
 
     }

@@ -180,12 +180,12 @@ public class MapController {
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedHero(id));
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedVillain(id));
         Map.getMap().getDbMySQL().deleteRow(id);
-        MainMap mainMap;
-        MapController mapController = new MapController();
+        //MainMap mainMap;
+        //MapController mapController = new MapController();
         if (Map.getMap().getMode() == ModeEnum.CONSOLE)
-            mainMap = new MapConsoleView(mapController);
+            mainMap = new MapConsoleView(this);
         else {
-            mainMap = new MapGuiView(mapController);
+            mainMap = new MapGuiView(this);
             setVillainIcon();
         }
     }
@@ -220,5 +220,9 @@ public class MapController {
 
     public void setMainMap(MainMap mainMap) {
         this.mainMap = mainMap;
+    }
+
+    public MainMap getMainMap() {
+        return mainMap;
     }
 }

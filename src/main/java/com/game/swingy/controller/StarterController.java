@@ -31,9 +31,9 @@ public class StarterController {
             CreateHeroGuiView createHeroGuiView =
                     new CreateHeroGuiView(createHeroController);
             Map.getMap().setStartFrame(this.startFrame);
+            if (startFrame != null)
+                this.startFrame.setVisible(false);
         }
-        this.startFrame.setVisible(false);
-
     }
 
     public void onClickPreviouslyHero(){

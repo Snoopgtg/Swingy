@@ -2,6 +2,7 @@ package com.game.swingy.view.console;
 
 import com.game.swingy.controller.VillainAllertController;
 import com.game.swingy.core.Map.GameValidator;
+import com.game.swingy.view.MainMap;
 import com.game.swingy.view.VillainAllert;
 
 import javax.validation.constraints.Max;
@@ -60,7 +61,8 @@ public class VillainAllertConsoleView implements VillainAllert{
       }
         else {
             System.out.println("That's you lucky");
-            allertController.getMapController().getMapJframe().setVisible(true);
+            MainMap mainMap = new MapConsoleView(allertController.getMapController());
+            //allertController.getMapController().getMapJframe().setVisible(true);
         }
     }
 

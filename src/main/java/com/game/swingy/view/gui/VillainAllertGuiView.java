@@ -153,14 +153,12 @@ public class VillainAllertGuiView implements VillainAllert{
 
         Random random = new Random();
         if (random.nextBoolean()) {
-            System.out.println("true");
             showDisLucky();
             jf.dispose();
             allertController.onClickRunYes();
 
         }
         else {
-            System.out.println("false");
             showLucky();
             jf.dispose();
             allertController.getMapController().getMapJframe().setVisible(true);
