@@ -83,11 +83,14 @@ public class ArenaGuiView implements Arena{
 
     public void onClickVillain() {
 
-
         arenaController.takeDamageVillain();
         turnLable.setText("Your turn");
         villianBtn.setEnabled(false);
         heroBtn.setEnabled(true);
+        if (!arenaController.isLife()) {
+            showLoser();
+            exitWindow();
+        }
     }
 
     public void onClickHero() {
@@ -100,10 +103,8 @@ public class ArenaGuiView implements Arena{
         turnLable.setText("Villain turn");
         heroBtn.setEnabled(false);
         villianBtn.setEnabled(true);
-        if (!arenaController.isLife()) {
-            showLoser();
-            exitWindow();
-        }
+
+
     }
 
     public void villainDie() {

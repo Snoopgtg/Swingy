@@ -64,14 +64,6 @@ public class ArenaConsoleView implements Arena{
     }
 
     @Override
-    public void onClickHero() {
-
-        arenaController.takeDamageVillain();
-        arenaController.setTextOnHeroLabel();
-        initBtn();
-    }
-
-    @Override
     public void setTextOnVillainLable(int level, int attack, int weapon, int defense, int armor, int helm, int health) {
         System.out.println("======= VILLAIN =======");
         System.out.format("Villain level ---> %s\n", level);
@@ -128,6 +120,15 @@ public class ArenaConsoleView implements Arena{
         }
         initBtn();
     }
+
+    @Override
+    public void onClickHero() {
+
+        arenaController.takeDamageVillain();
+        arenaController.setTextOnHeroLabel();
+        initBtn();
+    }
+
 
     public int showArtefacts() {
 

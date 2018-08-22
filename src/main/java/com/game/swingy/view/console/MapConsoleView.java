@@ -194,7 +194,7 @@ public class MapConsoleView implements MainMap{
         setEmptyIcon(x, y);
         setHeroIcon(toX, toY);
         mapController.changeHeroPosition(toX, toY);
-        mapController.isCheckWinner(this);
+        mapController.isMissionCompleted();
         showMap();
         initMoveHero();
 

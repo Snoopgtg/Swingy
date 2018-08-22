@@ -3,7 +3,6 @@ package com.game.swingy.view.gui;
 import com.game.swingy.controller.MapController;
 import com.game.swingy.core.Map.EmptyButtonListener;
 import com.game.swingy.core.Map.Map;
-import com.game.swingy.core.Unit.Unit;
 import com.game.swingy.view.MainMap;
 
 import javax.imageio.ImageIO;
@@ -13,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
 
 public class MapGuiView implements MainMap{
 
@@ -175,7 +173,13 @@ public class MapGuiView implements MainMap{
         setHeroIcon(toX, toY);
         mapController.changeHeroPosition(toX, toY);
         deAndActivatedbtnUnits();
-        mapController.isCheckWinner(this);
+        mapController.isMissionCompleted();
+        /*setHeroIcon(Map.getMap().getObservers().get(0).getCoordinates().getX(),
+                Map.getMap().getObservers().get(0).getCoordinates().getY());
+        deAndActivatedbtnUnits();
+        initMoveHero();
+        changeModeListener();
+        initCloseListener();*/
     }
 
     public void setVilliansIcon(int x, int y) {

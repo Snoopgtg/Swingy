@@ -6,15 +6,12 @@ import com.game.swingy.core.Map.ModeEnum;
 import com.game.swingy.core.Unit.Coordinates;
 import com.game.swingy.core.Unit.Unit;
 import com.game.swingy.view.MainMap;
-import com.game.swingy.view.PreviousHero;
 import com.game.swingy.view.StartView;
 import com.game.swingy.view.VillainAllert;
 import com.game.swingy.view.console.MapConsoleView;
-import com.game.swingy.view.console.PreviousHeroConsoleView;
 import com.game.swingy.view.console.StartConsoleView;
 import com.game.swingy.view.console.VillainAllertConsoleView;
 import com.game.swingy.view.gui.MapGuiView;
-import com.game.swingy.view.gui.PreviousHeroGuiView;
 import com.game.swingy.view.gui.StartGuiView;
 import com.game.swingy.view.gui.VillainAllertGuiView;
 
@@ -90,6 +87,7 @@ public class MapController {
 
         mainMap.changeHeroPosition(villain.getCoordinates().getX(), villain.getCoordinates().getY());
         Map.getMap().unregister(villain);
+
     }
 
     public Unit getVillian(int x, int y) {
@@ -158,7 +156,7 @@ public class MapController {
         }
     }
 
-    public void isCheckWinner(MainMap mainMap) {
+    public void isMissionCompleted() {
 
         int x = Map.getMap().getObservers().get(0).getCoordinates().getX();
         int y = Map.getMap().getObservers().get(0).getCoordinates().getY();
@@ -166,8 +164,16 @@ public class MapController {
         if (x == 0 || y == 0 || x == getMapSize() - 1 ||
                 y == getMapSize() - 1) {
             mainMap.showMissionCompletedView();
+            /*if (Map.getMap().getMode() == ModeEnum.GUI) {
+                MapGuiView mapGuiView = (MapGuiView) mainMap;
+                mapGuiView.getJf().dispose();
+            }*/
             Map.getMap().deleteVillainFromListofUnit();
             Map.getMap().fillListOfVillain();
+        }
+        else {
+            if (mapJframe != null)
+                mapJframe.setVisible(true);
         }
     }
 
