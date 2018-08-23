@@ -26,7 +26,7 @@ public class Hero extends Unit {
 
     public void levelUp() {
 
-         int nextExpa = (this.level + 1) * 1000 + this.level ^ 2 * 450;
+         int nextExpa = (int) (this.level * 1000 + Math.pow((this.level - 1), 2) * 450);
          if (experience >= nextExpa) {
              this.level += 1;
          }

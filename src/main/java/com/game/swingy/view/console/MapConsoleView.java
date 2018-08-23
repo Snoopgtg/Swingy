@@ -106,7 +106,6 @@ public class MapConsoleView implements MainMap{
             System.out.println("See you in the GUI mode");
             mapController.saveHero();
             mapController.changeGameMode();
-            return;
         }
         else {
             MoveHeroEnum moveHeroEnum = MoveHeroEnum.values()[choose];

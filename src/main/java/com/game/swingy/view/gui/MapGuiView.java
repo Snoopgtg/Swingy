@@ -174,12 +174,6 @@ public class MapGuiView implements MainMap{
         mapController.changeHeroPosition(toX, toY);
         deAndActivatedbtnUnits();
         mapController.isMissionCompleted();
-        /*setHeroIcon(Map.getMap().getObservers().get(0).getCoordinates().getX(),
-                Map.getMap().getObservers().get(0).getCoordinates().getY());
-        deAndActivatedbtnUnits();
-        initMoveHero();
-        changeModeListener();
-        initCloseListener();*/
     }
 
     public void setVilliansIcon(int x, int y) {

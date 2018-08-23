@@ -1,6 +1,7 @@
 package com.game.swingy.controller;
 
 import com.game.swingy.core.Map.Map;
+import com.game.swingy.core.Map.ModeEnum;
 import com.game.swingy.core.Unit.Artefacts;
 import com.game.swingy.core.Unit.Hero.Hero;
 import com.game.swingy.core.Unit.Unit;
@@ -20,8 +21,8 @@ public class ArenaController {
 
         this.villain = villain;
         this.mapController = mapController;
-        hero = (Hero)Map.getMap().getObservers().get(0);
-        villainHealth = this.villain.getHitPoints();
+        this.hero = (Hero)Map.getMap().getObservers().get(0);
+        this.villainHealth = this.villain.getHitPoints();
 
     }
 
@@ -32,6 +33,25 @@ public class ArenaController {
         setTextOnHeroLabel();
 
     }
+
+    public void takeDamageVillain() {
+        int attack = hero.getAttack() + hero.getArtefacts().getWeapon();
+
+        villain.takeDamage(attack);
+        if (!villain.isLife()) {
+            arena.villainDie();
+            /*setTextOnVillainLable();
+            setTextOnHeroLabel();*/
+        }
+        else {
+            if (Map.getMap().getMode() == ModeEnum.CONSOLE)
+                setTextOnVillainLable();
+                setTextOnHeroLabel();
+                arena.initBtn();
+        }
+
+    }
+
 
     public boolean isLevel5() {
 
@@ -75,15 +95,6 @@ public class ArenaController {
             default:
                 break;
         }
-    }
-
-    public void takeDamageVillain() {
-        int attack = hero.getAttack() + hero.getArtefacts().getWeapon();
-
-        villain.takeDamage(attack);
-        if (!villain.isLife())
-            arena.villainDie();
-        setTextOnVillainLable();
     }
 
     public boolean isLife() {

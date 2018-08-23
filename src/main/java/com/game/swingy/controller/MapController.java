@@ -164,10 +164,6 @@ public class MapController {
         if (x == 0 || y == 0 || x == getMapSize() - 1 ||
                 y == getMapSize() - 1) {
             mainMap.showMissionCompletedView();
-            /*if (Map.getMap().getMode() == ModeEnum.GUI) {
-                MapGuiView mapGuiView = (MapGuiView) mainMap;
-                mapGuiView.getJf().dispose();
-            }*/
             Map.getMap().deleteVillainFromListofUnit();
             Map.getMap().fillListOfVillain();
         }
@@ -186,13 +182,15 @@ public class MapController {
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedHero(id));
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedVillain(id));
         Map.getMap().getDbMySQL().deleteRow(id);
-        //MainMap mainMap;
-        //MapController mapController = new MapController();
-        if (Map.getMap().getMode() == ModeEnum.CONSOLE)
-            mainMap = new MapConsoleView(this);
+        MapController mapController = new MapController();
+        if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
+            mainMap = null;
+            mainMap = new MapConsoleView(mapController);
+        }
         else {
-            mainMap = new MapGuiView(this);
-            setVillainIcon();
+            mainMap = null;
+            mainMap = new MapGuiView(mapController);
+            mapController.setVillainIcon();
         }
     }
 
@@ -203,10 +201,8 @@ public class MapController {
             StartView startView;
             if (Map.getMap().getMode() == ModeEnum.GUI)
                 startView = new StartGuiView(starterController);
-
             else
                 startView = new StartConsoleView(starterController);
-
         }
         else
             Map.getMap().getStartFrame().setVisible(true);

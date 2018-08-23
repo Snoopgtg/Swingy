@@ -83,6 +83,7 @@ public class ArenaConsoleView implements Arena{
         System.out.format("Hero name ---> %s\n", name);
         System.out.format("Hero class ---> %s\n", heroClass);
         System.out.format("Hero level ---> %s\n", level);
+        System.out.format("Hero experience ---> %s\n", experience);
         System.out.format("Hero attack ---> %s + %s\n", attack, weapon);
         System.out.format("Hero defense ---> %s + %s\n", defense, armor);
         System.out.format("Points plus to attack ---> %s\n", weapon);
@@ -125,8 +126,8 @@ public class ArenaConsoleView implements Arena{
     public void onClickHero() {
 
         arenaController.takeDamageVillain();
-        arenaController.setTextOnHeroLabel();
-        initBtn();
+//        arenaController.setTextOnHeroLabel();
+        //initBtn();
     }
 
 
