@@ -103,7 +103,11 @@ public class ArenaGuiView implements Arena{
         turnLable.setText("Villain turn");
         heroBtn.setEnabled(false);
         villianBtn.setEnabled(true);
+        if (!arenaController.isLife()) {
 
+            showLoser();
+            System.exit(0);
+        }
 
     }
 

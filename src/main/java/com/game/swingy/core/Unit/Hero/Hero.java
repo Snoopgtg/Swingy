@@ -5,6 +5,8 @@ import com.game.swingy.core.Unit.Artefacts;
 import com.game.swingy.core.Unit.Coordinates;
 import com.game.swingy.core.Unit.Unit;
 
+import java.util.Collections;
+
 public class Hero extends Unit {
 
     private int experience;
@@ -26,30 +28,29 @@ public class Hero extends Unit {
 
     public void levelUp() {
 
-         int nextExpa = (int) (this.level * 1000 + Math.pow((this.level - 1), 2) * 450);
-         if (experience >= nextExpa) {
-             this.level += 1;
-         }
+         /*int nextExpa = (int) (this.level * 1000 + Math.pow((this.level - 1), 2) * 450);
+         if (experience >= nextExpa) {*/
+             this.level += 6/*1*/;
+         //}
+    }
+
+    public void setTwoCoodinatesXY() {
+
+        int mapSize = (level - 1) * 5 + 10 - (level % 2);
+        Coordinates coordinates = new Coordinates();
+        coordinates.setX(mapSize / 2);
+        coordinates.setY(mapSize / 2);
+        this.coordinates = coordinates;
     }
 
     public boolean isEndOfGame() {
 
-        if (level == 5)
-            return true;
-        return false;
+        return level == 5;
     }
 
     public void experienceUp(int experience) {
 
         this.experience += experience;
-    }
-
-    public UnitTypeFieldEnum getKindOfUnit() {
-        return kindOfUnit;
-    }
-
-    public void setKindOfUnit(UnitTypeFieldEnum kindOfUnit) {
-        this.kindOfUnit = kindOfUnit;
     }
 
     public String getName() {

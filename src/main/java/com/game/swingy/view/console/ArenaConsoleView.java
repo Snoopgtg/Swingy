@@ -126,8 +126,6 @@ public class ArenaConsoleView implements Arena{
     public void onClickHero() {
 
         arenaController.takeDamageVillain();
-//        arenaController.setTextOnHeroLabel();
-        //initBtn();
     }
 
 

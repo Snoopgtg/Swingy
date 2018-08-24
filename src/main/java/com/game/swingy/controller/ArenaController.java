@@ -40,14 +40,13 @@ public class ArenaController {
         villain.takeDamage(attack);
         if (!villain.isLife()) {
             arena.villainDie();
-            /*setTextOnVillainLable();
-            setTextOnHeroLabel();*/
         }
         else {
-            if (Map.getMap().getMode() == ModeEnum.CONSOLE)
+            if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
                 setTextOnVillainLable();
                 setTextOnHeroLabel();
                 arena.initBtn();
+            }
         }
 
     }
@@ -74,19 +73,16 @@ public class ArenaController {
         Artefacts artefacts;
         switch (arena.showArtefacts()) {
             case 0:
-                System.out.println("weapon");
                 artefacts = new Artefacts(villain.getArtefacts().getWeapon(),
                         hero.getArtefacts().getArmor(), hero.getArtefacts().getHelm());
                 hero.setArtefacts(artefacts);
                 break;
             case 1:
-                System.out.println("armor");
                 artefacts = new Artefacts(hero.getArtefacts().getWeapon(),
                         villain.getArtefacts().getArmor(), hero.getArtefacts().getHelm());
                 hero.setArtefacts(artefacts);
                 break;
             case 2:
-                System.out.println("helm");
                 artefacts = new Artefacts(hero.getArtefacts().getWeapon(),
                         hero.getArtefacts().getArmor(), villain.getArtefacts().getHelm());
                 hero.setHitPoints(hero.getHitPoints() + villain.getArtefacts().getHelm());

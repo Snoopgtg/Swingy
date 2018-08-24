@@ -4,6 +4,7 @@ import com.game.swingy.core.DataBase.DbMySQL;
 import com.game.swingy.core.Map.Map;
 import com.game.swingy.core.Map.ModeEnum;
 import com.game.swingy.core.Unit.Coordinates;
+import com.game.swingy.core.Unit.Hero.Hero;
 import com.game.swingy.core.Unit.Unit;
 import com.game.swingy.view.MainMap;
 import com.game.swingy.view.StartView;
@@ -85,8 +86,8 @@ public class MapController {
 
     public void heroKilledVillain(Unit villain) {
 
-        mainMap.changeHeroPosition(villain.getCoordinates().getX(), villain.getCoordinates().getY());
         Map.getMap().unregister(villain);
+        mainMap.changeHeroPosition(villain.getCoordinates().getX(), villain.getCoordinates().getY());
 
     }
 
@@ -165,6 +166,7 @@ public class MapController {
                 y == getMapSize() - 1) {
             mainMap.showMissionCompletedView();
             Map.getMap().deleteVillainFromListofUnit();
+            Hero.class.cast(Map.getMap().getObservers().get(0)).setTwoCoodinatesXY();
             Map.getMap().fillListOfVillain();
         }
         else {
