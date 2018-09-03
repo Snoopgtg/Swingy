@@ -28,10 +28,10 @@ public class Hero extends Unit {
 
     public void levelUp() {
 
-         /*int nextExpa = (int) (this.level * 1000 + Math.pow((this.level - 1), 2) * 450);
-         if (experience >= nextExpa) {*/
-             this.level += 6/*1*/;
-         //}
+         int nextExpa = (int) (this.level * 1000 + Math.pow((this.level - 1), 2) * 450);
+         if (experience >= nextExpa) {
+             this.level += 1;
+         }
     }
 
     public void setTwoCoodinatesXY() {
