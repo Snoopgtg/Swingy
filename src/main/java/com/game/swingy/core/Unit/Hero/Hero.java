@@ -31,7 +31,9 @@ public class Hero extends Unit {
          int nextExpa = (int) (this.level * 1000 + Math.pow((this.level - 1), 2) * 450);
          if (experience >= nextExpa) {
              this.level += 1;
+             hitPoints = level * 85 + 100;
          }
+
     }
 
     public void setTwoCoodinatesXY() {
@@ -50,7 +52,7 @@ public class Hero extends Unit {
 
     public void experienceUp(int experience) {
 
-        this.experience += experience;
+        this.experience += (level + 1) * (100 - 5 * level) + experience;
     }
 
     public String getName() {

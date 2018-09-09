@@ -3,7 +3,6 @@ package com.game.swingy;
 import com.game.swingy.controller.StarterController;
 import com.game.swingy.core.Map.Map;
 import com.game.swingy.core.Map.ModeEnum;
-import com.game.swingy.view.MainMap;
 import com.game.swingy.view.StartView;
 import com.game.swingy.view.console.StartConsoleView;
 import com.game.swingy.view.gui.StartGuiView;

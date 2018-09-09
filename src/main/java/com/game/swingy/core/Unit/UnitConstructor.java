@@ -11,9 +11,9 @@ public class UnitConstructor {
         builder.setHeroClass("Samnite");
         builder.setLevel(0);
         builder.setExperience(0);
-        builder.setAttack(15);
-        builder.setDefense(15);
-        builder.setHitPoints(150);
+        builder.setAttack(25);
+        builder.setDefense(18);
+        builder.setHitPoints(100);
         Artefacts artefacts = new Artefacts(5,5,2);
         builder.setCoordinates(new Coordinates(2,2));
         builder.setArtefacts(artefacts);
@@ -29,7 +29,7 @@ public class UnitConstructor {
         builder.setExperience(0);
         builder.setAttack(20);
         builder.setDefense(10);
-        builder.setHitPoints(150);
+        builder.setHitPoints(100);
         Artefacts artefacts = new Artefacts(2,5,5);
         builder.setCoordinates(new Coordinates(2,2));
         builder.setArtefacts(artefacts);
@@ -45,22 +45,23 @@ public class UnitConstructor {
         builder.setExperience(0);
         builder.setAttack(10);
         builder.setDefense(20);
-        builder.setHitPoints(150);
+        builder.setHitPoints(100);
         Artefacts artefacts = new Artefacts(5,2,5);
         builder.setCoordinates(new Coordinates(2,2));
         builder.setArtefacts(artefacts);
     }
 
-    public void constructVillian(Builder builder, String name, int level) {
+    public void
+    constructVillian(Builder builder, String name, int level) {
 
         builder.setKindOfUnit(UnitTypeFieldEnum.ENEMY);
         builder.setName(name);
         builder.setHeroClass("Villain");
         builder.setLevel(level);
-        builder.setAttack(level * 5 + 5);
+        builder.setAttack(level * 10 + 17);
         builder.setDefense(level * 8 + 5);
-        builder.setHitPoints(level * 20 + 50);
-        Artefacts artefacts = new Artefacts(level * 10, level * 5, level * 7);
+        builder.setHitPoints(level * 20 + 30);
+        Artefacts artefacts = new Artefacts(level * 15 + 10, level * 12 + 5, level * 7 + 7);
         builder.setCoordinates(new Coordinates(-1, -1));
         builder.setArtefacts(artefacts);
 

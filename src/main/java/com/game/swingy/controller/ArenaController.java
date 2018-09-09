@@ -47,6 +47,9 @@ public class ArenaController {
                 setTextOnHeroLabel();
                 arena.initBtn();
             }
+            else {
+                setTextOnVillainLable();
+            }
         }
 
     }

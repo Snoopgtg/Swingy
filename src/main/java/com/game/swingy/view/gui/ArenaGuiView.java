@@ -84,7 +84,7 @@ public class ArenaGuiView implements Arena{
     public void onClickVillain() {
 
         arenaController.takeDamageVillain();
-        turnLable.setText("Your turn");
+        turnLable.setText("Villain turn");
         villianBtn.setEnabled(false);
         heroBtn.setEnabled(true);
         if (!arenaController.isLife()) {
@@ -100,11 +100,10 @@ public class ArenaGuiView implements Arena{
             showMissAttack();
         else
             arenaController.takeDamageHero();
-        turnLable.setText("Villain turn");
+        turnLable.setText("Your turn");
         heroBtn.setEnabled(false);
         villianBtn.setEnabled(true);
         if (!arenaController.isLife()) {
-
             showLoser();
             System.exit(0);
         }
