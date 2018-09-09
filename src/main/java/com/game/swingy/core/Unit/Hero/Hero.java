@@ -32,6 +32,8 @@ public class Hero extends Unit {
          if (experience >= nextExpa) {
              this.level += 1;
              hitPoints = level * 85 + 100;
+             attack = (level * 17) + (level * level) + 25;
+             defense = level * 15 + 18;
          }
 
     }
