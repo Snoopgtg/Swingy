@@ -15,9 +15,9 @@ public class ArenaGuiView implements Arena{
 
     private ArenaController arenaController;
     private JFrame jf;
-    private JLabel lableVillian;
-    private JLabel levellabel1;
-    private JLabel levellabel2;
+    private JLabel labelVillain;
+    private JLabel levelLabel1;
+    private JLabel levelLabel2;
     private JLabel attackLabel1;
     private JLabel attackLabel2;
     private JLabel defenseLabel1;
@@ -49,12 +49,12 @@ public class ArenaGuiView implements Arena{
     private JLabel labelArmor2;
     private JLabel labelHealth1;
     private JLabel labelHealth2;
-    private JLabel turnLable;
+    private JLabel turnLabel;
     private JPanel panelHero;
     private JPanel panelMain;
-    private JPanel panelVillian;
+    private JPanel panelVillain;
     private JButton heroBtn;
-    private JButton villianBtn;
+    private JButton villainBtn;
     private JLabel helmLabel1;
     private JLabel helmLabel2;
 
@@ -63,7 +63,7 @@ public class ArenaGuiView implements Arena{
         this.arenaController = arenaController;
         arenaController.setArena(this);
         createTools();
-        arenaController.setTextOnVillainLable();
+        arenaController.setTextOnVillainLabel();
         arenaController.setTextOnHeroLabel();
     }
 
@@ -74,7 +74,7 @@ public class ArenaGuiView implements Arena{
                 onClickHero();
             }
         });
-        villianBtn.addActionListener(new ActionListener() {
+        villainBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onClickVillain();
             }
@@ -84,10 +84,10 @@ public class ArenaGuiView implements Arena{
     public void onClickVillain() {
 
         arenaController.takeDamageVillain();
-        turnLable.setText("Villain turn");
-        villianBtn.setEnabled(false);
+        turnLabel.setText("Villain turn");
+        villainBtn.setEnabled(false);
         heroBtn.setEnabled(true);
-        if (!arenaController.isLife()) {
+        if (arenaController.isDied()) {
             showLoser();
             exitWindow();
         }
@@ -100,10 +100,12 @@ public class ArenaGuiView implements Arena{
             showMissAttack();
         else
             arenaController.takeDamageHero();
-        turnLable.setText("Your turn");
+
+        turnLabel.setText("Your turn");
         heroBtn.setEnabled(false);
-        villianBtn.setEnabled(true);
-        if (!arenaController.isLife()) {
+        villainBtn.setEnabled(true);
+
+        if (arenaController.isDied()) {
             showLoser();
             System.exit(0);
         }
@@ -112,19 +114,20 @@ public class ArenaGuiView implements Arena{
 
     public void villainDie() {
 
-        if (arenaController.isLevel5()) {
+        if (arenaController.isEndOfGame()) {
             showWinner();
             exitWindow();
         }
+
         arenaController.villainDie();
         showWinVillainView();
         closeWindow();
     }
 
-    public void setTextOnVillainLable(int level, int attack, int weapon, int defense,
+    public void setTextOnVillainLabel(int level, int attack, int weapon, int defense,
                                       int armor, int helm, int health) {
 
-        levellabel2.setText(Integer.toString(level));
+        levelLabel2.setText(Integer.toString(level));
         attackLabel2.setText(Integer.toString(attack) +
                 " + " + Integer.toString(weapon));
         defenseLabel2.setText(Integer.toString(defense) +
@@ -157,11 +160,11 @@ public class ArenaGuiView implements Arena{
         jf.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         createHeroTools();
         createVillianTools();
-        turnLable = new JLabel("Your turn");
-        turnLable.setForeground(Color.RED);
+        turnLabel = new JLabel("Your turn");
+        turnLabel.setForeground(Color.RED);
         panelMain = new JPanel(new GridBagLayout());
         setHeroOnPanelHero();
-        setVillianOnVillianPanel();
+        setVillainOnVillainPanel();
         setAllOnMainPanel();
         jf.setLayout(new FlowLayout());
         jf.add(panelMain);
@@ -176,73 +179,73 @@ public class ArenaGuiView implements Arena{
         panelMain.add(labelYourHero, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelMain.add(turnLable, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelMain.add(turnLabel, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelMain.add(lableVillian, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelMain.add(labelVillain, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
         panelMain.add(heroBtn, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelMain.add(villianBtn, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelMain.add(villainBtn, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
         panelMain.add(panelHero, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelMain.add(panelVillian, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelMain.add(panelVillain, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
     }
 
-    private void setVillianOnVillianPanel() {
+    private void setVillainOnVillainPanel() {
 
-        panelVillian.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
-        panelVillian.add(levellabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        panelVillain.add(levelLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(levellabel2, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(levelLabel2, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(attackLabel1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(attackLabel1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(attackLabel2, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(attackLabel2, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(defenseLabel1, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(defenseLabel1, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(defenseLabel2, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(defenseLabel2, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(artefactsLabel, new GridBagConstraints(0, 3, 2, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(artefactsLabel, new GridBagConstraints(0, 3, 2, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
         artefactsLabel.setHorizontalAlignment(JLabel.CENTER);
-        panelVillian.add(weaponLabel1, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(weaponLabel1, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(weaponLabel2, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(weaponLabel2, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(armorLabel1, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(armorLabel1, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(armorLabel2, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(armorLabel2, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(helmLabel1, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(helmLabel1, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(helmLabel2, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(helmLabel2, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(healthLabel1, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(healthLabel1, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelVillian.add(healthLabel2, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelVillain.add(healthLabel2, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
     }
@@ -344,13 +347,13 @@ public class ArenaGuiView implements Arena{
 
     private void createVillianTools() {
 
-        panelVillian = new JPanel();
-        panelVillian.setLayout(new GridBagLayout());
-        villianBtn = new JButton("Villain");
-        lableVillian = new JLabel("VILLAIN");
-        lableVillian.setHorizontalAlignment(JLabel.CENTER);
-        levellabel1 = new JLabel("Villain level");
-        levellabel2 = new JLabel();
+        panelVillain = new JPanel();
+        panelVillain.setLayout(new GridBagLayout());
+        villainBtn = new JButton("Villain");
+        labelVillain = new JLabel("VILLAIN");
+        labelVillain.setHorizontalAlignment(JLabel.CENTER);
+        levelLabel1 = new JLabel("Villain level");
+        levelLabel2 = new JLabel();
         attackLabel1 = new JLabel("Villain attack");
         attackLabel2 = new JLabel();
         defenseLabel1 = new JLabel("Villain defense");
@@ -381,38 +384,38 @@ public class ArenaGuiView implements Arena{
                 options[2]);
     }
 
-    public void showLoser() {
+    private void showLoser() {
 
         JOptionPane.showMessageDialog(null,
                 "Good buy, LOSER!!!");
     }
 
-    public void showWinner() {
+    private void showWinner() {
 
         JOptionPane.showMessageDialog(null,
                 "Perfectly!!!\nYou are winner");
     }
 
-    public void showWinVillainView() {
+    private void showWinVillainView() {
 
         JOptionPane.showMessageDialog(null,
                 "You win villain");
     }
 
-    public void showMissAttack() {
+    private void showMissAttack() {
 
         JOptionPane.showMessageDialog(null,
                 "Something went wrong");
     }
 
-    public void exitWindow() {
+    private void exitWindow() {
 
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         WindowEvent windowEvent = new WindowEvent(jf, WindowEvent.WINDOW_CLOSING);
         jf.dispatchEvent(windowEvent);
     }
 
-    public void closeWindow() {
+    private void closeWindow() {
 
         jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         WindowEvent windowEvent = new WindowEvent(jf, WindowEvent.WINDOW_CLOSING);

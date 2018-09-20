@@ -2,7 +2,6 @@ package com.game.swingy.controller;
 
 import com.game.swingy.core.Map.Map;
 import com.game.swingy.core.Map.ModeEnum;
-import com.game.swingy.view.MainMap;
 import com.game.swingy.view.console.MapConsoleView;
 import com.game.swingy.view.gui.MapGuiView;
 
@@ -25,12 +24,11 @@ public class PreviousHeroController {
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedHero(selectedId));
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedVillain(selectedId));
         com.game.swingy.controller.MapController mapController = new com.game.swingy.controller.MapController();
-        MainMap mainMap;
-        if (Map.getMap().getMode() == ModeEnum.CONSOLE)
-            mainMap = new MapConsoleView(mapController);
-        else {
-            mainMap = new MapGuiView(mapController);
 
+        if (Map.getMap().getMode() == ModeEnum.CONSOLE)
+            new MapConsoleView(mapController);
+        else {
+            new MapGuiView(mapController);
             mapController.setVillainIcon();
         }
     }

@@ -7,14 +7,12 @@ import com.game.swingy.core.Unit.Coordinates;
 import com.game.swingy.core.Unit.Hero.Hero;
 import com.game.swingy.core.Unit.Unit;
 import com.game.swingy.view.MainMap;
-import com.game.swingy.view.StartView;
-import com.game.swingy.view.VillainAllert;
 import com.game.swingy.view.console.MapConsoleView;
 import com.game.swingy.view.console.StartConsoleView;
-import com.game.swingy.view.console.VillainAllertConsoleView;
+import com.game.swingy.view.console.VillainAlertConsoleView;
 import com.game.swingy.view.gui.MapGuiView;
 import com.game.swingy.view.gui.StartGuiView;
-import com.game.swingy.view.gui.VillainAllertGuiView;
+import com.game.swingy.view.gui.VillainAlertGuiView;
 
 import javax.swing.*;
 import java.util.List;
@@ -60,22 +58,19 @@ public class MapController {
         }
     }
 
-    public void onClickHeroButton() {
-        //TODO if(Map.mode ==?)
-        //TODO hero stat in console mode
+    private void onClickHeroButton() {
         StatisticsController statisticsController = new StatisticsController();
         statisticsController.setHeroFields();
     }
 
     public void onClickVillainsButton(int x, int y) {
-        Unit villain = getVillian(x, y);
-        VillainAllert villainAllert;
-        VillainAllertController villainAllertController =
-                new VillainAllertController(villain, this);
+        Unit villain = getVillain(x, y);
+        VillainAlertController villainAlertController =
+                new VillainAlertController(villain, this);
         if (Map.getMap().getMode() == ModeEnum.CONSOLE)
-            villainAllert = new VillainAllertConsoleView(villainAllertController);
+            new VillainAlertConsoleView(villainAlertController);
         else
-            villainAllert = new VillainAllertGuiView(villainAllertController);
+            new VillainAlertGuiView(villainAlertController);
     }
 
     public void changeHeroPosition(int toX, int toY) {
@@ -91,7 +86,7 @@ public class MapController {
 
     }
 
-    public Unit getVillian(int x, int y) {
+    private Unit getVillain(int x, int y) {
 
         List<Unit> unit = Map.getMap().getObservers();
         for (Unit one: unit) {
@@ -100,7 +95,8 @@ public class MapController {
         }
         throw new Error("Not valid x and y coordinats");
     }
-    public boolean checkXYInUnitList(int x, int y) {
+
+    private boolean checkXYInUnitList(int x, int y) {
 
         List<Unit> unit = Map.getMap().getObservers();
         for (Unit one: unit) {
@@ -117,11 +113,9 @@ public class MapController {
 
         if (heroX == x && heroY == y) {
             onClickHeroButton();
-        }
-        else if (checkXYInUnitList(x, y)) {
+        } else if (checkXYInUnitList(x, y)) {
             mainMap.onClickVillainsButton(x, y);
-        }
-        else {
+        } else {
             mainMap.onClickEmptyButton(x, y);
         }
 
@@ -141,7 +135,7 @@ public class MapController {
                 } else {
                     Coordinates coordinates = new Coordinates(x, y);
                     units.get(i).setCoordinates(coordinates);
-                    mainMap.setVilliansIcon(x, y);
+                    mainMap.setVillainsIcon(x, y);
                 }
             }
         }
@@ -152,7 +146,7 @@ public class MapController {
         int length = Map.getMap().getObservers().size();
         List<Unit> units = Map.getMap().getObservers();
         for (int i = 1; i < length; i++) {
-            mainMap.setVilliansIcon(units.get(i).getCoordinates().getX(),
+            mainMap.setVillainsIcon(units.get(i).getCoordinates().getX(),
                     units.get(i).getCoordinates().getY());
         }
     }
@@ -162,11 +156,10 @@ public class MapController {
         int x = Map.getMap().getObservers().get(0).getCoordinates().getX();
         int y = Map.getMap().getObservers().get(0).getCoordinates().getY();
 
-        if (x == 0 || y == 0 || x == getMapSize() - 1 ||
-                y == getMapSize() - 1) {
+        if (x == 0 || y == 0 || x == getMapSize() - 1 || y == getMapSize() - 1) {
             mainMap.showMissionCompletedView();
             Map.getMap().deleteVillainFromListofUnit();
-            Hero.class.cast(Map.getMap().getObservers().get(0)).setTwoCoodinatesXY();
+            Hero.class.cast(Map.getMap().getObservers().get(0)).setTwoCoordinatesXY();
             Map.getMap().fillListOfVillain();
 
             return true;
@@ -176,16 +169,20 @@ public class MapController {
     }
 
     public void changeGameMode() {
+
         int id = Map.getMap().getDbMySQL().getLastId();
+
         if (Map.getMap().getMode() == ModeEnum.GUI)
             Map.getMap().setMode(ModeEnum.CONSOLE);
         else
             Map.getMap().setMode(ModeEnum.GUI);
+
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedHero(id));
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedVillain(id));
         Map.getMap().getDbMySQL().deleteRow(id);
-//        Map.getMap().getDbMySQL().connClose();
+
         MapController mapController = new MapController();
+
         if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
             mainMap = null;
             mainMap = new MapConsoleView(mapController);
@@ -198,17 +195,18 @@ public class MapController {
     }
 
     public void visibleStartFrame() {
+
         JFrame startFrame = Map.getMap().getStartFrame();
+
         if (startFrame == null) {
             StarterController starterController = new StarterController();
-            StartView startView;
             if (Map.getMap().getMode() == ModeEnum.GUI)
-                startView = new StartGuiView(starterController);
+                new StartGuiView(starterController);
             else
-                startView = new StartConsoleView(starterController);
-        }
-        else
+                new StartConsoleView(starterController);
+        } else {
             Map.getMap().getStartFrame().setVisible(true);
+        }
     }
 
     public int getMapSize() {

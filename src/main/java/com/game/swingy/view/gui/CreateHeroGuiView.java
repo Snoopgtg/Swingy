@@ -59,10 +59,9 @@ public class CreateHeroGuiView implements CreateHero{
         jf.setLocationRelativeTo(null);
         createNewHero();
         initCloseListener();
-
     }
 
-    public void validateName(String name) {
+    private void validateName(String name) {
 
         this.name = name;
         if (GameValidator.getGameValidator().validate(this)) {
@@ -106,7 +105,7 @@ public class CreateHeroGuiView implements CreateHero{
         });
     }
 
-    public JComboBox<String> getHeroClassList() {
+    private JComboBox<String> getHeroClassList() {
         return heroClassList;
     }
 }

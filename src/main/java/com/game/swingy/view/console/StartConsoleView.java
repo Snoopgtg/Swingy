@@ -33,7 +33,7 @@ public class StartConsoleView implements StartView {
                 "2 - Select a previously created hero\n\n" +
                 "0 - exit");
 
-        Scanner sc = new Scanner(System.in); // object for scanner
+        Scanner sc = new Scanner(System.in);
 
         this.choose = sc.nextLine();
 

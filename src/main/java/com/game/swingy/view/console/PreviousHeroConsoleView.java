@@ -4,7 +4,6 @@ import com.game.swingy.controller.PreviousHeroController;
 import com.game.swingy.controller.StarterController;
 import com.game.swingy.core.Map.GameValidator;
 import com.game.swingy.view.PreviousHero;
-import com.game.swingy.view.StartView;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -24,13 +23,15 @@ public class PreviousHeroConsoleView implements PreviousHero {
     private String id;
 
     private PreviousHeroController previousHeroController;
-    private int columnCount = 11;
     private ArrayList<String []> dataArrayList;
     private Scanner sc;
+
     public PreviousHeroConsoleView(PreviousHeroController previousHeroController) {
 
+        int columnCount = 11;
+
         this.previousHeroController = previousHeroController;
-        dataArrayList = new ArrayList<String []>();
+        dataArrayList = new ArrayList<>();
         sc = new Scanner(System.in);
         for (int i = 0; i < dataArrayList.size(); i++) {
             dataArrayList.add(new String[columnCount]);
@@ -58,12 +59,11 @@ public class PreviousHeroConsoleView implements PreviousHero {
 
     private void initChoose() {
 
-
         showChooseHeroIdMessage();
         int id = Integer.parseInt(this.id);
         if (id == 0) {
             StarterController starterController = new StarterController();
-            StartView startView = new StartConsoleView(starterController);
+            new StartConsoleView(starterController);
         }
         else {
 
@@ -124,7 +124,7 @@ public class PreviousHeroConsoleView implements PreviousHero {
 
     }
 
-    public void addDate(String [][]row) {
+    private void addDate(String [][]row) {
 
         Collections.addAll(dataArrayList, row);
     }

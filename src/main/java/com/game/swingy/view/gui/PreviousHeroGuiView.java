@@ -35,7 +35,6 @@ public class PreviousHeroGuiView implements PreviousHero {
 
     private void initPreviousHeroView() {
 
-
         frame.add(heroTableScrollPane, new GridBagConstraints(0, 0, 2, 1, 1, 1,
                 GridBagConstraints.NORTH, GridBagConstraints.BOTH,
                 new Insets(1, 1, 1, 1), 0, 0));
@@ -92,7 +91,6 @@ public class PreviousHeroGuiView implements PreviousHero {
                     if (validateSelectedRow(selectedRow)) {
                         Object object = this.getHeroTable().getValueAt(selectedRow, 0);
                         String id = object.toString();
-                        System.out.println(selectedRow);
                         this.getHtm().delRow(selectedRow);
                         this.getHtm().fireTableDataChanged();
                         previousHeroController.delete(Integer.parseInt(id));

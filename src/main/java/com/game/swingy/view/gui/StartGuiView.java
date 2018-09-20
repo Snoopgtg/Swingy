@@ -17,8 +17,8 @@ public class StartGuiView implements StartView{
 
     public StartGuiView(StarterController starterController) {
         this.starterController = starterController;
-        this.btnCreateHero = new JButton("Create a hero");//Creating a Button named Say Hello
-        this.btnPreviouslyHero = new JButton("Select a previously created hero");//Creating a Button named Say Hello
+        this.btnCreateHero = new JButton("Create a hero"); //Creating a Button named Say Hello
+        this.btnPreviouslyHero = new JButton("Select a previously created hero"); //Creating a Button named Say Hello
 
         jf = new JFrame("Swingy");		//Creating a JFrame with name MyWindow
         starterController.setStartFrame(jf);
@@ -49,9 +49,5 @@ public class StartGuiView implements StartView{
                 starterController.onClickPreviouslyHero();
             }
         });
-    }
-
-    public JFrame getJf() {
-        return jf;
     }
 }

@@ -1,9 +1,8 @@
 package com.game.swingy.view.console;
 
-import com.game.swingy.controller.VillainAllertController;
+import com.game.swingy.controller.VillainAlertController;
 import com.game.swingy.core.Map.GameValidator;
-import com.game.swingy.view.MainMap;
-import com.game.swingy.view.VillainAllert;
+import com.game.swingy.view.VillainAlert;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -11,7 +10,7 @@ import javax.validation.constraints.Pattern;
 import java.util.Random;
 import java.util.Scanner;
 
-public class VillainAllertConsoleView implements VillainAllert{
+public class VillainAlertConsoleView implements VillainAlert {
 
     @Pattern(regexp = "^\\d+$", message = "ERROR only digits allowed")
     @Min(value = 1, message = "ERROR You should choose one option 1 or 2")
@@ -19,13 +18,13 @@ public class VillainAllertConsoleView implements VillainAllert{
     private String yesNo;
 
     private Scanner sc;
-    private VillainAllertController allertController;
+    private VillainAlertController allertController;
 
-    public VillainAllertConsoleView(VillainAllertController allertController) {
+    public VillainAlertConsoleView(VillainAlertController alertController) {
 
-        this.allertController = allertController;
+        this.allertController = alertController;
         this.sc = new Scanner(System.in);
-        allertController.getTextOnBtnLabel(this);
+        alertController.getTextOnBtnLabel(this);
         initBtn();
     }
 
@@ -45,9 +44,9 @@ public class VillainAllertConsoleView implements VillainAllert{
         showYesNo();
         int choose = Integer.parseInt(this.yesNo);
         if (choose == 1)
-            showFightAllert();
+            showFightAlert();
         else
-            showRunAllert();
+            showRunAlert();
 
     }
 
@@ -61,8 +60,7 @@ public class VillainAllertConsoleView implements VillainAllert{
       }
         else {
             System.out.println("That's you lucky");
-            MainMap mainMap = new MapConsoleView(allertController.getMapController());
-            //allertController.getMapController().getMapJframe().setVisible(true);
+            new MapConsoleView(allertController.getMapController());
         }
     }
 
@@ -79,7 +77,7 @@ public class VillainAllertConsoleView implements VillainAllert{
     }
 
     @Override
-    public void showRunAllert() {
+    public void showRunAlert() {
 
         showRunAllertChoose();
 
@@ -102,7 +100,7 @@ public class VillainAllertConsoleView implements VillainAllert{
     }
 
     @Override
-    public void showFightAllert() {
+    public void showFightAlert() {
 
         showFightAllertChoose();
         int choose = Integer.parseInt(yesNo);

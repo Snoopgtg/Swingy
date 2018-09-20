@@ -151,7 +151,7 @@ public class MapConsoleView implements MainMap{
             mapController.deleteHeroAndVillainFromListOfUnit();
         }
         StarterController starterController = new StarterController();
-        StartView startView = new StartConsoleView(starterController);
+        new StartConsoleView(starterController);
     }
 
     @Override
@@ -160,7 +160,7 @@ public class MapConsoleView implements MainMap{
     }
 
     @Override
-    public void setVilliansIcon(int x, int y) {
+    public void setVillainsIcon(int x, int y) {
         this.map[x][y] = 'V';
     }
 

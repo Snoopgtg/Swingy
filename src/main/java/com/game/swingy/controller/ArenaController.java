@@ -38,26 +38,26 @@ public class ArenaController {
         int attack = hero.getAttack() + hero.getArtefacts().getWeapon();
 
         villain.takeDamage(attack);
-        if (!villain.isLife()) {
+
+        if (villain.isDied()) {
             arena.villainDie();
-        }
-        else {
+        } else {
             if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
-                setTextOnVillainLable();
+                setTextOnVillainLabel();
                 setTextOnHeroLabel();
                 arena.initBtn();
             }
             else {
-                setTextOnVillainLable();
+                setTextOnVillainLabel();
             }
         }
 
     }
 
 
-    public boolean isLevel5() {
+    public boolean isEndOfGame() {
 
-        return hero.isEndOfGame();
+        return hero.isWinLevel();
     }
 
     public void villainDie() {
@@ -96,11 +96,11 @@ public class ArenaController {
         }
     }
 
-    public boolean isLife() {
-        return hero.isLife();
+    public boolean isDied() {
+        return hero.isDied();
     }
 
-    public void setTextOnVillainLable() {
+    public void setTextOnVillainLabel() {
 
         int level = villain.getLevel();
         int attack = villain.getAttack();
@@ -110,7 +110,7 @@ public class ArenaController {
         int helm = villain.getArtefacts().getHelm();
         int health = villain.getHitPoints();
 
-        arena.setTextOnVillainLable(level, attack, weapon,
+        arena.setTextOnVillainLabel(level, attack, weapon,
                 defense, armor, helm, health);
 
     }

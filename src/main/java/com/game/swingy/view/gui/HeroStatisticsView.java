@@ -107,7 +107,6 @@ public class HeroStatisticsView {
         panelMain = new JPanel();
         panelBtn = new JPanel();
         panelBtn.setLayout(new BorderLayout());
-        //panelMain.setSize(300, 300);
         panelMain.setLayout(new GridBagLayout());
         labelYourHero = new JLabel("Your hero");
         labelYourHero.setHorizontalAlignment(JLabel.CENTER);
@@ -134,7 +133,6 @@ public class HeroStatisticsView {
         btnOk = new JButton("OK");
         jf.setLayout(new FlowLayout());
         jf.setSize(250, 350);
-        //jf.pack();
         jf.setVisible(true);
         jf.setLocationRelativeTo(null);
     }

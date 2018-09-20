@@ -18,7 +18,7 @@ public class DbMySQL {
     static final String PASS = "root";
     private String dbName = "Swingy";
 
-    int heroId;
+    private int heroId;
 
     public DbMySQL() {
         try {
@@ -27,11 +27,9 @@ public class DbMySQL {
 
             createDataBase();
             createTables();
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -92,34 +90,15 @@ public class DbMySQL {
                 " FOREIGN KEY (heroId) REFERENCES Hero (id) ON DELETE CASCADE)";
 
         try {
-            //Register JDBC driver
             Class.forName(JDBC_DRIVER);
 
-            //Execute a query
             statement = conn.createStatement();
 
             statement.executeUpdate(hero);
             statement.executeUpdate(villain);
-        } catch (SQLException se) {
-            //Handle errors for JDBC
-            se.printStackTrace();
         } catch (Exception e) {
-            //Handle errors for Class.forName
             e.printStackTrace();
-        } /*finally {
-            //finally block used to close resources
-            try {
-                if (statement != null)
-                    statement.close();
-            } catch (SQLException se2) {
-            }// nothing we can do
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }//end finally try
-        }//end try*/
+        }
     }
     public void fillUnitTable(Unit unit) {
 
@@ -138,7 +117,6 @@ public class DbMySQL {
             //Register JDBC driver
             Class.forName(JDBC_DRIVER);
 
-            //Execute a query
             statement = conn.createStatement();
 
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -154,7 +132,6 @@ public class DbMySQL {
             preparedStatement.setInt(10, unit.getCoordinates().getX());
             preparedStatement.setInt(11, unit.getCoordinates().getY());
             if (unit instanceof Hero) {
-//                System.out.println(((Hero) unit).getExperience());
                 preparedStatement.setInt(12, ((Hero) unit).getExperience());
                 preparedStatement.execute();
                 try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
@@ -167,54 +144,24 @@ public class DbMySQL {
                 preparedStatement.execute();
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            //Handle errors for Class.forName
             e.printStackTrace();
-        } /*finally {
-            //finally block used to close resources
-            try {
-                if (statement != null)
-                    statement.close();
-            } catch (SQLException se2) {
-            }// nothing we can do
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }//end finally try
-        }//end try*/
-    }
-
-    public void connClose() {
-
-        try {
-            if (statement != null)
-                statement.close();
-        } catch (SQLException se2) {
-        }// nothing we can do
-        try {
-            if (conn != null)
-                conn.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
         }
     }
 
     public String [][] getData() {
 
 
-        ArrayList<String []> rowValues = new ArrayList<String []>();
+        ArrayList<String []> rowValues = new ArrayList<>();
         try {
             //Register JDBC driver
             Class.forName(JDBC_DRIVER);
 
-
             //Execute a query
             statement = conn.createStatement();
+
             ResultSet rs = statement.executeQuery("SELECT * FROM Hero");
+
             while (rs.next()) {
                 String[] row = {
                     rs.getString("id"),
@@ -230,13 +177,12 @@ public class DbMySQL {
                         rs.getString("experience")
 
                 };
+
                 rowValues.add(row);
             }
+
             rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            //Handle errors for Class.forName
             e.printStackTrace();
         }
 
@@ -275,13 +221,12 @@ public class DbMySQL {
                 rowValues.add(row);
 
             }
+
             rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            //Handle errors for Class.forName
             e.printStackTrace();
         }
+
         String [][]row = new String[rowValues.size()][11];
         row = rowValues.toArray(row);
 
@@ -290,11 +235,10 @@ public class DbMySQL {
 
     public String[][] getSelectedVillain(int heroId) {
 
-        ArrayList<String []> rowValues = new ArrayList<String []>();
+        ArrayList<String []> rowValues = new ArrayList<>();
         try {
             //Register JDBC driver
             Class.forName(JDBC_DRIVER);
-
 
             //Execute a query
             statement = conn.createStatement();
@@ -315,11 +259,9 @@ public class DbMySQL {
                 };
                 rowValues.add(row);
             }
+
             rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            //Handle errors for Class.forName
             e.printStackTrace();
         }
         String [][]row = new String[rowValues.size()][11];
@@ -334,13 +276,10 @@ public class DbMySQL {
             //Register JDBC driver
             Class.forName(JDBC_DRIVER);
 
-
             //Execute a query
             statement = conn.createStatement();
             statement.execute("DELETE FROM Hero WHERE id = " + heroId);
             statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             //Handle errors for Class.forName
             e.printStackTrace();
@@ -359,8 +298,6 @@ public class DbMySQL {
                 res = rs.getInt(1);
             rs.close();
             return res;
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             //Handle errors for Class.forName
             e.printStackTrace();
@@ -377,12 +314,11 @@ public class DbMySQL {
             statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Hero");
             return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             //Handle errors for Class.forName
             e.printStackTrace();
         }
-        throw new Error("Hero table does't empty");
+
+        throw new Error("Hero table doesn't empty");
     }
 }

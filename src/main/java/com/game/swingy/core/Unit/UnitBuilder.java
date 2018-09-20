@@ -68,12 +68,12 @@ public class UnitBuilder implements Builder {
     }
 
     public Hero createHero() {
-        return new Hero(kindOfUnit, name, heroClass, level, experience, attack, defense, hitPoints, artefacts, coordinates);
+        return new Hero(name, heroClass, level, experience, attack, defense, hitPoints, artefacts, coordinates);
 
     }
 
     public Villain createVillian() {
-        return new Villain(kindOfUnit, name, heroClass, level, attack, defense, hitPoints, artefacts, coordinates);
+        return new Villain(name, heroClass, level, attack, defense, hitPoints, artefacts, coordinates);
 
     }
 }

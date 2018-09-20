@@ -6,7 +6,6 @@ import com.game.swingy.view.gui.HeroStatisticsView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
 public class StatisticsController {
 
@@ -35,12 +34,15 @@ public class StatisticsController {
         heroStatisticsView.getLabelHeroCass2().setText(heroClass);
         heroStatisticsView.getLabelHeroLevel2().setText(Integer.toString(level));
         heroStatisticsView.getLabelHeroExp2().setText(Integer.toString(experience));
-        heroStatisticsView.getLabelAttack2().setText(Integer.toString(attack) + " + " + Integer.toString(weapon));
-        heroStatisticsView.getLabelDefense2().setText(Integer.toString(defense) + " + " + Integer.toString(armor));
+        heroStatisticsView.getLabelAttack2().setText(
+                Integer.toString(attack) + " + " + Integer.toString(weapon)
+        );
+        heroStatisticsView.getLabelDefense2().setText(
+                Integer.toString(defense) + " + " + Integer.toString(armor)
+        );
         heroStatisticsView.getLabelHealth2().setText(Integer.toString(hitPoints));
         heroStatisticsView.getLabelWeapon2().setText(Integer.toString(weapon));
         heroStatisticsView.getLabelArmor2().setText(Integer.toString(armor));
-
     }
 
     private void initBtnOk() {
@@ -48,7 +50,6 @@ public class StatisticsController {
         heroStatisticsView.getBtnOk().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 heroStatisticsView.getJf().dispose();
-
             }
         });
     }

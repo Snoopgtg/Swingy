@@ -15,11 +15,9 @@ public class Map {
 
     private static Map map;
     private ModeEnum mode;
-    private List<Unit> observers = new ArrayList<Unit>();
+    private List<Unit> observers = new ArrayList<>();
     private DbMySQL dbMySQL = new DbMySQL();
     private JFrame startFrame;
-    private int villainX;
-    private int villainY;
 
     private Map(){
 
@@ -65,7 +63,7 @@ public class Map {
                 buildAndRegisterVillain(level + 1);
         }
         if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
-            mainMap = new MapConsoleView(mapController);
+            new MapConsoleView(mapController);
         }
         else {
             mainMap = new MapGuiView(mapController);
@@ -78,37 +76,22 @@ public class Map {
 
         UnitConstructor unitConstructor = new UnitConstructor();
         UnitBuilder unitBuilder = new UnitBuilder();
-        unitConstructor.constructVillian(unitBuilder, Integer.toString(level), level);
-        /*switch (level) {
-            case 0:
-                unitConstructor.constructVillian(unitBuilder, Integer.toString(level), level);
-                break;
-            case 1:
-                unitConstructor.constructVillian1(unitBuilder, Integer.toString(level));
-                break;
-            case 2:
-                unitConstructor.constructVillian2(unitBuilder, Integer.toString(level));
-                break;
-            case 3:
-                unitConstructor.constructVillian3(unitBuilder, Integer.toString(level));
-                break;
-            case 4:
-                unitConstructor.constructVillian4(unitBuilder, Integer.toString(level));
-                break;
-        }*/
+        unitConstructor.constructVillain(unitBuilder, Integer.toString(level), level);
         register(unitBuilder.createVillian());
     }
 
     public void deleteVillainFromListofUnit() {
-        for (int i = observers.size() - 1; i > 0; i--) {//i = 0 - hero index;
+        for (int i = observers.size() - 1; i > 0; i--) {
             unregister(observers.get(i));
         }
+
         observers.get(0).getCoordinates().setX(2);
         observers.get(0).getCoordinates().setY(2);
     }
 
     public void deleteHeroFromListOfUnit() {
-        unregister(observers.get(0));
+        int HERO_INDEX = 0;
+        unregister(observers.get(HERO_INDEX));
     }
 
     static private int getMapSize(int heroLevel){

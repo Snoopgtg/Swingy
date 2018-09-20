@@ -2,14 +2,11 @@ package com.game.swingy.controller;
 
 import com.game.swingy.core.Map.Map;
 import com.game.swingy.core.Map.ModeEnum;
-import com.game.swingy.view.PreviousHero;
-import com.game.swingy.view.StartView;
 import com.game.swingy.view.console.CreateHeroConsoleView;
 import com.game.swingy.view.console.PreviousHeroConsoleView;
 import com.game.swingy.view.console.StartConsoleView;
 import com.game.swingy.view.gui.CreateHeroGuiView;
 import com.game.swingy.view.gui.PreviousHeroGuiView;
-import com.game.swingy.view.gui.StartGuiView;
 
 import javax.swing.*;
 
@@ -24,12 +21,10 @@ public class StarterController {
         CreateHeroController createHeroController = new CreateHeroController();
 
         if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
-            CreateHeroConsoleView createHeroConsoleView =
-                    new CreateHeroConsoleView(createHeroController);
+            new CreateHeroConsoleView(createHeroController);
         }
         else {
-            CreateHeroGuiView createHeroGuiView =
-                    new CreateHeroGuiView(createHeroController);
+            new CreateHeroGuiView(createHeroController);
             Map.getMap().setStartFrame(this.startFrame);
             if (startFrame != null)
                 this.startFrame.setVisible(false);
@@ -40,12 +35,11 @@ public class StarterController {
 
         PreviousHeroController previousHeroController = new
                 PreviousHeroController();
-        PreviousHero previousHero;
         if (Map.getMap().getDbMySQL().isEmptyHeroTable()) {
             if (Map.getMap().getMode() == ModeEnum.CONSOLE)
-                previousHero = new PreviousHeroConsoleView(previousHeroController);
+                new PreviousHeroConsoleView(previousHeroController);
             else {
-                previousHero = new PreviousHeroGuiView(previousHeroController);
+                new PreviousHeroGuiView(previousHeroController);
                 Map.getMap().setStartFrame(this.startFrame);
                 this.startFrame.setVisible(false);
             }
@@ -53,7 +47,7 @@ public class StarterController {
         else {
             if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
                 System.out.println("At this time, you don't have saving hero");
-                StartView startView = new StartConsoleView(this);
+                new StartConsoleView(this);
             }
             else
                 JOptionPane.showMessageDialog(null,

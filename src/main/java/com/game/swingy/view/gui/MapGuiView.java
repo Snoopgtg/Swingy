@@ -35,7 +35,7 @@ public class MapGuiView implements MainMap{
         panel = new JPanel(new GridLayout(mapSize,mapSize));
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++){
-                    btnUnits[i][j] = new JButton();
+                btnUnits[i][j] = new JButton();
                 panel.add(btnUnits[i][j]);
             }
         }
@@ -52,7 +52,6 @@ public class MapGuiView implements MainMap{
         initMoveHero();
         changeModeListener();
         initCloseListener();
-        //todo: выпилить! setMapJframe
         mapController.setMapJframe(jf);
         mapController.setMainMap(this);
     }
@@ -92,7 +91,8 @@ public class MapGuiView implements MainMap{
             }
         }
     }
-    public void changeModeListener() {
+
+    private void changeModeListener() {
         this.btnChangeMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 jf.dispose();
@@ -161,7 +161,7 @@ public class MapGuiView implements MainMap{
                     btnUnits[mapSize / 2][mapSize / 2].getHeight(), Image.SCALE_DEFAULT);
             btnUnits[x][y].setIcon(new ImageIcon(newimg));
         } catch (Exception ex) {
-            System.out.println(ex);
+            throw new Error(ex);
         }
     }
 
@@ -178,30 +178,22 @@ public class MapGuiView implements MainMap{
         }
     }
 
-    public void setVilliansIcon(int x, int y) {
+    public void setVillainsIcon(int x, int y) {
 
         try {
             Image img = ImageIO.read(getClass().getResource("/villian.jpg"));
-            Image newimg = img.getScaledInstance(btnUnits[x][y].getWidth(),
+            Image newImg = img.getScaledInstance(btnUnits[x][y].getWidth(),
                     btnUnits[x][y].getHeight(), Image.SCALE_DEFAULT);
-            btnUnits[x][y].setIcon(new ImageIcon(newimg));
+            btnUnits[x][y].setIcon(new ImageIcon(newImg));
         } catch (Exception ex) {
-            System.out.println(ex);
+            throw new Error(ex);
         }
     }
 
     public void showMissionCompletedView() {
 
-        JOptionPane.showMessageDialog(null,
-                "Mission completed");
+        JOptionPane.showMessageDialog(null, "Mission completed");
         this.jf.dispose();
-    }
-
-    public void closeWindow() {
-
-        jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        WindowEvent windowEvent = new WindowEvent(jf, WindowEvent.WINDOW_CLOSING);
-        jf.dispatchEvent(windowEvent);
     }
 
     public void setEmptyIcon(int x, int y) {
@@ -209,7 +201,7 @@ public class MapGuiView implements MainMap{
         btnUnits[x][y].setIcon(null);
     }
 
-    public JFrame getJf() {
+    private JFrame getJf() {
         return jf;
     }
 }

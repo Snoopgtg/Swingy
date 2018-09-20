@@ -1,27 +1,23 @@
 package com.game.swingy.core.Unit.Hero;
 
-import com.game.swingy.core.Map.UnitTypeFieldEnum;
 import com.game.swingy.core.Unit.Artefacts;
 import com.game.swingy.core.Unit.Coordinates;
 import com.game.swingy.core.Unit.Unit;
-
-import java.util.Collections;
 
 public class Hero extends Unit {
 
     private int experience;
 
-    public Hero(UnitTypeFieldEnum kindOfUnit,
-                   String name,
-                   String heroClass,
-                   int level,
-                   int experience,
-                   int attack,
-                   int defense,
-                   int hitPoints,
-                   Artefacts artefacts,
-                   Coordinates coordinates) {
-        super(kindOfUnit, name, heroClass, level, attack,
+    public Hero(String name,
+                String heroClass,
+                int level,
+                int experience,
+                int attack,
+                int defense,
+                int hitPoints,
+                Artefacts artefacts,
+                Coordinates coordinates) {
+        super(name, heroClass, level, attack,
                 defense, hitPoints, artefacts, coordinates);
         this.experience = experience;
     }
@@ -38,7 +34,7 @@ public class Hero extends Unit {
 
     }
 
-    public void setTwoCoodinatesXY() {
+    public void setTwoCoordinatesXY() {
 
         int mapSize = (level - 1) * 5 + 10 - (level % 2);
         Coordinates coordinates = new Coordinates();
@@ -47,7 +43,7 @@ public class Hero extends Unit {
         this.coordinates = coordinates;
     }
 
-    public boolean isEndOfGame() {
+    public boolean isWinLevel() {
 
         return level == 5;
     }
@@ -111,10 +107,6 @@ public class Hero extends Unit {
 
     public void setHitPoints(int hitPoints) {
         this.hitPoints = hitPoints;
-    }
-
-    public Coordinates getCoordinates() {
-        return super.getCoordinates();
     }
 
     public void setCoordinates(Coordinates coordinates) {

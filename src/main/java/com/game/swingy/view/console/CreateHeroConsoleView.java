@@ -35,9 +35,8 @@ public class CreateHeroConsoleView implements CreateHero{
         showChooseType();
         int heroClass = Integer.parseInt(this.heroClass) - 1;
         if (heroClass == -1) {
-            StarterController starterController =
-                    new StarterController();
-            StartView startView = new StartConsoleView(starterController);
+            StarterController starterController = new StarterController();
+            new StartConsoleView(starterController);
         }
         else {
             HeroClassEnum classEnum = HeroClassEnum.values()[heroClass];

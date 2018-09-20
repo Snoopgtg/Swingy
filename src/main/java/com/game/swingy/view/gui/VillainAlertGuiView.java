@@ -1,7 +1,7 @@
 package com.game.swingy.view.gui;
 
-import com.game.swingy.controller.VillainAllertController;
-import com.game.swingy.view.VillainAllert;
+import com.game.swingy.controller.VillainAlertController;
+import com.game.swingy.view.VillainAlert;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -10,12 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class VillainAllertGuiView implements VillainAllert{
+public class VillainAlertGuiView implements VillainAlert {
 
-    private VillainAllertController allertController;
+    private VillainAlertController alertController;
     private JFrame jf;
-    private JLabel levellabel1;
-    private JLabel levellabel2;
+    private JLabel levelLabel1;
+    private JLabel levelLabel2;
     private JLabel attackLabel1;
     private JLabel attackLabel2;
     private JLabel defenseLabel1;
@@ -32,16 +32,16 @@ public class VillainAllertGuiView implements VillainAllert{
     private JPanel panelMain;
     private JPanel panelBtn;
 
-    public VillainAllertGuiView(VillainAllertController villainAllertController) {
+    public VillainAlertGuiView(VillainAlertController villainAlertController) {
 
-        this.allertController = villainAllertController;
+        this.alertController = villainAlertController;
         createTools();
         jf.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         panelMain.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
-        panelMain.add(levellabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelMain.add(levelLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
-        panelMain.add(levellabel2, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
+        panelMain.add(levelLabel2, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
                 GridBagConstraints.HORIZONTAL, new Insets(5,5,5,5),
                 0,0));
         panelMain.add(attackLabel1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.9, GridBagConstraints.NORTH,
@@ -82,7 +82,7 @@ public class VillainAllertGuiView implements VillainAllert{
         panelBtn.add(runBtn, BorderLayout.EAST);
         jf.add(panelMain);
         jf.add(panelBtn);
-        villainAllertController.getTextOnBtnLabel(this);
+        villainAlertController.getTextOnBtnLabel(this);
         initBtn();
 
     }
@@ -94,8 +94,8 @@ public class VillainAllertGuiView implements VillainAllert{
         panelBtn = new JPanel();
         panelBtn.setLayout(new BorderLayout());
         panelMain.setLayout(new GridBagLayout());
-        levellabel1 = new JLabel("Villain level");
-        levellabel2 = new JLabel();
+        levelLabel1 = new JLabel("Villain level");
+        levelLabel2 = new JLabel();
         attackLabel1 = new JLabel("Villain attack");
         attackLabel2 = new JLabel();
         defenseLabel1 = new JLabel("Villain degense");
@@ -111,7 +111,6 @@ public class VillainAllertGuiView implements VillainAllert{
         runBtn = new JButton("RUN");
         jf.setLayout(new FlowLayout());
         jf.setSize(220, 250);
-        //jf.pack();
         jf.setResizable(false);
 
         jf.setVisible(true);
@@ -125,12 +124,12 @@ public class VillainAllertGuiView implements VillainAllert{
 
         getRunBtn().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                showRunAllert();
+                showRunAlert();
             }
         });
         getFightBtn().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                showFightAllert();
+                showFightAlert();
             }
         });
     }
@@ -138,7 +137,7 @@ public class VillainAllertGuiView implements VillainAllert{
     public void setTextOnBtnLabel(int level, int attack, int weapon, int defense,
                                    int armor, int health) {
 
-        getLevellabel2().setText(Integer.toString(level));
+        getLevelLabel2().setText(Integer.toString(level));
         getAttackLabel2().setText(Integer.toString(attack) +
                 " + " + Integer.toString(weapon));
         getDefenseLabel2().setText(Integer.toString(defense) +
@@ -155,13 +154,13 @@ public class VillainAllertGuiView implements VillainAllert{
         if (random.nextBoolean()) {
             showDisLucky();
             jf.dispose();
-            allertController.onClickRunYes();
+            alertController.onClickRunYes();
 
         }
         else {
             showLucky();
             jf.dispose();
-            allertController.getMapController().getMapJframe().setVisible(true);
+            alertController.getMapController().getMapJframe().setVisible(true);
         }
     }
 
@@ -177,7 +176,7 @@ public class VillainAllertGuiView implements VillainAllert{
                 "That's you don't lucky");
     }
 
-    public void showFightAllert() {
+    public void showFightAlert() {
 
         int res = JOptionPane.showConfirmDialog(
                 null,
@@ -186,12 +185,12 @@ public class VillainAllertGuiView implements VillainAllert{
                 JOptionPane.YES_NO_OPTION);
         if (res == JOptionPane.YES_OPTION) {
             jf.dispose();
-            allertController.onClickRunYes();
+            alertController.onClickRunYes();
         }
 
     }
 
-    public void showRunAllert() {
+    public void showRunAlert() {
 
         int res = JOptionPane.showConfirmDialog(
                 null,
@@ -204,35 +203,35 @@ public class VillainAllertGuiView implements VillainAllert{
             onClickRunYes();
     }
 
-    public JLabel getLevellabel2() {
-        return levellabel2;
+    private JLabel getLevelLabel2() {
+        return levelLabel2;
     }
 
-    public JLabel getAttackLabel2() {
+    private JLabel getAttackLabel2() {
         return attackLabel2;
     }
 
-    public JLabel getDefenseLabel2() {
+    private JLabel getDefenseLabel2() {
         return defenseLabel2;
     }
 
-    public JLabel getWeaponLabel2() {
+    private JLabel getWeaponLabel2() {
         return weaponLabel2;
     }
 
-    public JLabel getArmorLabel2() {
+    private JLabel getArmorLabel2() {
         return armorLabel2;
     }
 
-    public JLabel getHealthLabel2() {
+    private JLabel getHealthLabel2() {
         return healthLabel2;
     }
 
-    public JButton getFightBtn() {
+    private JButton getFightBtn() {
         return fightBtn;
     }
 
-    public JButton getRunBtn() {
+    private JButton getRunBtn() {
         return runBtn;
     }
 

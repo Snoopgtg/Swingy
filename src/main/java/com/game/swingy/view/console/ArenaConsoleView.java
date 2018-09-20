@@ -32,7 +32,7 @@ public class ArenaConsoleView implements Arena{
         this.arenaController = arenaController;
         sc = new Scanner(System.in);
         arenaController.setArena(this);
-        arenaController.setTextOnVillainLable();
+        arenaController.setTextOnVillainLabel();
         arenaController.setTextOnHeroLabel();
         initBtn();
 
@@ -64,7 +64,7 @@ public class ArenaConsoleView implements Arena{
     }
 
     @Override
-    public void setTextOnVillainLable(int level, int attack, int weapon, int defense, int armor, int helm, int health) {
+    public void setTextOnVillainLabel(int level, int attack, int weapon, int defense, int armor, int helm, int health) {
         System.out.println("======= VILLAIN =======");
         System.out.format("Villain level ---> %s\n", level);
         System.out.format("Villain attack ---> %s + %s\n", attack, weapon);
@@ -93,7 +93,7 @@ public class ArenaConsoleView implements Arena{
 
     @Override
     public void villainDie() {
-        if (arenaController.isLevel5()) {
+        if (arenaController.isEndOfGame()) {
             System.out.println("\"Perfectly!!!\\nYou are winner\"");
             System.exit(0);
         }
@@ -114,8 +114,8 @@ public class ArenaConsoleView implements Arena{
         }
         else
             arenaController.takeDamageHero();
-        arenaController.setTextOnVillainLable();
-        if (!arenaController.isLife()) {
+        arenaController.setTextOnVillainLabel();
+        if (arenaController.isDied()) {
             System.out.println("Good buy, LOSER!!!");
             System.exit(0);
         }

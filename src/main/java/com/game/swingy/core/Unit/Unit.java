@@ -14,15 +14,14 @@ public class Unit {
     protected Artefacts artefacts;
     protected Coordinates coordinates;
 
-    public Unit(UnitTypeFieldEnum kindOfUnit,
-                   String name,
-                   String heroClass,
-                   int level,
-                   int attack,
-                   int defense,
-                   int hitPoints,
-                   Artefacts artefacts,
-                   Coordinates coordinates) {
+    public Unit(String name,
+                String heroClass,
+                int level,
+                int attack,
+                int defense,
+                int hitPoints,
+                Artefacts artefacts,
+                Coordinates coordinates) {
         this.kindOfUnit = kindOfUnit;
         this.name = name;
         this.heroClass = heroClass;
@@ -43,9 +42,9 @@ public class Unit {
             this.hitPoints = 0;
     }
 
-    public boolean isLife() {
+    public boolean isDied() {
 
-        return this.hitPoints > 0;
+        return this.hitPoints <= 0;
     }
 
     public String getName() {
