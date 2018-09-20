@@ -71,7 +71,7 @@ public class DbMySQL {
                 " helm SMALLINT UNSIGNED NOT NULL, " +
                 " coordinatesX TINYINT UNSIGNED NOT NULL, " +
                 " coordinatesY TINYINT UNSIGNED NOT NULL, " +
-                " experience TINYINT UNSIGNED NOT NULL, " +
+                " experience INT UNSIGNED NOT NULL, " +
                 " PRIMARY KEY (id))";
 
         villain = "CREATE TABLE IF NOT EXISTS Villain" +
@@ -154,6 +154,7 @@ public class DbMySQL {
             preparedStatement.setInt(10, unit.getCoordinates().getX());
             preparedStatement.setInt(11, unit.getCoordinates().getY());
             if (unit instanceof Hero) {
+//                System.out.println(((Hero) unit).getExperience());
                 preparedStatement.setInt(12, ((Hero) unit).getExperience());
                 preparedStatement.execute();
                 try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
@@ -185,6 +186,21 @@ public class DbMySQL {
                 se.printStackTrace();
             }//end finally try
         }//end try*/
+    }
+
+    public void connClose() {
+
+        try {
+            if (statement != null)
+                statement.close();
+        } catch (SQLException se2) {
+        }// nothing we can do
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
     }
 
     public String [][] getData() {

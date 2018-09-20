@@ -116,6 +116,7 @@ public class MapConsoleView implements MainMap{
     private void moveListener(MoveHeroEnum moveHeroEnum) {
         int x = Map.getMap().getObservers().get(0).getCoordinates().getX();
         int y = Map.getMap().getObservers().get(0).getCoordinates().getY();
+
         if (moveHeroEnum == MoveHeroEnum.NORTH && (x - 1) >= 0 )//рухаємся в гору
             mapController.onClickButton(x - 1, y, this);
         else if (moveHeroEnum == MoveHeroEnum.SOUTH && ((x + 1) < mapSize))
@@ -193,9 +194,9 @@ public class MapConsoleView implements MainMap{
         setEmptyIcon(x, y);
         setHeroIcon(toX, toY);
         mapController.changeHeroPosition(toX, toY);
-        mapController.isMissionCompleted();
-        showMap();
-        initMoveHero();
-
+        if (!mapController.isMissionCompleted()) {
+            showMap();
+            initMoveHero();
+        }
     }
 }

@@ -33,7 +33,6 @@ public class MapGuiView implements MainMap{
         jf.setLayout(new BorderLayout());
         content = jf.getContentPane();
         panel = new JPanel(new GridLayout(mapSize,mapSize));
-        //panel.setSize(mapSize * 95,mapSize * 95);
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++){
                     btnUnits[i][j] = new JButton();
@@ -53,6 +52,7 @@ public class MapGuiView implements MainMap{
         initMoveHero();
         changeModeListener();
         initCloseListener();
+        //todo: выпилить! setMapJframe
         mapController.setMapJframe(jf);
         mapController.setMainMap(this);
     }
@@ -173,7 +173,9 @@ public class MapGuiView implements MainMap{
         setHeroIcon(toX, toY);
         mapController.changeHeroPosition(toX, toY);
         deAndActivatedbtnUnits();
-        mapController.isMissionCompleted();
+        if (!mapController.isMissionCompleted() && jf != null) {
+            jf.setVisible(true);
+        }
     }
 
     public void setVilliansIcon(int x, int y) {

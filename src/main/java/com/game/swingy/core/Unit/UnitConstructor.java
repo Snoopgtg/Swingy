@@ -60,7 +60,7 @@ public class UnitConstructor {
         builder.setLevel(level);
         builder.setAttack(level * 10 + 17);
         builder.setDefense(level * 8 + 5);
-        builder.setHitPoints(level * 20 + 30);
+        builder.setHitPoints(0/*level * 20 + 30*/);
         Artefacts artefacts = new Artefacts(level * 15 + 10, level * 12 + 5, level * 7 + 7);
         builder.setCoordinates(new Coordinates(-1, -1));
         builder.setArtefacts(artefacts);

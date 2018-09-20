@@ -157,7 +157,7 @@ public class MapController {
         }
     }
 
-    public void isMissionCompleted() {
+    public boolean isMissionCompleted() {
 
         int x = Map.getMap().getObservers().get(0).getCoordinates().getX();
         int y = Map.getMap().getObservers().get(0).getCoordinates().getY();
@@ -168,11 +168,11 @@ public class MapController {
             Map.getMap().deleteVillainFromListofUnit();
             Hero.class.cast(Map.getMap().getObservers().get(0)).setTwoCoodinatesXY();
             Map.getMap().fillListOfVillain();
+
+            return true;
         }
-        else {
-            if (mapJframe != null)
-                mapJframe.setVisible(true);
-        }
+
+        return false;
     }
 
     public void changeGameMode() {
@@ -184,6 +184,7 @@ public class MapController {
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedHero(id));
         Map.getMap().loadUnits(Map.getMap().getDbMySQL().getSelectedVillain(id));
         Map.getMap().getDbMySQL().deleteRow(id);
+//        Map.getMap().getDbMySQL().connClose();
         MapController mapController = new MapController();
         if (Map.getMap().getMode() == ModeEnum.CONSOLE) {
             mainMap = null;
@@ -224,9 +225,5 @@ public class MapController {
 
     public void setMainMap(MainMap mainMap) {
         this.mainMap = mainMap;
-    }
-
-    public MainMap getMainMap() {
-        return mainMap;
     }
 }
